@@ -7,7 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 # ======================================================
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+# For local development
+SECRET_KEY = 'django-insecure-^x=5!0fjkvq50f6&5t&ing9=jx=z2sv&x%oi7vfv7v0o9'
+
+# Use this on Render (keep the getenv)
+# SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 

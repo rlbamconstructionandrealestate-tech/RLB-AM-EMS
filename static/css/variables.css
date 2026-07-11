@@ -1,0 +1,53 @@
+:root{
+
+    /* Company Colors */
+
+    --primary:#0F4C81;
+    --primary-dark:#143D6B;
+    --primary-light:#1E88E5;
+
+    --secondary:#F39C12;
+
+    --success:#28A745;
+
+    --danger:#DC3545;
+
+    --warning:#FFC107;
+
+    --info:#17A2B8;
+
+    /* Background */
+
+    --background:#F4F7FC;
+
+    --card:#FFFFFF;
+
+    /* Sidebar */
+
+    --sidebar:#143D6B;
+
+    --sidebar-hover:#19518E;
+
+    --sidebar-active:#1E88E5;
+
+    /* Text */
+
+    --text:#2F3A45;
+
+    --text-light:#6C757D;
+
+    /* Border */
+
+    --border:#E4E8EF;
+
+    /* Radius */
+
+    --radius:14px;
+
+    /* Shadow */
+
+    --shadow:0 5px 20px rgba(0,0,0,.08);
+
+    --transition:.25s ease;
+
+}
