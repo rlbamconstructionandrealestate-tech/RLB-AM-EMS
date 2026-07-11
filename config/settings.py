@@ -7,18 +7,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 # ======================================================
 
-# For local development
-SECRET_KEY = 'django-insecure-^x=5!0fjkvq50f6&5t&ing9=jx=z2sv&x%oi7vfv7v0o9'
-
-# Use this on Render (keep the getenv)
-# SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+# Fallback to local key if environment variable doesn't exist
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-^x=5!0fjkvq50f6&5t&ing9=jx=z2sv&x%oi7vfv7v0o9')
 
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv(
-    'DJANGO_ALLOWED_HOSTS', 
-    'rlb-am-ems.onrender.com,127.0.0.1,localhost'
-).split(',')
+# Safe production implementation
+ALLOWED_HOSTS = ['rlb-am-ems.onrender.com', '127.0.0.1', 'localhost']
+
+# If you prefer to keep using an environment variable for hosts, use this safe fallback:
+# env_hosts = os.getenv('DJANGO_ALLOWED_HOSTS')
+# ALLOWED_HOSTS = env_hosts.split(',') if env_hosts else ['rlb-am-ems.onrender.com', '127.0.0.1', 'localhost']
 
 
 # ======================================================
