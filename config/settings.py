@@ -1,17 +1,20 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # ======================================================
 # SECURITY
 # ======================================================
 
-SECRET_KEY = "change-this-to-a-secret-key-later"
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv(
+    'DJANGO_ALLOWED_HOSTS', 
+    'rlb-am-ems.onrender.com,127.0.0.1,localhost'
+).split(',')
 
 
 # ======================================================
@@ -19,7 +22,6 @@ ALLOWED_HOSTS = []
 # ======================================================
 
 INSTALLED_APPS = [
-
     # Django Apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -58,6 +60,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -68,10 +71,11 @@ MIDDLEWARE = [
 
 
 # ======================================================
-# URLS
+# URLS & WSGI
 # ======================================================
 
 ROOT_URLCONF = "config.urls"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 # ======================================================
@@ -95,22 +99,27 @@ TEMPLATES = [
 
 
 # ======================================================
-# WSGI
-# ======================================================
-
-WSGI_APPLICATION = "config.wsgi.application"
-
-
-# ======================================================
 # DATABASE
 # ======================================================
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("DATABASE_NAME"),
+            "USER": os.getenv("DATABASE_USER"),
+            "PASSWORD": os.getenv("DATABASE_PASSWORD"),
+            "HOST": os.getenv("DATABASE_HOST"),
+            "PORT": os.getenv("DATABASE_PORT", "5432"),
+        }
+    }
 
 
 # ======================================================
@@ -118,18 +127,10 @@ DATABASES = {
 # ======================================================
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 
@@ -138,11 +139,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # ======================================================
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "Africa/Dar_es_Salaam"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -151,10 +149,9 @@ USE_TZ = True
 # ======================================================
 
 STATIC_URL = "static/"
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # ======================================================
@@ -162,7 +159,6 @@ STATICFILES_DIRS = [
 # ======================================================
 
 MEDIA_URL = "/media/"
-
 MEDIA_ROOT = BASE_DIR / "media"
 
 
@@ -171,28 +167,19 @@ MEDIA_ROOT = BASE_DIR / "media"
 # ======================================================
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 # ======================================================
-# LOGIN
+# AUTHENTICATION
 # ======================================================
 
 LOGIN_URL = "login"
-
 LOGIN_REDIRECT_URL = "dashboard"
-
 LOGOUT_REDIRECT_URL = "login"
 
-
-# ======================================================
-# DEFAULT AUTO FIELD
-# ======================================================
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 AUTH_USER_MODEL = "accounts.User"
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # ======================================================
@@ -200,7 +187,18 @@ AUTH_USER_MODEL = "accounts.User"
 # ======================================================
 
 COMPANY_NAME = "RLB-AM Construction & Real Estate Ltd"
-
 SYSTEM_NAME = "RLB-AM Enterprise Management System"
-
 SYSTEM_SHORT_NAME = "RLB-AM EMS"
+
+
+# ======================================================
+# PRODUCTION SETTINGS
+# ======================================================
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = "DENY"
