@@ -1,0 +1,25 @@
+function togglePassword(){
+
+const password=document.getElementById("id_password");
+
+const icon=document.getElementById("eyeIcon");
+
+if(password.type==="password"){
+
+password.type="text";
+
+icon.classList.remove("bi-eye");
+
+icon.classList.add("bi-eye-slash");
+
+}else{
+
+password.type="password";
+
+icon.classList.remove("bi-eye-slash");
+
+icon.classList.add("bi-eye");
+
+}
+
+}

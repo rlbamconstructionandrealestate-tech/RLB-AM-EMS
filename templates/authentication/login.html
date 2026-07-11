@@ -1,0 +1,114 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Login | RLB-AM EMS{% endblock %}
+
+{% block auth_content %}
+
+<div class="login-page">
+
+    <div class="login-left">
+
+        <div class="overlay">
+
+            <div class="company">
+
+                <h1>RLB-AM</h1>
+
+                <h3>Enterprise Management System</h3>
+
+                <p>
+                    Equipment • Rentals • Finance • Projects • Real Estate
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="login-right">
+
+        <div class="login-card shadow-lg">
+
+            <h2 class="mb-2">Welcome Back</h2>
+
+            <p class="text-muted mb-4">
+                Sign in to continue
+            </p>
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Username
+                    </label>
+
+                    {{ form.username }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Password
+                    </label>
+
+                    <div class="input-group">
+
+                        {{ form.password }}
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            onclick="togglePassword()">
+
+                            <i id="eyeIcon" class="bi bi-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="form-check mb-4">
+
+                    {{ form.remember_me }}
+
+                    <label class="form-check-label">
+
+                        Remember Me
+
+                    </label>
+
+                </div>
+
+                <button class="btn btn-primary w-100 py-2">
+
+                    <i class="bi bi-box-arrow-in-right"></i>
+
+                    Login
+
+                </button>
+
+            </form>
+
+            <hr>
+
+            <div class="text-center text-muted">
+
+                © 2026 RLB-AM Construction & Real Estate Ltd.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

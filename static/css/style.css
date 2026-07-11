@@ -1,0 +1,82 @@
+body{
+    font-family:'Inter',sans-serif;
+    margin:0;
+    background:#f5f7fb;
+}
+
+.login-page{
+    display:flex;
+    min-height:100vh;
+}
+
+.login-left{
+    flex:1;
+    background:linear-gradient(135deg,#0F172A,#2563EB);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.overlay{
+    padding:60px;
+    text-align:center;
+}
+
+.company h1{
+    font-size:64px;
+    font-weight:700;
+}
+
+.company h3{
+    margin-top:20px;
+    font-weight:400;
+}
+
+.company p{
+    margin-top:20px;
+    opacity:.9;
+}
+
+.login-right{
+    width:500px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
+    padding:40px;
+}
+
+.login-card{
+    width:100%;
+    max-width:420px;
+    background:white;
+    border-radius:18px;
+    padding:40px;
+}
+
+.form-control{
+    height:50px;
+}
+
+.btn-primary{
+    background:#2563EB;
+    border:none;
+    border-radius:10px;
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+}
+
+@media(max-width:992px){
+
+.login-left{
+    display:none;
+}
+
+.login-right{
+    width:100%;
+}
+
+}
