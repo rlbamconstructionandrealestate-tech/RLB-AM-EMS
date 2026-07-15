@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Income Records{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Income Records</h2>
+        <a href="{% url 'finance:add_income' %}" class="btn btn-success">
+            + Add Income
+        </a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Source</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in incomes %}
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td><strong>TZS {{ item.amount }}</strong></td>
+                        <td>{{ item.source }}</td>
+                        <td>{{ item.date_received }}</td>
+                        <td>{{ item.description|truncatechars:60 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4">No income records yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

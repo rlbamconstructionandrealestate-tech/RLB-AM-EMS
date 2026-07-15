@@ -1,0 +1,100 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Finance Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <h1 class="mb-4">Finance Dashboard</h1>
+
+    <!-- Summary Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card shadow border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-success">Total Income</h6>
+                    <h3 class="fw-bold">TZS {{ income|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-danger">Total Expenses</h6>
+                    <h3 class="fw-bold">TZS {{ expenses|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-primary">Invoices</h6>
+                    <h3 class="fw-bold">{{ invoices }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow border-0 h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-info">Profit</h6>
+                    <h3 class="fw-bold text-success">TZS {{ profit|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Add Section -->
+    <h4 class="mb-4">Quick Add</h4>
+    <div class="row g-4">
+
+        <!-- Income -->
+        <div class="col-lg-4">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Add Income</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'finance:add_income' %}">
+                        {% csrf_token %}
+                        {{ income_form.as_p }}
+                        <button type="submit" class="btn btn-success w-100">Save Income</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expense -->
+        <div class="col-lg-4">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Add Expense</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'finance:add_expense' %}">
+                        {% csrf_token %}
+                        {{ expense_form.as_p }}
+                        <button type="submit" class="btn btn-danger w-100">Save Expense</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice -->
+        <div class="col-lg-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Add Invoice</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'finance:add_invoice' %}">
+                        {% csrf_token %}
+                        {{ invoice_form.as_p }}
+                        <button type="submit" class="btn btn-primary w-100">Save Invoice</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

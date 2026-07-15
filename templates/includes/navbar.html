@@ -1,90 +1,246 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+{% load static %}
 
-<div class="container-fluid">
+<header class="top-navbar">
 
-<button class="btn btn-light">
+    <div class="navbar-left">
 
-<i class="bi bi-list fs-4"></i>
+        <!-- Sidebar Toggle -->
 
-</button>
+        <button class="menu-toggle"
+                id="menuToggle"
+                type="button">
 
-<form class="d-none d-md-flex w-50">
+            <i class="bi bi-list"></i>
 
-<input
-class="form-control"
-type="search"
-placeholder="Search anything...">
+        </button>
 
-</form>
+        <!-- Search -->
 
-<div class="d-flex align-items-center">
+        <div class="search-box">
 
-<button class="btn btn-light me-2">
+            <i class="bi bi-search"></i>
 
-<i class="bi bi-bell"></i>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Search equipment, clients, projects...">
 
-</button>
+        </div>
 
-<button class="btn btn-light me-3">
+    </div>
 
-<i class="bi bi-envelope"></i>
 
-</button>
+    <div class="navbar-right">
 
-<div class="dropdown">
+        <!-- Full Screen -->
 
-<a class="btn btn-light dropdown-toggle"
+        <button class="icon-btn"
+                id="fullscreenBtn"
+                title="Fullscreen">
 
-data-bs-toggle="dropdown">
+            <i class="bi bi-arrows-fullscreen"></i>
 
-<i class="bi bi-person-circle"></i>
+        </button>
 
-{{ request.user.username }}
+        <!-- Notifications -->
 
-</a>
+        <div class="dropdown">
 
-<ul class="dropdown-menu dropdown-menu-end">
+            <button class="icon-btn"
+                    data-bs-toggle="dropdown">
 
-<li>
+                <i class="bi bi-bell"></i>
 
-<a class="dropdown-item" href="#">
+                <span class="badge-count">
 
-Profile
+                    3
 
-</a>
+                </span>
 
-</li>
+            </button>
 
-<li>
+            <ul class="dropdown-menu dropdown-menu-end shadow">
 
-<a class="dropdown-item" href="#">
+                <li>
 
-Settings
+                    <h6 class="dropdown-header">
 
-</a>
+                        Notifications
 
-</li>
+                    </h6>
 
-<li><hr class="dropdown-divider"></li>
+                </li>
 
-<li>
+                <li>
 
-<a class="dropdown-item"
+                    <a class="dropdown-item" href="#">
 
-href="{% url 'logout' %}">
+                        Equipment maintenance reminder
 
-Logout
+                    </a>
 
-</a>
+                </li>
 
-</li>
+                <li>
 
-</ul>
+                    <a class="dropdown-item" href="#">
 
-</div>
+                        New rental request
 
-</div>
+                    </a>
 
-</div>
+                </li>
 
-</nav>
+                <li>
+
+                    <a class="dropdown-item" href="#">
+
+                        Payment received
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- Messages -->
+
+        <div class="dropdown">
+
+            <button class="icon-btn"
+                    data-bs-toggle="dropdown">
+
+                <i class="bi bi-envelope"></i>
+
+                <span class="badge-count">
+
+                    2
+
+                </span>
+
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+
+                <li>
+
+                    <h6 class="dropdown-header">
+
+                        Messages
+
+                    </h6>
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item" href="#">
+
+                        New client inquiry
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item" href="#">
+
+                        Site engineer report
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- User -->
+
+        <div class="dropdown">
+
+            <button class="user-btn"
+                    data-bs-toggle="dropdown">
+
+                <div class="avatar">
+
+                    {{ user.first_name|first|default:user.username|first|upper }}
+
+                </div>
+
+                <div class="user-text">
+
+                    <strong>
+
+                        {{ user.get_full_name|default:user.username }}
+
+                    </strong>
+
+                    <small>
+
+                        Administrator
+
+                    </small>
+
+                </div>
+
+                <i class="bi bi-chevron-down"></i>
+
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end shadow">
+
+                <li>
+
+                    <a class="dropdown-item"
+                       href="{% url 'profile' %}">
+
+                        <i class="bi bi-person"></i>
+
+                        My Profile
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item"
+                       href="#">
+
+                        <i class="bi bi-gear"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <hr class="dropdown-divider">
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item text-danger"
+                       href="{% url 'logout' %}">
+
+                        <i class="bi bi-box-arrow-right"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</header>

@@ -1,53 +1,169 @@
+/* ==========================================================
+   RLB-AM Enterprise Management System
+   Design System
+========================================================== */
+
 :root{
 
-    /* Company Colors */
+    /* ===============================
+       BRAND COLORS
+    =============================== */
 
     --primary:#0F4C81;
-    --primary-dark:#143D6B;
-    --primary-light:#1E88E5;
+    --primary-dark:#09345A;
+    --primary-light:#EAF4FB;
 
-    --secondary:#F39C12;
+    --secondary:#1D3557;
 
-    --success:#28A745;
+    --success:#16A34A;
+    --warning:#F59E0B;
+    --danger:#DC2626;
+    --info:#0EA5E9;
 
-    --danger:#DC3545;
+    /* ===============================
+       BACKGROUNDS
+    =============================== */
 
-    --warning:#FFC107;
+    --background:#F4F7FB;
 
-    --info:#17A2B8;
+    --sidebar:#123D6A;
 
-    /* Background */
+    --sidebar-hover:#17497E;
 
-    --background:#F4F7FC;
+    --sidebar-active:#0F4C81;
 
     --card:#FFFFFF;
 
-    /* Sidebar */
+    --navbar:#FFFFFF;
 
-    --sidebar:#143D6B;
+    --footer:#FFFFFF;
 
-    --sidebar-hover:#19518E;
+    /* ===============================
+       TEXT
+    =============================== */
 
-    --sidebar-active:#1E88E5;
+    --text:#1F2937;
 
-    /* Text */
+    --text-light:#6B7280;
 
-    --text:#2F3A45;
+    --text-white:#FFFFFF;
 
-    --text-light:#6C757D;
+    /* ===============================
+       BORDERS
+    =============================== */
 
-    /* Border */
+    --border:#E5E7EB;
 
-    --border:#E4E8EF;
+    --input-border:#D1D5DB;
 
-    /* Radius */
+    /* ===============================
+       SHADOWS
+    =============================== */
 
-    --radius:14px;
+    --shadow-xs:0 1px 3px rgba(0,0,0,.04);
 
-    /* Shadow */
+    --shadow-sm:0 3px 8px rgba(0,0,0,.06);
 
-    --shadow:0 5px 20px rgba(0,0,0,.08);
+    --shadow:0 8px 20px rgba(0,0,0,.08);
 
-    --transition:.25s ease;
+    --shadow-lg:0 15px 35px rgba(0,0,0,.10);
+
+    /* ===============================
+       BORDER RADIUS
+    =============================== */
+
+    --radius-xs:4px;
+
+    --radius-sm:8px;
+
+    --radius:12px;
+
+    --radius-lg:18px;
+
+    --radius-xl:24px;
+
+    --radius-round:50%;
+
+    /* ===============================
+       SPACING
+    =============================== */
+
+    --space-1:4px;
+
+    --space-2:8px;
+
+    --space-3:12px;
+
+    --space-4:16px;
+
+    --space-5:20px;
+
+    --space-6:24px;
+
+    --space-7:30px;
+
+    --space-8:40px;
+
+    /* ===============================
+       SIDEBAR
+    =============================== */
+
+    --sidebar-width:270px;
+
+    --sidebar-collapsed:80px;
+
+    /* ===============================
+       NAVBAR
+    =============================== */
+
+    --navbar-height:75px;
+
+    /* ===============================
+       FOOTER
+    =============================== */
+
+    --footer-height:65px;
+
+    /* ===============================
+       TRANSITIONS
+    =============================== */
+
+    --transition-fast:.2s;
+
+    --transition:.3s;
+
+    --transition-slow:.45s;
+
+    /* ===============================
+       FONT
+    =============================== */
+
+    --font-family:'Inter',sans-serif;
+
+    --font-xs:.75rem;
+
+    --font-sm:.875rem;
+
+    --font-base:1rem;
+
+    --font-lg:1.1rem;
+
+    --font-xl:1.25rem;
+
+    --font-2xl:1.5rem;
+
+    --font-3xl:2rem;
+
+    /* ===============================
+       Z INDEX
+    =============================== */
+
+    --z-sidebar:1000;
+
+    --z-navbar:950;
+
+    --z-dropdown:1100;
+
+    --z-modal:2000;
 
 }

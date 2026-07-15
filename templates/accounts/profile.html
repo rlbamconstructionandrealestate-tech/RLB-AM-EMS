@@ -1,0 +1,216 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- LEFT SIDE -->
+        <div class="col-lg-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <img src="{% static 'images/default-user.png' %}"
+                         class="rounded-circle border border-3 border-primary mb-3"
+                         width="160"
+                         height="160"
+                         alt="Profile">
+
+                    <h3>{{ user.username }}</h3>
+
+                    <p class="text-muted">
+                        {{ user.email }}
+                    </p>
+
+                    <hr>
+
+                    <div class="text-start">
+
+                        <p>
+                            <strong>Username</strong><br>
+                            {{ user.username }}
+                        </p>
+
+                        <p>
+                            <strong>Email</strong><br>
+                            {{ user.email }}
+                        </p>
+
+                        <p>
+                            <strong>Last Login</strong><br>
+                            {{ user.last_login }}
+                        </p>
+
+                        <p>
+                            <strong>Date Joined</strong><br>
+                            {{ user.date_joined }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0">
+                        My Account
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                First Name
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="{{ user.first_name }}"
+                                readonly>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Last Name
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="{{ user.last_name }}"
+                                readonly>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="{{ user.username }}"
+                                readonly>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                value="{{ user.email }}"
+                                readonly>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row text-center">
+
+                        <div class="col-md-4">
+
+                            <div class="card bg-primary text-white">
+
+                                <div class="card-body">
+
+                                    <h5>Account Status</h5>
+
+                                    <h4>Active</h4>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="card bg-success text-white">
+
+                                <div class="card-body">
+
+                                    <h5>Role</h5>
+
+                                    <h4>User</h4>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="card bg-dark text-white">
+
+                                <div class="card-body">
+
+                                    <h5>Member Since</h5>
+
+                                    <h4>{{ user.date_joined|date:"Y" }}</h4>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4">
+
+                        <button class="btn btn-primary">
+                            <i class="bi bi-pencil-square"></i>
+                            Edit Profile
+                        </button>
+
+                        <button class="btn btn-warning">
+                            <i class="bi bi-key"></i>
+                            Change Password
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

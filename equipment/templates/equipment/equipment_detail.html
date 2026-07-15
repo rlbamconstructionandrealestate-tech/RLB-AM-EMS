@@ -1,0 +1,653 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+{{ equipment.name }} Details
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+        <div>
+
+            <h2 class="fw-bold">
+
+                <i class="bi bi-truck"></i>
+
+                {{ equipment.name }}
+
+            </h2>
+
+
+            <p class="text-muted">
+
+                Asset Number:
+                <strong>{{ equipment.asset_number }}</strong>
+
+            </p>
+
+
+        </div>
+
+
+
+        <div>
+
+
+            <a href="{% url 'equipment:update' equipment.pk %}"
+               class="btn btn-warning">
+
+
+                <i class="bi bi-pencil"></i>
+
+                Edit
+
+
+            </a>
+
+
+
+            <a href="{% url 'equipment:delete' equipment.pk %}"
+               class="btn btn-danger">
+
+
+                <i class="bi bi-trash"></i>
+
+                Delete
+
+
+            </a>
+
+
+
+
+            <a href="{% url 'equipment:list' %}"
+               class="btn btn-secondary">
+
+
+                <i class="bi bi-arrow-left"></i>
+
+                Back
+
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="row g-4">
+
+
+
+
+
+        <!-- IMAGE CARD -->
+
+
+        <div class="col-lg-4">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-body text-center">
+
+
+                    {% if equipment.image %}
+
+
+                    <img src="{{ equipment.image.url }}"
+                         class="img-fluid rounded shadow mb-3"
+                         style="max-height:300px;">
+
+
+                    {% else %}
+
+
+                    <div class="bg-light p-5 rounded">
+
+
+                        <i class="bi bi-image fs-1 text-muted"></i>
+
+
+                        <p class="text-muted">
+
+                            No Image Available
+
+                        </p>
+
+
+                    </div>
+
+
+                    {% endif %}
+
+
+
+
+
+                    <h4>
+
+                        {{ equipment.name }}
+
+                    </h4>
+
+
+
+
+                    <span class="badge 
+
+                    {% if equipment.status == 'Available' %}
+                    bg-success
+
+                    {% elif equipment.status == 'Working' %}
+                    bg-primary
+
+                    {% elif equipment.status == 'Rented' %}
+                    bg-info
+
+                    {% elif equipment.status == 'Maintenance' %}
+                    bg-warning text-dark
+
+                    {% else %}
+                    bg-danger
+
+                    {% endif %}
+                    ">
+
+
+                        {{ equipment.status }}
+
+
+                    </span>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+        <!-- DETAILS -->
+
+
+        <div class="col-lg-8">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-header bg-white">
+
+
+                    <h5 class="mb-0">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        Equipment Information
+
+                    </h5>
+
+
+                </div>
+
+
+
+
+
+                <div class="card-body">
+
+
+                    <div class="table-responsive">
+
+
+                    <table class="table table-bordered">
+
+
+                        <tbody>
+
+
+                        <tr>
+
+                            <th width="35%">
+                                Category
+                            </th>
+
+                            <td>
+                                {{ equipment.category|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <th>
+                                Manufacturer
+                            </th>
+
+                            <td>
+                                {{ equipment.manufacturer|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Model
+                            </th>
+
+                            <td>
+                                {{ equipment.model|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Manufacture Year
+                            </th>
+
+                            <td>
+                                {{ equipment.manufacture_year|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Registration Number
+                            </th>
+
+                            <td>
+                                {{ equipment.registration_number|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Serial Number
+                            </th>
+
+                            <td>
+                                {{ equipment.serial_number|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Engine Number
+                            </th>
+
+                            <td>
+                                {{ equipment.engine_number|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Chassis Number
+                            </th>
+
+                            <td>
+                                {{ equipment.chassis_number|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Ownership
+                            </th>
+
+                            <td>
+                                {{ equipment.ownership }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Fuel Type
+                            </th>
+
+                            <td>
+                                {{ equipment.fuel_type }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Hour Meter
+                            </th>
+
+                            <td>
+
+                                {{ equipment.hour_meter }}
+
+                                Hours
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <th>
+                                Current Location
+                            </th>
+
+                            <td>
+                                {{ equipment.current_location|default:"-" }}
+                            </td>
+
+                        </tr>
+
+
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- FINANCIAL INFORMATION -->
+
+
+    <div class="card shadow-sm border-0 mt-4">
+
+
+        <div class="card-header bg-white">
+
+
+            <h5>
+
+                <i class="bi bi-cash"></i>
+
+                Financial Information
+
+            </h5>
+
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <div class="row text-center">
+
+
+                <div class="col-md-3">
+
+
+                    <h6 class="text-muted">
+                        Purchase Price
+                    </h6>
+
+
+                    <h4>
+
+                        TZS {{ equipment.purchase_price|floatformat:0 }}
+
+                    </h4>
+
+
+                </div>
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <h6 class="text-muted">
+                        Daily Rate
+                    </h6>
+
+
+                    <h4>
+
+                        TZS {{ equipment.daily_rate|floatformat:0 }}
+
+                    </h4>
+
+
+                </div>
+
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <h6 class="text-muted">
+                        Weekly Rate
+                    </h6>
+
+
+                    <h4>
+
+                        TZS {{ equipment.weekly_rate|floatformat:0 }}
+
+                    </h4>
+
+
+                </div>
+
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <h6 class="text-muted">
+                        Monthly Rate
+                    </h6>
+
+
+                    <h4>
+
+                        TZS {{ equipment.monthly_rate|floatformat:0 }}
+
+                    </h4>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- SERVICE INFORMATION -->
+
+
+    <div class="card shadow-sm border-0 mt-4">
+
+
+        <div class="card-header bg-white">
+
+
+            <h5>
+
+                <i class="bi bi-tools"></i>
+
+                Maintenance & Compliance
+
+            </h5>
+
+
+        </div>
+
+
+        <div class="card-body">
+
+
+            <table class="table table-bordered">
+
+
+                <tr>
+
+                    <th>
+                        Next Service Date
+                    </th>
+
+                    <td>
+                        {{ equipment.next_service_date|default:"-" }}
+                    </td>
+
+                </tr>
+
+
+
+                <tr>
+
+                    <th>
+                        Insurance Expiry
+                    </th>
+
+                    <td>
+                        {{ equipment.insurance_expiry|default:"-" }}
+                    </td>
+
+                </tr>
+
+
+
+                <tr>
+
+                    <th>
+                        Road License Expiry
+                    </th>
+
+                    <td>
+                        {{ equipment.road_license_expiry|default:"-" }}
+                    </td>
+
+                </tr>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+{% endblock %}
