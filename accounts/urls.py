@@ -9,7 +9,6 @@ from .views import (
 
 urlpatterns = [
 
-    # Login
     path(
         "",
         login_view,
@@ -17,7 +16,6 @@ urlpatterns = [
     ),
 
 
-    # Logout
     path(
         "logout/",
         logout_view,
@@ -25,7 +23,6 @@ urlpatterns = [
     ),
 
 
-    # User Profile
     path(
         "profile/",
         profile,
