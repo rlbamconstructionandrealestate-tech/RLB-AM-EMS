@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,12 +9,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ======================================================
 
 # Fallback to local key if environment variable doesn't exist
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-^x=5!0fjkvq50f6&5t&ing9=jx=z2sv&x%oi7vfv7v0o9')
+SECRET_KEY = config('DJANGO_SECRET_KEY', default='django-insecure-^x=5!0fjkvq50f6&5t&ing9=jx=z2sv&x%oi7vfv7v0o9')
 
 DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
 
 # Safe production implementation
-ALLOWED_HOSTS = ['rlb-am-ems.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost").split(",")
 
 # If you prefer to keep using an environment variable for hosts, use this safe fallback:
 # env_hosts = os.getenv('DJANGO_ALLOWED_HOSTS')
