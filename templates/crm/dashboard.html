@@ -1,0 +1,287 @@
+{% extends "layouts/base.html" %}
+{% load humanize %}
+
+{% block title %}CRM Dashboard | RLB-AM EMS{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">CRM Dashboard</h2>
+            <p class="text-muted mb-0">
+                Manage clients, contracts and customer relationships.
+            </p>
+        </div>
+
+        <div class="d-flex gap-2">
+            <a href="{% url 'crm:create_client' %}" class="btn btn-primary">
+                <i class="bi bi-person-plus-fill me-2"></i>
+                New Client
+            </a>
+
+            <a href="{% url 'crm:create_contract' %}" class="btn btn-success">
+                <i class="bi bi-file-earmark-plus-fill me-2"></i>
+                New Contract
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Total Clients
+                    </small>
+
+                    <h2 class="fw-bold mt-2">
+                        {{ total_clients }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Active Clients
+                    </small>
+
+                    <h2 class="fw-bold text-success mt-2">
+                        {{ active_clients }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Active Contracts
+                    </small>
+
+                    <h2 class="fw-bold text-primary mt-2">
+                        {{ active_contracts }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Active Contract Value
+                    </small>
+
+                    <h2 class="fw-bold text-warning mt-2">
+                        TZS {{ total_revenue|floatformat:0|intcomma }}
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <!-- Recent Clients -->
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+                    <h5 class="mb-0">
+                        Recent Clients
+                    </h5>
+
+                    <a href="{% url 'crm:clients' %}" class="btn btn-sm btn-outline-primary">
+                        View All
+                    </a>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle mb-0">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th>Company</th>
+                                <th>Contact</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        {% for client in recent_clients %}
+
+                            <tr>
+
+                                <td>
+
+                                    <a href="{% url 'crm:client_detail' client.pk %}">
+                                        {{ client.company_name }}
+                                    </a>
+
+                                </td>
+
+                                <td>{{ client.contact_person }}</td>
+
+                                <td>
+
+                                    {% if client.status == "active" %}
+                                        <span class="badge bg-success">Active</span>
+
+                                    {% elif client.status == "prospect" %}
+                                        <span class="badge bg-warning text-dark">
+                                            Prospect
+                                        </span>
+
+                                    {% else %}
+                                        <span class="badge bg-secondary">
+                                            Inactive
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="3" class="text-center py-4">
+                                    No clients found.
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Contracts -->
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+                    <h5 class="mb-0">
+                        Recent Contracts
+                    </h5>
+
+                    <a href="{% url 'crm:contracts' %}" class="btn btn-sm btn-outline-success">
+                        View All
+                    </a>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle mb-0">
+
+                        <thead class="table-light">
+
+                        <tr>
+                            <th>Contract</th>
+                            <th>Client</th>
+                            <th>Status</th>
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for contract in recent_contracts %}
+
+                            <tr>
+
+                                <td>
+                                    {{ contract.contract_number }}
+                                </td>
+
+                                <td>
+                                    {{ contract.client.company_name }}
+                                </td>
+
+                                <td>
+
+                                    {% if contract.status == "active" %}
+                                        <span class="badge bg-success">Active</span>
+
+                                    {% elif contract.status == "completed" %}
+                                        <span class="badge bg-primary">Completed</span>
+
+                                    {% elif contract.status == "expired" %}
+                                        <span class="badge bg-danger">Expired</span>
+
+                                    {% elif contract.status == "draft" %}
+                                        <span class="badge bg-secondary">Draft</span>
+
+                                    {% else %}
+                                        <span class="badge bg-warning text-dark">
+                                            Cancelled
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="3" class="text-center py-4">
+                                    No contracts available.
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

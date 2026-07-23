@@ -1,25 +1,638 @@
 {% extends "layouts/base.html" %}
+{% load humanize %}
+
+
+{% block title %}
+Financial Reports | RLB-AM EMS
+{% endblock %}
+
 
 
 {% block content %}
 
 
-<h2>
+<div class="container-fluid py-4">
+
+
+
+<!-- HEADER -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+<div>
+
+<h2 class="fw-bold mb-1">
+
 Financial Reports
+
 </h2>
 
 
-<div class="card shadow">
+<p class="text-muted mb-0">
 
-<div class="card-body">
+Financial performance, revenue tracking and profitability analysis.
 
-
-<p>
-Monthly income, expense and profitability reports will appear here.
 </p>
 
 
 </div>
+
+
+
+<a href="{% url 'reports:dashboard' %}"
+
+class="btn btn-outline-secondary">
+
+
+<i class="bi bi-arrow-left me-2"></i>
+
+Reports Dashboard
+
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- SUMMARY CARDS -->
+
+
+<div class="row g-4 mb-4">
+
+
+
+
+
+<div class="col-xl-4 col-md-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<small class="text-muted">
+
+Total Income
+
+</small>
+
+
+<h3 class="fw-bold text-success mt-2">
+
+TZS {{ income|floatformat:0|intcomma }}
+
+</h3>
+
+
+<i class="bi bi-cash-stack fs-2 text-success"></i>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-xl-4 col-md-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<small class="text-muted">
+
+Total Expenses
+
+</small>
+
+
+<h3 class="fw-bold text-danger mt-2">
+
+TZS {{ expenses|floatformat:0|intcomma }}
+
+</h3>
+
+
+<i class="bi bi-wallet2 fs-2 text-danger"></i>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-xl-4 col-md-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<small class="text-muted">
+
+Net Profit
+
+</small>
+
+
+<h3 class="fw-bold text-primary mt-2">
+
+TZS {{ profit|floatformat:0|intcomma }}
+
+</h3>
+
+
+<i class="bi bi-graph-up-arrow fs-2 text-primary"></i>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- RECORD COUNTS -->
+
+
+<div class="row g-4 mb-4">
+
+
+
+<div class="col-md-6">
+
+
+<div class="card border-0 shadow-sm">
+
+
+<div class="card-body">
+
+
+<div class="d-flex justify-content-between">
+
+
+<span>
+
+Income Records
+
+</span>
+
+
+<strong>
+
+{{ income_records }}
+
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<div class="card border-0 shadow-sm">
+
+
+<div class="card-body">
+
+
+<div class="d-flex justify-content-between">
+
+
+<span>
+
+Expense Records
+
+</span>
+
+
+<strong>
+
+{{ expense_records }}
+
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- FINANCIAL PERFORMANCE -->
+
+
+<div class="row g-4">
+
+
+
+
+
+<div class="col-lg-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="mb-0">
+
+Financial Overview
+
+</h5>
+
+
+</div>
+
+
+
+
+
+<div class="card-body">
+
+
+
+<div class="mb-4">
+
+
+<div class="d-flex justify-content-between">
+
+
+<span>
+
+Income
+
+</span>
+
+
+<strong class="text-success">
+
+TZS {{ income|floatformat:0|intcomma }}
+
+</strong>
+
+
+</div>
+
+
+
+<div class="progress mt-2"
+
+style="height:10px;">
+
+
+<div class="progress-bar bg-success"
+
+style="width:80%">
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+
+<div class="d-flex justify-content-between">
+
+
+<span>
+
+Expenses
+
+</span>
+
+
+<strong class="text-danger">
+
+TZS {{ expenses|floatformat:0|intcomma }}
+
+</strong>
+
+
+</div>
+
+
+
+<div class="progress mt-2"
+
+style="height:10px;">
+
+
+<div class="progress-bar bg-danger"
+
+style="width:40%">
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- MONTHLY ANALYSIS -->
+
+
+<div class="col-lg-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="mb-0">
+
+Monthly Income Trend
+
+</h5>
+
+
+</div>
+
+
+
+
+
+<div class="card-body">
+
+
+
+{% for item in monthly_income %}
+
+
+<div class="d-flex justify-content-between border-bottom py-2">
+
+
+<span>
+
+{{ item.month|date:"M Y" }}
+
+</span>
+
+
+<strong class="text-success">
+
+TZS {{ item.total|floatformat:0|intcomma }}
+
+</strong>
+
+
+</div>
+
+
+{% empty %}
+
+
+<p class="text-muted">
+
+No financial records available.
+
+</p>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- QUICK ACTIONS -->
+
+
+<div class="card shadow-sm border-0 mt-4">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="mb-0">
+
+Finance Management
+
+</h5>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<div class="row g-3">
+
+
+
+<div class="col-md-4">
+
+
+<a href="{% url 'finance:add_income' %}"
+
+class="btn btn-outline-success w-100">
+
+
+<i class="bi bi-plus-circle me-2"></i>
+
+Add Income
+
+
+</a>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+
+<a href="{% url 'finance:add_expense' %}"
+
+class="btn btn-outline-danger w-100">
+
+
+<i class="bi bi-dash-circle me-2"></i>
+
+Add Expense
+
+
+</a>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+
+<a href="{% url 'reports:export' %}"
+
+class="btn btn-dark w-100">
+
+
+<i class="bi bi-download me-2"></i>
+
+Export Report
+
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
 
 </div>
 

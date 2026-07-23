@@ -1,0 +1,32 @@
+{% if user.role == "admin" or user.role == "manager" or user.role == "secretary" %}
+
+<span class="menu-title mt-4">
+    CLIENTS
+</span>
+
+<ul class="sidebar-menu">
+
+    <li>
+        <a href="{% url 'clients:dashboard' %}">
+            <i class="bi bi-speedometer2"></i>
+            <span>Client Dashboard</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'clients:client_list' %}">
+            <i class="bi bi-people"></i>
+            <span>All Clients</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'clients:add_client' %}">
+            <i class="bi bi-person-plus"></i>
+            <span>Add Client</span>
+        </a>
+    </li>
+
+</ul>
+
+{% endif %}

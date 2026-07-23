@@ -1,0 +1,56 @@
+{% if user.role == "admin" or user.role == "manager" or user.role == "equipment" %}
+
+<span class="menu-title mt-4">
+    EQUIPMENT
+</span>
+
+<ul class="sidebar-menu">
+
+    <!-- Equipment Dashboard -->
+    <li>
+        <a href="{% url 'equipment:dashboard' %}"
+           class="{% if request.resolver_match.app_name == 'equipment' and request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+
+            <i class="bi bi-speedometer2"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+    </li>
+
+
+    <!-- Equipment List -->
+    <li>
+        <a href="{% url 'equipment:list' %}"
+           class="{% if request.resolver_match.app_name == 'equipment' and request.resolver_match.url_name == 'list' %}active{% endif %}">
+
+            <i class="bi bi-truck"></i>
+
+            <span>
+                Equipment List
+            </span>
+
+        </a>
+    </li>
+
+
+    <!-- Add Equipment -->
+    <li>
+        <a href="{% url 'equipment:create' %}"
+           class="{% if request.resolver_match.app_name == 'equipment' and request.resolver_match.url_name == 'create' %}active{% endif %}">
+
+            <i class="bi bi-plus-circle"></i>
+
+            <span>
+                Add Equipment
+            </span>
+
+        </a>
+    </li>
+
+
+</ul>
+
+{% endif %}

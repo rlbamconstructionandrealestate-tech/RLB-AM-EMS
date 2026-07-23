@@ -1,0 +1,104 @@
+<div class="dropdown">
+
+
+<button class="icon-btn dropdown-toggle"
+data-bs-toggle="dropdown">
+
+
+<i class="bi bi-bell"></i>
+
+
+{% if unread_notifications_count %}
+
+<span class="badge-count">
+
+{{ unread_notifications_count }}
+
+</span>
+
+{% endif %}
+
+
+</button>
+
+
+
+<ul class="dropdown-menu dropdown-menu-end">
+
+
+<li class="dropdown-header">
+
+Notifications
+
+</li>
+
+
+
+{% for notification in latest_notifications %}
+
+
+<li>
+
+<a class="dropdown-item"
+href="{% url 'notifications:read' notification.id %}">
+
+
+<strong>
+{{ notification.title }}
+</strong>
+
+
+<br>
+
+
+<small>
+
+{{ notification.message|truncatechars:40 }}
+
+</small>
+
+
+</a>
+
+</li>
+
+
+
+{% empty %}
+
+
+<li class="dropdown-item">
+
+No notifications
+
+</li>
+
+
+{% endfor %}
+
+
+
+<li>
+
+<hr class="dropdown-divider">
+
+</li>
+
+
+<li>
+
+<a class="dropdown-item text-center"
+href="{% url 'notifications:list' %}">
+
+View All
+
+</a>
+
+</li>
+
+
+
+</ul>
+
+
+</div>

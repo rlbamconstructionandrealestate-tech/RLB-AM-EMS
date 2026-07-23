@@ -1,0 +1,183 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Update {{ equipment.name }} | RLB-AM EMS
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+
+
+<div class="page-header mb-4">
+
+
+<h1 class="fw-bold">
+Update Equipment
+</h1>
+
+
+<p class="text-muted mb-0">
+
+Editing:
+<strong>{{ equipment.name }}</strong>
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<div class="card-body p-4">
+
+
+
+<form method="POST"
+      enctype="multipart/form-data">
+
+
+{% csrf_token %}
+
+
+
+
+
+<div class="row g-4">
+
+
+
+{% for field in form %}
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+{{ field.label }}
+
+</label>
+
+
+
+{{ field }}
+
+
+
+
+{% if field.errors %}
+
+<div class="text-danger small mt-1">
+
+{{ field.errors }}
+
+</div>
+
+{% endif %}
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+
+{% if equipment.image %}
+
+
+<div class="mt-4">
+
+
+<label class="form-label fw-semibold">
+
+Current Image
+
+</label>
+
+
+<br>
+
+
+<img src="{{ equipment.image.url }}"
+     class="rounded shadow-sm"
+     style="width:180px;height:120px;object-fit:cover;">
+
+
+</div>
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+<div class="mt-5 d-flex justify-content-end gap-2">
+
+
+<a href="{% url 'equipment:detail' equipment.pk %}"
+class="btn btn-light">
+
+Cancel
+
+</a>
+
+
+
+
+<button type="submit"
+class="btn btn-primary">
+
+
+<i class="bi bi-check-circle me-2"></i>
+
+Update Equipment
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+{% endblock %}

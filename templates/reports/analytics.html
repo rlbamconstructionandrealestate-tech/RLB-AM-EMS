@@ -1,0 +1,480 @@
+{% extends "layouts/base.html" %}
+{% load humanize %}
+
+
+{% block title %}
+Analytics | RLB-AM EMS
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid py-4">
+
+
+
+<!-- HEADER -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+<div>
+
+<h2 class="fw-bold mb-1">
+Analytics Dashboard
+</h2>
+
+
+<p class="text-muted mb-0">
+Visual analysis of company performance and operations.
+</p>
+
+
+</div>
+
+
+
+<a href="{% url 'reports:dashboard' %}"
+class="btn btn-outline-secondary">
+
+<i class="bi bi-arrow-left me-2"></i>
+
+Back
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ANALYTICS CARDS -->
+
+
+<div class="row g-4 mb-4">
+
+
+
+<div class="col-md-3">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<small class="text-muted">
+Planning Projects
+</small>
+
+
+<h3 class="fw-bold text-secondary mt-2">
+
+{{ project_status.planning }}
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<small class="text-muted">
+Active Projects
+</small>
+
+
+<h3 class="fw-bold text-success mt-2">
+
+{{ project_status.ongoing }}
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<small class="text-muted">
+Completed Projects
+</small>
+
+
+<h3 class="fw-bold text-primary mt-2">
+
+{{ project_status.completed }}
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<small class="text-muted">
+Total Equipment
+</small>
+
+
+<h3 class="fw-bold text-warning mt-2">
+
+{{ equipment_count }}
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- CHART SECTION -->
+
+
+<div class="row g-4">
+
+
+
+<div class="col-lg-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="mb-0">
+
+Project Status Analysis
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<canvas id="projectChart"
+height="250"></canvas>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-lg-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-header bg-white">
+
+
+<h5 class="mb-0">
+
+Operational Summary
+
+</h5>
+
+
+</div>
+
+
+
+
+<div class="card-body">
+
+
+<table class="table table-borderless">
+
+
+<tr>
+
+<td>
+Planning Projects
+</td>
+
+<td class="fw-bold text-end">
+
+{{ project_status.planning }}
+
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+Ongoing Projects
+</td>
+
+<td class="fw-bold text-end text-success">
+
+{{ project_status.ongoing }}
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<td>
+Completed Projects
+</td>
+
+<td class="fw-bold text-end text-primary">
+
+{{ project_status.completed }}
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<td>
+Cancelled Projects
+</td>
+
+<td class="fw-bold text-end text-danger">
+
+{{ project_status.cancelled }}
+
+</td>
+
+</tr>
+
+
+
+</table>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- CHART JS -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+
+const ctx = document
+.getElementById('projectChart');
+
+
+new Chart(ctx, {
+
+
+type: 'doughnut',
+
+
+data: {
+
+
+labels: [
+
+"Planning",
+
+"Ongoing",
+
+"Completed",
+
+"Cancelled"
+
+],
+
+
+
+datasets: [{
+
+
+data: [
+
+{{ project_status.planning }},
+
+{{ project_status.ongoing }},
+
+{{ project_status.completed }},
+
+{{ project_status.cancelled }}
+
+]
+
+
+}]
+
+
+},
+
+
+
+options: {
+
+
+responsive:true,
+
+
+plugins:{
+
+
+legend:{
+
+
+position:"bottom"
+
+
+}
+
+
+}
+
+
+}
+
+
+
+});
+
+
+
+</script>
+
+
+
+
+{% endblock %}

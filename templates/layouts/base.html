@@ -1,165 +1,242 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 
 <head>
-
-    <!-- ============================================= -->
-    <!-- META -->
-    <!-- ============================================= -->
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="RLB-AM Enterprise Management System">
+    <meta name="keywords" content="Construction, Equipment, Rentals, Finance, Projects, ERP">
+    <meta name="author" content="RLB-AM Construction & Real Estate Ltd">
+    <meta name="theme-color" content="#2563eb">
 
     <title>
-        {% block title %}
-            RLB-AM Enterprise Management System
-        {% endblock %}
+        {% block title %}RLB-AM EMS{% endblock %}
     </title>
 
-    <meta name="description" content="RLB-AM Enterprise Management System">
-    <meta name="author" content="RLB-AM Construction & Real Estate Ltd">
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/logo.png' %}" type="image/png">
 
-    <!-- ============================================= -->
-    <!-- FAVICON -->
-    <!-- ============================================= -->
-
-    <link rel="icon"
-          type="image/x-icon"
-          href="{% static 'img/favicon.ico' %}">
-
-    <!-- ============================================= -->
-    <!-- GOOGLE FONT -->
-    <!-- ============================================= -->
-
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-    <!-- ============================================= -->
-    <!-- BOOTSTRAP -->
-    <!-- ============================================= -->
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <!-- ============================================= -->
-    <!-- BOOTSTRAP ICONS -->
-    <!-- ============================================= -->
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- ============================================= -->
-    <!-- CUSTOM CSS -->
-    <!-- ============================================= -->
-
-    <link rel="stylesheet"
-          href="{% static 'css/variables.css' %}">
-
-    <link rel="stylesheet"
-          href="{% static 'css/style.css' %}">
-
-    {% block extra_css %}
-    {% endblock %}
-
+    {% block extra_css %}{% endblock %}
 </head>
 
-<body>
+<body class="{% if user.is_authenticated %}authenticated{% else %}auth-page{% endif %}">
 
-<!-- ================= Loader ================= -->
-
-<div id="page-loader">
-    <div class="spinner-border text-primary"></div>
-</div>
-
-{% if user.is_authenticated %}
-
-<div class="wrapper">
-
-    <!-- Sidebar -->
-
-    {% include "includes/sidebar.html" %}
-
-    <div class="main-content">
-
-        <!-- Navbar -->
-
-        {% include "includes/navbar.html" %}
-
-        <!-- Content -->
-
-        <main class="content-area">
-
-            {% include "includes/messages.html" %}
-
-            {% block content %}
-            {% endblock %}
-
-        </main>
-
-        <!-- Footer -->
-
-        {% include "includes/footer.html" %}
-
+    <!-- Page Loader -->
+    <div id="page-loader">
+        <div class="loader-content text-center">
+            <img src="{% static 'img/logo.png' %}" alt="RLB-AM" class="mb-3" style="width: 85px;">
+            <h4 class="fw-bold text-primary">RLB-AM EMS</h4>
+            <div class="spinner-border text-primary mt-3" role="status"></div>
+            <p class="text-muted mt-3 small">Loading Enterprise System...</p>
+        </div>
     </div>
 
-</div>
+    {% if user.is_authenticated %}
 
-{% else %}
+    <div class="app-wrapper">
 
-<div class="auth-wrapper">
+        <!-- SIDEBAR -->
+        {% include "includes/sidebar/sidebar.html" %}
 
-    {% block auth_content %}
-    {% endblock %}
+        <!-- MAIN CONTENT -->
+        <div class="main-wrapper">
 
-</div>
+            <!-- TOP NAVBAR -->
+            {% include "includes/navbar.html" %}
 
-{% endif %}
+            <!-- PAGE CONTENT -->
+            <main class="page-wrapper flex-grow-1">
+                
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                        <div>
+                            <h1 class="page-title mb-1">
+                                {% block page_title %}Dashboard{% endblock %}
+                            </h1>
+                            {% block breadcrumbs %}
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'dashboard:dashboard' %}">
+                                            <i class="bi bi-house-door me-1"></i>Home
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item active">
+                                        {% block current_page %}Dashboard{% endblock %}
+                                    </li>
+                                </ol>
+                            </nav>
+                            {% endblock %}
+                        </div>
+                        
+                        <div>
+                            {% block page_actions %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
 
-<!-- Back to Top -->
+                <!-- Messages -->
+                {% include "includes/messages.html" %}
 
-<button id="backToTop"
-        class="btn btn-primary rounded-circle">
+                <!-- Main Content -->
+                <div class="page-content">
+                    {% block content %}{% endblock %}
+                </div>
+            </main>
 
-    <i class="bi bi-arrow-up"></i>
+            <!-- Footer -->
+            <footer class="app-footer mt-auto">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <span class="text-muted">
+                                © {% now "Y" %} <strong>RLB-AM Construction & Real Estate Ltd.</strong>
+                            </span>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <span class="text-muted">Enterprise Management System V6.1</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
 
-</button>
+    {% else %}
 
-<!-- ============================================= -->
-<!-- BOOTSTRAP -->
-<!-- ============================================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- ============================================= -->
-<!-- CHART JS -->
-<!-- ============================================= -->
-
-{% if request.resolver_match %}
-
-    {% if request.resolver_match.url_name == "dashboard" %}
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Auth Pages -->
+    <div class="auth-wrapper">
+        {% block auth_content %}{% endblock %}
+    </div>
 
     {% endif %}
 
-{% endif %}
+    <!-- Global Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Global Search</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="search" class="form-control" placeholder="Search equipment, rentals, employees, projects...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- ============================================= -->
-<!-- CUSTOM JS -->
-<!-- ============================================= -->
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+        <div id="systemToast" class="toast" role="alert">
+            <div class="toast-header">
+                <strong class="me-auto">RLB-AM EMS</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+    </div>
 
-<script src="{% static 'js/app.js' %}"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-{% block extra_js %}
-{% endblock %}
+    {% if request.resolver_match.url_name == "dashboard" %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% endif %}
 
+    <script src="{% static 'js/app.js' %}" defer></script>
+    <script src="{% static 'js/sidebar.js' %}" defer></script>
+    <script src="{% static 'js/navbar.js' %}" defer></script>
+
+    {% block extra_js %}{% endblock %}
+
+    <!-- Global Scripts -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize AOS
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 700,
+                once: true,
+                easing: "ease-in-out"
+            });
+        }
+
+        // Hide loader
+        const loader = document.getElementById("page-loader");
+        if (loader) {
+            setTimeout(() => {
+                loader.classList.add("hide");
+            }, 280);
+        }
+
+        // Restore saved theme
+        const savedTheme = localStorage.getItem("rlbam-theme");
+        if (savedTheme) {
+            document.documentElement.setAttribute("data-bs-theme", savedTheme);
+        }
+    });
+
+    // Theme Toggle
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute("data-bs-theme");
+        const newTheme = current === "light" ? "dark" : "light";
+        
+        html.setAttribute("data-bs-theme", newTheme);
+        localStorage.setItem("rlbam-theme", newTheme);
+    }
+
+    // Global Toast
+    function showToast(message, type = "primary") {
+        const toastEl = document.getElementById("systemToast");
+        if (!toastEl) return;
+        
+        const body = toastEl.querySelector(".toast-body");
+        body.textContent = message;
+        
+        toastEl.className = `toast border-${type}`;
+        
+        const toast = bootstrap.Toast.getOrCreateInstance(toastEl);
+        toast.show();
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener("keydown", function (e) {
+        // Ctrl + K → Search
+        if (e.ctrlKey && e.key.toLowerCase() === "k") {
+            e.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById("searchModal"));
+            modal.show();
+        }
+    });
+    </script>
 </body>
-
 </html>

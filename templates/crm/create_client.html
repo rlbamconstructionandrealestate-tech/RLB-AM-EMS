@@ -1,0 +1,159 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Create Client | RLB-AM EMS{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">Add New Client</h2>
+            <p class="text-muted mb-0">
+                Register a new client into the CRM system.
+            </p>
+        </div>
+
+        <a href="{% url 'crm:clients' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to Clients
+        </a>
+
+    </div>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="row">
+
+            <!-- Left Column -->
+            <div class="col-lg-8">
+
+                <div class="card shadow-sm border-0 mb-4">
+
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Company Information</h5>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Company Name</label>
+                                {{ form.company_name }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Contact Person</label>
+                                {{ form.contact_person }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email Address</label>
+                                {{ form.email }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                {{ form.phone }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Industry</label>
+                                {{ form.industry }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Status</label>
+                                {{ form.status }}
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Company Address</label>
+                                {{ form.address }}
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Notes</label>
+                                {{ form.notes }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-4">
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Actions</h5>
+                    </div>
+
+                    <div class="card-body">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100 mb-3">
+
+                            <i class="bi bi-check-circle me-2"></i>
+
+                            Save Client
+
+                        </button>
+
+                        <a href="{% url 'crm:clients' %}"
+                           class="btn btn-outline-secondary w-100">
+
+                            Cancel
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="card shadow-sm border-0 mt-4">
+
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Tips</h5>
+                    </div>
+
+                    <div class="card-body">
+
+                        <ul class="small text-muted mb-0">
+
+                            <li>Enter the official company name.</li>
+
+                            <li>Use a valid email address.</li>
+
+                            <li>Include the primary contact person.</li>
+
+                            <li>Select the correct client status.</li>
+
+                            <li>Add notes for future reference.</li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

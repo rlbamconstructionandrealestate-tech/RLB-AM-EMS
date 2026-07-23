@@ -1,0 +1,122 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Employee Payroll
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<h2 class="mb-4">
+Employee Payroll
+</h2>
+
+
+
+<div class="card shadow">
+
+
+<div class="card-body">
+
+
+<table class="table table-striped">
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Employee
+</th>
+
+
+<th>
+Position
+</th>
+
+
+<th>
+Salary
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody>
+
+
+
+{% for employee in employees %}
+
+
+<tr>
+
+
+<td>
+{{ employee.full_name }}
+</td>
+
+
+<td>
+{{ employee.position }}
+</td>
+
+
+<td>
+
+{{ employee.salary|default:"0" }}
+
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="3">
+
+No payroll records
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

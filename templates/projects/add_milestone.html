@@ -1,0 +1,202 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Add Milestone | RLB-AM EMS
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid py-4">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-lg-7">
+
+
+            <div class="card shadow-sm border-0">
+
+
+
+                <div class="card-header bg-white">
+
+
+                    <h4 class="fw-bold mb-0">
+
+                        Add Project Milestone
+
+                    </h4>
+
+
+                    <small class="text-muted">
+
+                        {{ project.name }}
+
+                    </small>
+
+
+                </div>
+
+
+
+
+
+                <div class="card-body p-4">
+
+
+                    <form method="POST">
+
+
+                        {% csrf_token %}
+
+
+
+                        <div class="mb-3">
+
+
+                            <label class="form-label fw-semibold">
+
+                                Milestone Name
+
+                            </label>
+
+
+                            {{ form.name }}
+
+
+                        </div>
+
+
+
+
+
+
+                        <div class="mb-3">
+
+
+                            <label class="form-label fw-semibold">
+
+                                Description
+
+                            </label>
+
+
+                            {{ form.description }}
+
+
+                        </div>
+
+
+
+
+
+
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+
+
+                                <label class="form-label fw-semibold">
+
+                                    Due Date
+
+                                </label>
+
+
+                                {{ form.due_date }}
+
+
+                            </div>
+
+
+
+
+                            <div class="col-md-6">
+
+
+                                <label class="form-label fw-semibold">
+
+                                    Status
+
+                                </label>
+
+
+                                {{ form.status }}
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+
+                        <hr class="my-4">
+
+
+
+
+
+                        <div class="d-flex justify-content-end">
+
+
+                            <a href="{% url 'projects:detail' project.pk %}"
+
+                               class="btn btn-light me-2">
+
+
+                                Cancel
+
+
+                            </a>
+
+
+
+
+
+                            <button class="btn btn-primary"
+
+                                    type="submit">
+
+
+                                <i class="bi bi-save me-2"></i>
+
+                                Save Milestone
+
+
+                            </button>
+
+
+                        </div>
+
+
+
+                    </form>
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

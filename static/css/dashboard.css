@@ -1,0 +1,333 @@
+/* ==========================================================
+   RLB-AM EMS V6.1
+   ENTERPRISE DASHBOARD SYSTEM - Updated July 2026
+========================================================== */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #dbeafe;
+    
+    --success: #16a34a;
+    --warning: #d97706;
+    --info: #0891b2;
+    
+    --card: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    
+    --radius-sm: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Mode */
+[data-bs-theme="dark"] {
+    --card: #1e2937;
+    --surface: #0f172a;
+    --border: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+}
+
+/* ==========================================================
+   DASHBOARD HEADER
+========================================================== */
+
+.dashboard-page .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+}
+
+.page-header p {
+    margin: 6px 0 0;
+    color: var(--text-muted);
+    font-size: 1.02rem;
+}
+
+/* ==========================================================
+   KPI STATISTICS
+========================================================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    padding: 28px;
+    min-height: 178px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow);
+}
+
+.stat-card::after {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    right: -50px;
+    bottom: -50px;
+    background: rgba(37, 99, 235, 0.07);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.stat-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-primary   { background: #dbeafe; color: #2563eb; }
+.stat-success   { background: #dcfce7; color: #16a34a; }
+.stat-warning   { background: #fef3c7; color: #d97706; }
+.stat-info      { background: #cffafe; color: #0891b2; }
+
+.stat-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    margin-top: 8px;
+    font-size: 2.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+/* ==========================================================
+   DASHBOARD CONTENT CARDS
+========================================================== */
+
+.dashboard-page .card {
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    transition: var(--transition);
+}
+
+.dashboard-page .card:hover {
+    box-shadow: var(--shadow);
+}
+
+.dashboard-page .card h5 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 22px;
+    color: var(--text-primary);
+}
+
+/* ==========================================================
+   CHARTS
+========================================================== */
+
+.chart-container {
+    height: 380px;
+    width: 100%;
+    padding: 8px;
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ==========================================================
+   RECENT ACTIVITY
+========================================================== */
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.activity-item:hover {
+    transform: translateX(8px);
+    background: var(--card);
+}
+
+/* ==========================================================
+   QUICK ACTIONS
+========================================================== */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.action-card {
+    padding: 28px 20px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.action-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow);
+}
+
+.action-card i {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    border-radius: 18px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 1.9rem;
+}
+
+.action-card h6 {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
+
+.dashboard-card,
+.stat-card,
+.activity-item,
+.action-card {
+    animation: dashboardFade 0.6s ease forwards;
+}
+
+@keyframes dashboardFade {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-page .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+}
+
+/* ==========================================================
+   DARK MODE ENHANCEMENTS
+========================================================== */
+
+[data-bs-theme="dark"] .stat-icon {
+    filter: brightness(1.1);
+}
+
+[data-bs-theme="dark"] .stat-card::after {
+    background: rgba(37, 99, 235, 0.12);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #64748b;
+    border-radius: 20px;
+}
+
+[data-bs-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #475569;
+}

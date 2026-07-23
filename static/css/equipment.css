@@ -1,0 +1,1183 @@
+/* ==========================================================
+   RLB-AM EMS V6
+   EQUIPMENT MANAGEMENT MODULE
+   equipment.css v3.0
+========================================================== */
+
+
+
+/* ==========================================================
+   EQUIPMENT KPI CARDS
+========================================================== */
+
+
+.equipment-kpi{
+
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:var(--card);
+
+    border-radius:var(--radius-lg);
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow-sm);
+
+    transition:var(--transition);
+
+
+}
+
+
+
+.equipment-kpi:hover{
+
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow);
+
+
+}
+
+
+
+.equipment-kpi::after{
+
+
+    content:"";
+
+    position:absolute;
+
+    width:130px;
+
+    height:130px;
+
+    right:-45px;
+
+    bottom:-45px;
+
+    border-radius:50%;
+
+    background:rgba(37,99,235,.08);
+
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   STATUS BADGES
+========================================================== */
+
+
+.status-badge{
+
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:7px 14px;
+
+    border-radius:50px;
+
+    font-size:.75rem;
+
+    font-weight:700;
+
+
+}
+
+
+
+.status-available{
+
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+
+}
+
+
+
+.status-working{
+
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+
+}
+
+
+
+.status-maintenance{
+
+
+    background:#fef3c7;
+
+    color:#b45309;
+
+
+}
+
+
+
+.status-inactive{
+
+
+    background:#fee2e2;
+
+    color:#b91c1c;
+
+
+}
+
+
+
+
+
+
+
+
+/* ==========================================================
+   EQUIPMENT TABLE
+========================================================== */
+
+
+.equipment-table{
+
+
+    border-collapse:
+
+    separate;
+
+    border-spacing:
+
+    0 10px;
+
+
+}
+
+
+
+.equipment-table thead th{
+
+
+    color:var(--text-muted);
+
+    font-size:.8rem;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+
+}
+
+
+
+
+
+.equipment-table tbody tr{
+
+
+    background:var(--card);
+
+    border-radius:16px;
+
+    transition:var(--transition);
+
+
+}
+
+
+
+.equipment-table tbody tr:hover{
+
+
+    transform:translateX(6px);
+
+    box-shadow:var(--shadow-sm);
+
+
+}
+
+
+
+.equipment-table td{
+
+
+    padding:16px;
+
+    vertical-align:middle;
+
+
+}
+
+
+
+
+
+
+
+
+/* ==========================================================
+   EQUIPMENT IMAGES
+========================================================== */
+
+
+.asset-image{
+
+
+    width:60px;
+
+    height:60px;
+
+    object-fit:cover;
+
+    border-radius:16px;
+
+    border:1px solid var(--border);
+
+
+}
+
+
+
+.asset-placeholder{
+
+
+    width:60px;
+
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:16px;
+
+    background:var(--primary-light);
+
+    color:var(--primary);
+
+    font-size:1.5rem;
+
+
+}
+
+
+
+
+
+
+
+
+/* ==========================================================
+   EQUIPMENT DETAIL HEADER
+========================================================== */
+
+
+.asset-header{
+
+
+    padding:35px;
+
+    border-radius:28px;
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #0b1f3a,
+
+        #1d4ed8
+
+    );
+
+    color:white;
+
+    box-shadow:var(--shadow);
+
+
+}
+
+
+
+.asset-title{
+
+
+    font-size:2.2rem;
+
+    font-weight:800;
+
+
+}
+
+
+
+.asset-meta{
+
+
+    display:flex;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+    margin-top:15px;
+
+    opacity:.9;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   MAINTENANCE ALERT
+========================================================== */
+
+
+.maintenance-alert{
+
+
+    padding:18px;
+
+    border-radius:18px;
+
+    border-left:
+
+    5px solid var(--warning);
+
+    background:
+
+    var(--warning-light);
+
+
+}
+
+
+
+.maintenance-alert strong{
+
+
+    color:#92400e;
+
+
+}
+
+
+
+
+
+
+
+
+/* ==========================================================
+   EQUIPMENT FORM
+========================================================== */
+
+
+.equipment-form-card{
+
+
+    background:var(--card);
+
+    border-radius:var(--radius-lg);
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow-sm);
+
+    padding:25px;
+
+
+}
+
+
+
+.equipment-form .form-label,
+.equipment-form-card .form-label{
+
+
+    font-weight:700;
+
+    color:var(--text-primary);
+
+
+}
+
+
+
+.equipment-form .form-control,
+.equipment-form .form-select,
+.equipment-form-card .form-control,
+.equipment-form-card .form-select{
+
+
+    min-height:52px;
+
+    border-radius:14px;
+
+
+}
+
+
+
+.equipment-form textarea,
+.equipment-form-card textarea{
+
+
+    min-height:130px;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   MINI ICONS
+========================================================== */
+
+
+.asset-mini-icon{
+
+
+    width:55px;
+
+    height:45px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--primary-light);
+
+    color:var(--primary);
+
+    font-size:20px;
+
+
+}
+
+
+
+
+
+
+
+
+/* ==========================================================
+   DARK MODE
+========================================================== */
+
+
+[data-bs-theme="dark"] .status-available{
+
+
+    background:#14532d;
+
+    color:#bbf7d0;
+
+
+}
+
+
+
+[data-bs-theme="dark"] .status-working{
+
+
+    background:#1e3a8a;
+
+    color:#bfdbfe;
+
+
+}
+
+
+
+[data-bs-theme="dark"] .status-maintenance{
+
+
+    background:#78350f;
+
+    color:#fde68a;
+
+
+}
+
+
+
+[data-bs-theme="dark"] .status-inactive{
+
+
+    background:#7f1d1d;
+
+    color:#fecaca;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+
+@media(max-width:768px){
+
+
+.asset-title{
+
+
+    font-size:1.5rem;
+
+
+}
+
+
+
+.equipment-table{
+
+
+    font-size:.85rem;
+
+
+}
+
+
+
+.asset-header{
+
+
+    padding:25px;
+
+
+}
+
+
+
+}
+
+/* ==========================================================
+   KPI CARDS
+========================================================== */
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.kpi-card {
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    padding: 28px 24px;
+    box-shadow: 0 10px 30px rgba(15,23,42,.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+}
+
+.kpi-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(15,23,42,.12);
+    border-color: #cbd5e1;
+}
+
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    opacity: 0.9;
+}
+
+/* Icon container */
+.kpi-icon {
+    width: 68px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    font-size: 2.1rem;
+    transition: transform 0.3s ease;
+}
+
+.kpi-card:hover .kpi-icon {
+    transform: scale(1.1);
+}
+
+/* Specific KPI colors */
+.kpi-equipment .kpi-icon { 
+    background: linear-gradient(135deg, #3b82f6, #1e40af); 
+    color: white; 
+}
+
+.kpi-employees .kpi-icon { 
+    background: linear-gradient(135deg, #10b981, #047857); 
+    color: white; 
+}
+
+.kpi-rentals .kpi-icon { 
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9); 
+    color: white; 
+}
+
+.kpi-revenue .kpi-icon { 
+    background: linear-gradient(135deg, #f59e0b, #d97706); 
+    color: white; 
+}
+
+/* Main value */
+.kpi-value {
+    font-size: 2.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 8px 0 4px;
+    line-height: 1;
+}
+
+.kpi-label {
+    font-size: 1.05rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+/* Change indicator */
+.kpi-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 9999px;
+}
+
+.kpi-change.positive {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.kpi-change.negative {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .kpi-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+    
+    .kpi-card {
+        padding: 24px 20px;
+    }
+}
+
+/* ==========================================================
+   REVENUE CHART & SUMMARY CARDS - Part 3
+========================================================== */
+
+.revenue-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.chart-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(15,23,42,.05);
+    height: 100%;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.chart-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-dot.revenue { background: #2563eb; }
+.legend-dot.target { background: #e2e8f0; }
+
+/* Summary Cards (small stats next to chart) */
+.summary-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.summary-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 20px;
+    transition: all 0.25s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(15,23,42,.08);
+}
+
+.summary-label {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.summary-value {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.summary-trend {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.summary-trend.positive { color: #10b981; }
+.summary-trend.negative { color: #ef4444; }
+
+/* Chart container placeholder styling */
+.revenue-chart {
+    height: 320px;
+    background: #f8fafc;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    border: 2px dashed #cbd5e1;
+    position: relative;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .revenue-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .chart-card,
+    .summary-card {
+        padding: 20px;
+    }
+    
+    .revenue-chart {
+        height: 260px;
+    }
+}
+
+/* ==========================================================
+   QUICK ACCESS CARDS - Part 4
+========================================================== */
+
+.quick-access {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.quick-access-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-access-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(15,23,42,.12);
+    border-color: #94a3b8;
+}
+
+.quick-access-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.quick-access-card:hover::before {
+    transform: scaleX(1);
+}
+
+.quick-access-icon {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.quick-access-card:hover .quick-access-icon {
+    transform: scale(1.12) rotate(8deg);
+}
+
+.quick-access-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.quick-access-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* Specific quick access colors */
+.quick-new-equipment .quick-access-icon { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; }
+.quick-new-rental .quick-access-icon { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; }
+.quick-maintenance .quick-access-icon { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+.quick-report .quick-access-icon { background: linear-gradient(135deg, #10b981, #047857); color: white; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .quick-access {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+    }
+    
+    .quick-access-card {
+        padding: 20px 16px;
+    }
+}
+
+/* ==========================================================
+   RECENT ACTIVITY TIMELINE - Part 5
+========================================================== */
+
+.recent-activity {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(15,23,42,.05);
+}
+
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.activity-header h5 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.activity-item {
+    display: flex;
+    gap: 16px;
+    position: relative;
+}
+
+.activity-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 42px;
+    bottom: -10px;
+    width: 2px;
+    background: #e2e8f0;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.activity-content {
+    flex: 1;
+    padding-top: 4px;
+}
+
+.activity-content p {
+    margin: 0 0 4px;
+    font-size: 1rem;
+    color: #0f172a;
+    line-height: 1.5;
+}
+
+.activity-meta {
+    font-size: 0.85rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.activity-time {
+    font-weight: 500;
+}
+
+.activity-user {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+/* Activity type colors */
+.activity-add { background: #dcfce7; color: #15803d; }
+.activity-update { background: #dbeafe; color: #1d4ed8; }
+.activity-maintenance { background: #fef3c7; color: #b45309; }
+.activity-delete { background: #fee2e2; color: #b91c1c; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .recent-activity {
+        padding: 22px;
+    }
+    
+    .activity-item {
+        gap: 14px;
+    }
+}
+
+/* ==========================================================
+   RESPONSIVE LAYOUT - Part 6
+========================================================== */
+
+/* Main dashboard responsive breakpoints */
+@media (max-width: 1200px) {
+    .revenue-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .kpi-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .dashboard-container {
+        gap: 24px;
+    }
+    
+    .dashboard-banner {
+        padding: 28px;
+    }
+    
+    .quick-access {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-banner h2 {
+        font-size: 1.75rem;
+    }
+    
+    .dashboard-card .card-header {
+        padding: 18px 20px;
+    }
+    
+    .dashboard-card .card-body {
+        padding: 20px;
+    }
+    
+    .kpi-grid,
+    .quick-access {
+        gap: 18px;
+    }
+    
+    .revenue-chart {
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-access {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+    
+    .dashboard-banner {
+        padding: 24px;
+    }
+    
+    .activity-item {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .activity-item::after {
+        display: none;
+    }
+}
+
+/* ==========================================================
+   DARK MODE - Part 7
+========================================================== */
+
+[data-bs-theme="dark"] .dashboard-card,
+[data-bs-theme="dark"] .kpi-card,
+[data-bs-theme="dark"] .chart-card,
+[data-bs-theme="dark"] .summary-card,
+[data-bs-theme="dark"] .quick-access-card,
+[data-bs-theme="dark"] .recent-activity {
+    background: #1e2937;
+    border-color: #334155;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+[data-bs-theme="dark"] .dashboard-card:hover,
+[data-bs-theme="dark"] .kpi-card:hover,
+[data-bs-theme="dark"] .quick-access-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: #475569;
+}
+
+[data-bs-theme="dark"] .dashboard-banner {
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.25);
+}
+
+[data-bs-theme="dark"] .kpi-value,
+[data-bs-theme="dark"] .quick-access-title,
+[data-bs-theme="dark"] .activity-content p {
+    color: #f1f5f9;
+}
+
+[data-bs-theme="dark"] .kpi-label,
+[data-bs-theme="dark"] .summary-label,
+[data-bs-theme="dark"] .quick-access-desc,
+[data-bs-theme="dark"] .activity-meta,
+[data-bs-theme="dark"] .chart-title {
+    color: #94a3b8;
+}
+
+[data-bs-theme="dark"] .revenue-chart {
+    background: #334155;
+    border-color: #475569;
+    color: #cbd5e1;
+}
+
+/* Dark mode timeline line */
+[data-bs-theme="dark"] .activity-item:not(:last-child)::after {
+    background: #475569;
+}
+
+/* Adjust status badges if used in dashboard */
+[data-bs-theme="dark"] .status-available { background: #14532d; color: #bbf7d0; }
+[data-bs-theme="dark"] .status-working { background: #1e3a8a; color: #bfdbfe; }
+[data-bs-theme="dark"] .status-maintenance { background: #78350f; color: #fde68a; }
+[data-bs-theme="dark"] .status-inactive { background: #7f1d1d; color: #fecaca; }
+
+/* Final responsive dark mode tweaks */
+@media (max-width: 768px) {
+    [data-bs-theme="dark"] .dashboard-card .card-header {
+        border-bottom-color: #334155;
+    }
+}

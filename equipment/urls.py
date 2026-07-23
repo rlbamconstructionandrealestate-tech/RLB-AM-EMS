@@ -6,53 +6,77 @@ from . import views
 app_name = "equipment"
 
 
+
 urlpatterns = [
 
-    # Dashboard
+    # ==========================
+    # DASHBOARD
+    # ==========================
+
     path(
         "dashboard/",
         views.equipment_dashboard,
-        name="dashboard",
+        name="dashboard"
     ),
 
 
-    # Equipment list
+
+    # ==========================
+    # LIST
+    # ==========================
+
     path(
         "",
         views.equipment_list,
-        name="list",
+        name="list"
     ),
 
 
-    # Add equipment
+
+    # ==========================
+    # CREATE
+    # ==========================
+
     path(
         "add/",
-        views.equipment_create,
-        name="create",
+        views.create_equipment,
+        name="create"
     ),
 
 
-    # Equipment details
+
+    # ==========================
+    # DETAIL
+    # ==========================
+
     path(
         "<int:pk>/",
         views.equipment_detail,
-        name="detail",
+        name="detail"
     ),
 
 
-    # Edit equipment
+
+    # ==========================
+    # UPDATE
+    # ==========================
+
     path(
         "<int:pk>/edit/",
-        views.equipment_update,
-        name="update",
+        views.update_equipment,
+        name="update"
     ),
 
 
-    # Delete equipment
+
+    # ==========================
+    # DELETE
+    # ==========================
+
     path(
         "<int:pk>/delete/",
-        views.equipment_delete,
-        name="delete",
+        views.delete_equipment,
+        name="delete"
     ),
 
 ]

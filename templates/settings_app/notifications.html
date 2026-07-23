@@ -1,0 +1,439 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Notification Settings | RLB-AM EMS
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid py-4">
+
+
+    <!-- HEADER -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                Notification Settings
+
+            </h2>
+
+
+            <p class="text-muted mb-0">
+
+                Control alerts and system notifications.
+
+            </p>
+
+
+        </div>
+
+
+
+
+        <a href="{% url 'settings_app:dashboard' %}"
+
+           class="btn btn-outline-secondary">
+
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Settings
+
+
+        </a>
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-xl-8">
+
+
+            <div class="card shadow-sm border-0">
+
+
+
+                <div class="card-header bg-white">
+
+
+                    <h5 class="mb-0">
+
+                        Notification Preferences
+
+                    </h5>
+
+
+                </div>
+
+
+
+
+
+                <div class="card-body">
+
+
+                    <form method="POST">
+
+
+                        {% csrf_token %}
+
+
+
+
+
+                        <div class="list-group list-group-flush">
+
+
+
+
+
+                            <!-- EMAIL -->
+
+                            <div class="list-group-item py-4">
+
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+
+                                    <div>
+
+
+                                        <h6 class="fw-bold mb-1">
+
+
+                                            Email Notifications
+
+
+                                        </h6>
+
+
+                                        <p class="text-muted small mb-0">
+
+
+                                            Receive important system notifications through email.
+
+
+                                        </p>
+
+
+                                    </div>
+
+
+
+                                    <div class="form-check form-switch">
+
+
+                                        {{ form.email_notifications }}
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <!-- PROJECT -->
+
+                            <div class="list-group-item py-4">
+
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+
+                                    <div>
+
+
+                                        <h6 class="fw-bold mb-1">
+
+
+                                            Project Updates
+
+
+                                        </h6>
+
+
+                                        <p class="text-muted small mb-0">
+
+
+                                            Alerts when project status or progress changes.
+
+
+                                        </p>
+
+
+                                    </div>
+
+
+
+                                    <div class="form-check form-switch">
+
+
+                                        {{ form.project_updates }}
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <!-- PAYMENT -->
+
+                            <div class="list-group-item py-4">
+
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+
+                                    <div>
+
+
+                                        <h6 class="fw-bold mb-1">
+
+
+                                            Payment Alerts
+
+
+                                        </h6>
+
+
+                                        <p class="text-muted small mb-0">
+
+
+                                            Receive alerts about invoices and payments.
+
+
+                                        </p>
+
+
+                                    </div>
+
+
+
+                                    <div class="form-check form-switch">
+
+
+                                        {{ form.payment_alerts }}
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <!-- EQUIPMENT -->
+
+                            <div class="list-group-item py-4">
+
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+
+                                    <div>
+
+
+                                        <h6 class="fw-bold mb-1">
+
+
+                                            Equipment Alerts
+
+
+                                        </h6>
+
+
+                                        <p class="text-muted small mb-0">
+
+
+                                            Notifications about equipment issues.
+
+
+                                        </p>
+
+
+                                    </div>
+
+
+
+                                    <div class="form-check form-switch">
+
+
+                                        {{ form.equipment_alerts }}
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                            <!-- MAINTENANCE -->
+
+                            <div class="list-group-item py-4">
+
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+
+                                    <div>
+
+
+                                        <h6 class="fw-bold mb-1">
+
+
+                                            Maintenance Alerts
+
+
+                                        </h6>
+
+
+                                        <p class="text-muted small mb-0">
+
+
+                                            Receive maintenance reminders and warnings.
+
+
+                                        </p>
+
+
+                                    </div>
+
+
+
+                                    <div class="form-check form-switch">
+
+
+                                        {{ form.maintenance_alerts }}
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="mt-4">
+
+
+                            <button type="submit"
+
+                                    class="btn btn-success">
+
+
+                                <i class="bi bi-save me-2"></i>
+
+                                Save Notification Settings
+
+
+                            </button>
+
+
+                        </div>
+
+
+
+
+
+
+                    </form>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+{% endblock %}

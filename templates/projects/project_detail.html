@@ -1,0 +1,772 @@
+{% extends "layouts/base.html" %}
+{% load humanize %}
+
+
+{% block title %}
+{{ project.name }} | Projects
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid py-4">
+
+
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+        <div>
+
+
+            <h2 class="fw-bold mb-1">
+
+                {{ project.name }}
+
+            </h2>
+
+
+            <p class="text-muted mb-0">
+
+                {{ project.project_code }}
+
+            </p>
+
+
+        </div>
+
+
+
+        <div>
+
+
+            <a href="{% url 'projects:edit' project.pk %}"
+
+               class="btn btn-warning me-2">
+
+
+                <i class="bi bi-pencil me-2"></i>
+
+                Edit
+
+
+            </a>
+
+
+
+
+            <a href="{% url 'projects:list' %}"
+
+               class="btn btn-outline-secondary">
+
+
+                <i class="bi bi-arrow-left me-2"></i>
+
+                Back
+
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Summary Cards -->
+
+
+    <div class="row g-4 mb-4">
+
+
+
+        <div class="col-lg-3 col-md-6">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-body">
+
+
+                    <small class="text-muted">
+
+                        Contract Value
+
+                    </small>
+
+
+                    <h4 class="fw-bold text-primary mt-2">
+
+
+                        TZS {{ project.contract_value|floatformat:0|intcomma }}
+
+
+                    </h4>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="col-lg-3 col-md-6">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-body">
+
+
+                    <small class="text-muted">
+
+                        Amount Paid
+
+                    </small>
+
+
+                    <h4 class="fw-bold text-success mt-2">
+
+
+                        TZS {{ project.amount_paid|floatformat:0|intcomma }}
+
+
+                    </h4>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="col-lg-3 col-md-6">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-body">
+
+
+                    <small class="text-muted">
+
+                        Balance
+
+                    </small>
+
+
+                    <h4 class="fw-bold text-danger mt-2">
+
+
+                        TZS {{ project.balance|floatformat:0|intcomma }}
+
+
+                    </h4>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="col-lg-3 col-md-6">
+
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-body">
+
+
+                    <small class="text-muted">
+
+                        Progress
+
+                    </small>
+
+
+                    <h4 class="fw-bold mt-2">
+
+
+                        {{ project.progress }}%
+
+
+                    </h4>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="row g-4">
+
+
+
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="col-lg-4">
+
+
+
+
+
+
+            <!-- Project Information -->
+
+
+            <div class="card shadow-sm border-0 mb-4">
+
+
+                <div class="card-header bg-white">
+
+
+                    <h5 class="mb-0">
+
+                        Project Information
+
+                    </h5>
+
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+                    <table class="table table-borderless">
+
+
+                        <tr>
+
+                            <th>
+                                Client
+                            </th>
+
+                            <td>
+
+                            {% if project.client %}
+
+                                {{ project.client.company_name }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <th>
+                                Location
+                            </th>
+
+                            <td>
+
+                                {{ project.location|default:"-" }}
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <th>
+                                Manager
+                            </th>
+
+                            <td>
+
+                            {% if project.manager %}
+
+                                {{ project.manager.get_full_name|default:project.manager.username }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                            </td>
+
+                        </tr>
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <td>
+
+
+                                <span class="badge bg-primary">
+
+                                    {{ project.get_status_display }}
+
+                                </span>
+
+
+                            </td>
+
+                        </tr>
+
+
+
+
+
+                        <tr>
+
+                            <th>
+                                Priority
+                            </th>
+
+                            <td>
+
+
+                                {{ project.get_priority_display }}
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                    </table>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+            <!-- Progress -->
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-header bg-white">
+
+
+                    <h5 class="mb-0">
+
+                        Progress
+
+                    </h5>
+
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+                    <div class="progress mb-2"
+
+                         style="height:12px;">
+
+
+                        <div class="progress-bar"
+
+                             style="width:{{ project.progress }}%">
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <strong>
+
+                        {{ project.progress }}%
+
+                    </strong>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <!-- RIGHT SIDE -->
+
+
+        <div class="col-lg-8">
+
+
+
+
+
+
+
+            <!-- Milestones -->
+
+
+            <div class="card shadow-sm border-0 mb-4">
+
+
+                <div class="card-header bg-white d-flex justify-content-between">
+
+
+                    <h5 class="mb-0">
+
+                        Milestones
+
+                    </h5>
+
+
+
+
+                    <a href="{% url 'projects:add_milestone' project.pk %}"
+
+                       class="btn btn-sm btn-primary">
+
+
+                        <i class="bi bi-plus"></i>
+
+                        Add
+
+
+                    </a>
+
+
+
+                </div>
+
+
+
+
+
+                <div class="table-responsive">
+
+
+                    <table class="table table-hover">
+
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+
+                            <th>Due Date</th>
+
+                            <th>Status</th>
+
+
+                        </tr>
+
+
+                        </thead>
+
+
+
+                        <tbody>
+
+
+
+                        {% for milestone in milestones %}
+
+
+                        <tr>
+
+
+                            <td>
+
+                                {{ milestone.name }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ milestone.due_date }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ milestone.get_status_display }}
+
+                            </td>
+
+
+                        </tr>
+
+
+
+                        {% empty %}
+
+
+                        <tr>
+
+                            <td colspan="3"
+                                class="text-center">
+
+
+                                No milestones
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+            <!-- Expenses -->
+
+
+            <div class="card shadow-sm border-0 mb-4">
+
+
+                <div class="card-header bg-white d-flex justify-content-between">
+
+
+                    <h5 class="mb-0">
+
+                        Expenses
+
+                    </h5>
+
+
+
+                    <a href="{% url 'projects:add_expense' project.pk %}"
+
+                       class="btn btn-sm btn-danger">
+
+
+                        <i class="bi bi-plus"></i>
+
+                        Add Expense
+
+
+                    </a>
+
+
+                </div>
+
+
+
+
+
+                <div class="card-body">
+
+
+                    <h5>
+
+
+                        Total Expenses:
+
+                        <span class="text-danger">
+
+
+                            TZS {{ total_expenses|floatformat:0|intcomma }}
+
+
+                        </span>
+
+
+                    </h5>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+            <!-- Activity -->
+
+            <div class="card shadow-sm border-0">
+
+
+                <div class="card-header bg-white">
+
+
+                    <h5 class="mb-0">
+
+                        Activity
+
+                    </h5>
+
+
+                </div>
+
+
+
+
+                <div class="card-body">
+
+
+                    {% for activity in project.activities.all %}
+
+
+                        <p class="mb-2">
+
+
+                            <i class="bi bi-clock me-2"></i>
+
+
+                            {{ activity.message }}
+
+
+                            <br>
+
+
+                            <small class="text-muted">
+
+                                {{ activity.created_at }}
+
+                            </small>
+
+
+                        </p>
+
+
+
+                    {% empty %}
+
+
+                        <p class="text-muted">
+
+                            No activity yet.
+
+                        </p>
+
+
+                    {% endfor %}
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

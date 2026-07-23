@@ -1,0 +1,97 @@
+<div class="card h-100 equipment-card">
+
+
+{% if item.image %}
+
+<img src="{{ item.image.url }}"
+class="card-img-top"
+style="height:200px;object-fit:cover;">
+
+{% else %}
+
+<div class="bg-light text-center p-5">
+
+<i class="bi bi-truck display-3 text-primary"></i>
+
+</div>
+
+{% endif %}
+
+
+
+
+
+<div class="card-body">
+
+
+<h5 class="fw-bold">
+
+{{ item.name }}
+
+</h5>
+
+
+<p class="text-muted small">
+
+{{ item.asset_number }}
+
+</p>
+
+
+
+<p class="mb-2">
+
+<strong>
+Category:
+</strong>
+
+{{ item.category }}
+
+</p>
+
+
+
+
+<p class="mb-3">
+
+<strong>
+Location:
+</strong>
+
+{{ item.current_location|default:"-" }}
+
+</p>
+
+
+
+
+{% include "equipment/partials/status_badge.html" with status=item.status %}
+
+
+
+</div>
+
+
+
+
+
+<div class="card-footer bg-transparent">
+
+
+<a href="{% url 'equipment:detail' item.pk %}"
+class="btn btn-outline-primary w-100">
+
+
+<i class="bi bi-eye me-2"></i>
+
+View Details
+
+
+</a>
+
+
+</div>
+
+
+
+</div>

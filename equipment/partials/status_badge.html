@@ -1,0 +1,39 @@
+{% if status == "available" %}
+
+<span class="badge bg-success">
+    <i class="bi bi-check-circle me-1"></i>
+    Available
+</span>
+
+
+{% elif status == "working" %}
+
+<span class="badge bg-primary">
+    <i class="bi bi-gear me-1"></i>
+    Working
+</span>
+
+
+{% elif status == "maintenance" %}
+
+<span class="badge bg-warning text-dark">
+    <i class="bi bi-tools me-1"></i>
+    Maintenance
+</span>
+
+
+{% elif status == "inactive" %}
+
+<span class="badge bg-secondary">
+    <i class="bi bi-x-circle me-1"></i>
+    Inactive
+</span>
+
+
+{% else %}
+
+<span class="badge bg-light text-dark">
+    {{ status|title }}
+</span>
+
+{% endif %}

@@ -1,0 +1,332 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+System Settings | RLB-AM EMS
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid py-4">
+
+
+    <!-- HEADER -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                System Preferences
+
+            </h2>
+
+
+            <p class="text-muted mb-0">
+
+                Configure application behaviour and system options.
+
+            </p>
+
+
+        </div>
+
+
+
+        <a href="{% url 'settings_app:dashboard' %}"
+
+           class="btn btn-outline-secondary">
+
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Settings
+
+
+        </a>
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-xl-8">
+
+
+            <div class="card shadow-sm border-0">
+
+
+
+                <div class="card-header bg-white">
+
+
+                    <h5 class="mb-0">
+
+                        Application Configuration
+
+                    </h5>
+
+
+                </div>
+
+
+
+
+
+                <div class="card-body">
+
+
+                    <form method="POST">
+
+
+                        {% csrf_token %}
+
+
+
+                        <div class="row g-4">
+
+
+
+                            <div class="col-md-6">
+
+
+                                <label class="form-label fw-semibold">
+
+                                    Currency
+
+                                </label>
+
+
+                                {{ form.currency }}
+
+
+                            </div>
+
+
+
+
+
+
+
+                            <div class="col-md-6">
+
+
+                                <label class="form-label fw-semibold">
+
+                                    Timezone
+
+                                </label>
+
+
+                                {{ form.timezone }}
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                            <div class="col-md-12">
+
+
+                                <label class="form-label fw-semibold">
+
+                                    Date Format
+
+                                </label>
+
+
+                                {{ form.date_format }}
+
+
+                            </div>
+
+
+
+
+
+
+
+                            <div class="col-md-6">
+
+
+                                <div class="card bg-light border-0">
+
+
+                                    <div class="card-body">
+
+
+                                        <div class="form-check form-switch">
+
+
+                                            {{ form.maintenance_mode }}
+
+
+                                            <label class="form-check-label ms-2">
+
+
+                                                Maintenance Mode
+
+
+                                            </label>
+
+
+                                        </div>
+
+
+
+                                        <small class="text-muted">
+
+
+                                            Disable normal system access during maintenance.
+
+
+                                        </small>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                            <div class="col-md-6">
+
+
+                                <div class="card bg-light border-0">
+
+
+                                    <div class="card-body">
+
+
+                                        <div class="form-check form-switch">
+
+
+                                            {{ form.allow_registration }}
+
+
+                                            <label class="form-check-label ms-2">
+
+
+                                                Allow Registration
+
+
+                                            </label>
+
+
+                                        </div>
+
+
+
+                                        <small class="text-muted">
+
+
+                                            Allow new users to register accounts.
+
+
+                                        </small>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+                        <div class="mt-4">
+
+
+                            <button type="submit"
+
+                                    class="btn btn-warning">
+
+
+                                <i class="bi bi-save me-2"></i>
+
+                                Save System Settings
+
+
+                            </button>
+
+
+                        </div>
+
+
+
+
+
+
+                    </form>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,386 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+Fuel Management | RLB-AM EMS
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-fuel-pump-fill text-primary"></i>
+                Fuel Management
+            </h2>
+
+            <p class="text-muted mb-0">
+                Monitor fuel usage, costs, and machine consumption.
+            </p>
+        </div>
+
+
+        <a href="{% url 'fuel:add' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i>
+            Add Fuel Record
+        </a>
+
+    </div>
+
+
+
+
+    <!-- SUMMARY CARDS -->
+
+    <div class="row g-4 mb-4">
+
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+                            <h6 class="text-muted">
+                                Total Fuel Records
+                            </h6>
+
+                            <h2 class="fw-bold">
+                                {{ total_records|default:0 }}
+                            </h2>
+                        </div>
+
+
+                        <div class="text-primary fs-1">
+                            <i class="bi bi-journal-text"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Total Litres
+                            </h6>
+
+                            <h2 class="fw-bold">
+                                {{ total_litres|default:0 }}
+                            </h2>
+
+                        </div>
+
+
+                        <div class="text-success fs-1">
+
+                            <i class="bi bi-droplet-fill"></i>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Total Fuel Cost
+                            </h6>
+
+
+                            <h2 class="fw-bold">
+                                TZS {{ total_cost|default:0|floatformat:2 }}
+                            </h2>
+
+                        </div>
+
+
+                        <div class="text-danger fs-1">
+
+                            <i class="bi bi-cash-stack"></i>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body">
+
+
+                    <div class="d-flex justify-content-between">
+
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Average Price/Litre
+                            </h6>
+
+
+                            <h2 class="fw-bold">
+
+                                {{ average_price|default:0|floatformat:2 }}
+
+                            </h2>
+
+
+                        </div>
+
+
+                        <div class="text-warning fs-1">
+
+                            <i class="bi bi-graph-up"></i>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- FUEL RECORDS TABLE -->
+
+    <div class="card shadow border-0">
+
+
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+
+
+            <h5 class="mb-0">
+
+                <i class="bi bi-list-check"></i>
+                Recent Fuel Records
+
+            </h5>
+
+
+            <a href="{% url 'fuel:list' %}"
+               class="btn btn-light btn-sm">
+
+                View All
+
+            </a>
+
+
+        </div>
+
+
+
+
+        <div class="card-body p-0">
+
+
+            <div class="table-responsive">
+
+
+                <table class="table table-hover mb-0">
+
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>Date</th>
+
+                            <th>Machine</th>
+
+                            <th>Fuel Type</th>
+
+                            <th>Litres</th>
+
+                            <th>Price/Litre</th>
+
+                            <th>Total Cost</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                    {% for fuel in fuel_records %}
+
+
+                        <tr>
+
+
+                            <td>
+                                {{ fuel.date|date:"d M Y" }}
+                            </td>
+
+
+                            <td>
+                                {{ fuel.machine }}
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-secondary">
+
+                                    {{ fuel.fuel_type }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+                                {{ fuel.litres }}
+                            </td>
+
+
+                            <td>
+                                TZS {{ fuel.price_per_litre|floatformat:2 }}
+                            </td>
+
+
+                            <td class="fw-bold">
+
+                                TZS {{ fuel.total_cost|floatformat:2 }}
+
+                            </td>
+
+
+                            <td>
+
+
+                                <a href="{% url 'fuel:detail' fuel.id %}"
+                                   class="btn btn-sm btn-outline-primary">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </a>
+
+
+                                <a href="{% url 'fuel:edit' fuel.id %}"
+                                   class="btn btn-sm btn-outline-warning">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                </a>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+
+                    {% empty %}
+
+
+                        <tr>
+
+                            <td colspan="7"
+                                class="text-center py-4 text-muted">
+
+                                No fuel records available.
+
+                            </td>
+
+                        </tr>
+
+
+                    {% endfor %}
+
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+</div>
+
+{% endblock %}

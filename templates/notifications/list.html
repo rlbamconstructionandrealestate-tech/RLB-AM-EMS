@@ -1,0 +1,125 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+
+<div class="page-header">
+
+<h1 class="page-title">
+Notifications
+</h1>
+
+
+<a href="{% url 'notifications:read_all' %}"
+class="btn btn-primary">
+
+Mark All Read
+
+</a>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-body">
+
+
+{% for notification in notifications %}
+
+
+<div class="d-flex justify-content-between align-items-center p-3 mb-3 rounded
+{% if notification.is_read %}
+bg-light
+{% else %}
+bg-primary-subtle
+{% endif %}
+">
+
+
+<div>
+
+
+<h5>
+
+{{ notification.title }}
+
+</h5>
+
+
+<p>
+
+{{ notification.message }}
+
+</p>
+
+
+<small>
+
+{{ notification.created_at }}
+
+</small>
+
+
+</div>
+
+
+
+<div>
+
+
+{% if not notification.is_read %}
+
+<a href="{% url 'notifications:read' notification.id %}"
+class="btn btn-success btn-sm">
+
+Read
+
+</a>
+
+{% endif %}
+
+
+
+<a href="{% url 'notifications:delete' notification.id %}"
+class="btn btn-danger btn-sm">
+
+Delete
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+
+{% empty %}
+
+
+<div class="text-center p-5">
+
+<i class="fa fa-bell fa-3x"></i>
+
+<h4>
+No Notifications
+</h4>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% load static %}
+
+<aside class="sidebar" id="sidebar">
+
+    <!-- SIDEBAR HEADER -->
+    <div class="sidebar-header">
+        {% include "includes/sidebar/logo.html" %}
+
+        <button class="sidebar-close d-lg-none" id="sidebarClose">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <nav class="sidebar-nav">
+
+        {% for section in sidebar_menu %}
+        <div class="sidebar-section">
+            <div class="menu-title">
+                {{ section.section }}
+            </div>
+
+            <ul class="sidebar-menu">
+                {% for item in section.items %}
+                <li class="menu-item">
+                    <a href="{{ item.href }}"
+                       class="{% if item.active %}active{% endif %}"
+                       data-bs-toggle="tooltip"
+                       data-bs-placement="right"
+                       title="{{ item.name }}">
+
+                        <span class="menu-icon">
+                            <i class="bi {{ item.icon }}"></i>
+                        </span>
+
+                        <span class="menu-text">
+                            {{ item.name }}
+                        </span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+
+    </nav>
+
+    <!-- SIDEBAR USER PROFILE -->
+    <div class="sidebar-footer">
+        <div class="sidebar-user">
+            <div class="user-avatar">
+                {% if request.user.profile_picture %}
+                    <img src="{{ request.user.profile_picture.url }}" alt="{{ request.user.username }}">
+                {% else %}
+                    <div class="avatar-placeholder">
+                        {{ request.user.username|slice:":1"|upper }}
+                    </div>
+                {% endif %}
+                <span class="online-status"></span>
+            </div>
+
+            <div class="user-info">
+                <strong>
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </strong>
+                <small>
+                    {% if request.user.role %}
+                        {{ request.user.role|title }}
+                    {% else %}
+                        Staff Member
+                    {% endif %}
+                </small>
+            </div>
+
+            <div class="user-action ms-auto">
+                <a href="{% url 'logout' %}" class="text-danger" title="Logout">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</aside>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Initialize tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+</script>

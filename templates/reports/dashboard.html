@@ -1,0 +1,658 @@
+{% extends "layouts/base.html" %}
+{% load humanize %}
+
+
+{% block title %}
+Reports Dashboard | RLB-AM EMS
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+
+
+<!-- HEADER -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+<div>
+
+<h2 class="fw-bold mb-1">
+
+Reports Dashboard
+
+</h2>
+
+
+<p class="text-muted mb-0">
+
+Business intelligence, financial analysis and operational performance.
+
+</p>
+
+
+</div>
+
+
+
+<div class="d-flex gap-2">
+
+
+<a href="{% url 'reports:analytics' %}"
+class="btn btn-primary">
+
+
+<i class="bi bi-bar-chart-line me-2"></i>
+
+Analytics
+
+
+</a>
+
+
+
+<a href="{% url 'reports:export' %}"
+class="btn btn-success">
+
+
+<i class="bi bi-download me-2"></i>
+
+Export
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- KPI CARDS -->
+
+<div class="row g-4 mb-4">
+
+
+
+<div class="col-xl-3 col-md-6">
+
+
+<div class="card shadow-sm border-0 h-100">
+
+
+<div class="card-body">
+
+
+<div class="d-flex justify-content-between">
+
+
+<div>
+
+
+<small class="text-muted">
+
+Projects
+
+</small>
+
+
+<h2 class="fw-bold mt-2">
+
+{{ total_projects }}
+
+</h2>
+
+
+<span class="text-muted small">
+
+Total managed projects
+
+</span>
+
+
+</div>
+
+
+
+<div class="text-primary fs-1">
+
+<i class="bi bi-building"></i>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+
+<div class="card shadow-sm border-0 h-100">
+
+
+<div class="card-body">
+
+
+<div class="d-flex justify-content-between">
+
+
+<div>
+
+
+<small class="text-muted">
+
+Equipment Fleet
+
+</small>
+
+
+<h2 class="fw-bold mt-2">
+
+{{ total_equipment }}
+
+</h2>
+
+
+<span class="text-muted small">
+
+Registered machines
+
+</span>
+
+
+</div>
+
+
+
+<div class="text-warning fs-1">
+
+<i class="bi bi-truck"></i>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+
+<div class="card shadow-sm border-0 h-100">
+
+
+<div class="card-body">
+
+
+<div class="d-flex justify-content-between">
+
+
+<div>
+
+
+<small class="text-muted">
+
+Revenue
+
+</small>
+
+
+<h4 class="fw-bold text-success mt-2">
+
+
+TZS {{ total_income|floatformat:0|intcomma }}
+
+
+</h4>
+
+
+<span class="text-muted small">
+
+Total income received
+
+</span>
+
+
+</div>
+
+
+
+<div class="text-success fs-1">
+
+<i class="bi bi-cash-stack"></i>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+
+<div class="card shadow-sm border-0 h-100">
+
+
+<div class="card-body">
+
+
+<div class="d-flex justify-content-between">
+
+
+<div>
+
+
+<small class="text-muted">
+
+Net Profit
+
+</small>
+
+
+<h4 class="fw-bold text-primary mt-2">
+
+
+TZS {{ profit|floatformat:0|intcomma }}
+
+
+</h4>
+
+
+<span class="text-muted small">
+
+Revenue minus expenses
+
+</span>
+
+
+</div>
+
+
+
+<div class="text-primary fs-1">
+
+<i class="bi bi-graph-up-arrow"></i>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- REPORT MODULES -->
+
+
+<div class="row g-4">
+
+
+
+
+
+<div class="col-lg-4">
+
+
+<div class="card shadow-sm border-0 h-100">
+
+
+<div class="card-body">
+
+
+<div class="mb-3">
+
+
+<i class="bi bi-bar-chart fs-2 text-primary"></i>
+
+
+</div>
+
+
+<h5 class="fw-bold">
+
+Analytics
+
+</h5>
+
+
+<p class="text-muted">
+
+View company trends, growth indicators and performance statistics.
+
+</p>
+
+
+
+<a href="{% url 'reports:analytics' %}"
+
+class="btn btn-outline-primary">
+
+
+Open Analytics
+
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="col-lg-4">
+
+
+<div class="card shadow-sm border-0 h-100">
+
+
+<div class="card-body">
+
+
+<div class="mb-3">
+
+<i class="bi bi-truck fs-2 text-warning"></i>
+
+</div>
+
+
+<h5 class="fw-bold">
+
+Equipment Reports
+
+</h5>
+
+
+<p class="text-muted">
+
+Analyze fleet availability, utilization and maintenance status.
+
+</p>
+
+
+
+<a href="{% url 'reports:equipment_reports' %}"
+
+class="btn btn-outline-warning">
+
+
+View Equipment
+
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="col-lg-4">
+
+
+<div class="card shadow-sm border-0 h-100">
+
+
+<div class="card-body">
+
+
+<div class="mb-3">
+
+<i class="bi bi-currency-dollar fs-2 text-success"></i>
+
+</div>
+
+
+<h5 class="fw-bold">
+
+Financial Reports
+
+</h5>
+
+
+<p class="text-muted">
+
+Review revenue, expenses and profitability.
+
+</p>
+
+
+
+<a href="{% url 'reports:financial_reports' %}"
+
+class="btn btn-outline-success">
+
+
+Open Finance
+
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-lg-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<h5 class="fw-bold">
+
+<i class="bi bi-building me-2"></i>
+
+Project Reports
+
+</h5>
+
+
+<p class="text-muted">
+
+Track project values, completion status and progress.
+
+</p>
+
+
+<a href="{% url 'reports:project_reports' %}"
+
+class="btn btn-outline-primary">
+
+
+Project Analysis
+
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="col-lg-6">
+
+
+<div class="card shadow-sm border-0">
+
+
+<div class="card-body">
+
+
+<h5 class="fw-bold">
+
+<i class="bi bi-download me-2"></i>
+
+Export Center
+
+</h5>
+
+
+<p class="text-muted">
+
+Download company reports for Excel and external analysis.
+
+</p>
+
+
+<a href="{% url 'reports:export' %}"
+
+class="btn btn-dark">
+
+
+Export CSV
+
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Edit Client | RLB-AM EMS
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+
+<h2 class="fw-bold mb-4">
+Edit Client
+</h2>
+
+
+<form method="post">
+
+{% csrf_token %}
+
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+
+{{ form.as_p }}
+
+
+<button class="btn btn-primary">
+<i class="bi bi-save me-2"></i>
+Update Client
+</button>
+
+
+<a href="{% url 'crm:client_detail' client.pk %}"
+class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+
+</div>
+
+</div>
+
+
+</form>
+
+
+</div>
+
+{% endblock %}

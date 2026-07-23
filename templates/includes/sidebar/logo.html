@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="sidebar-logo">
+    <a href="{% url 'dashboard:dashboard' %}" 
+       class="d-flex align-items-center gap-3 text-decoration-none">
+
+        <!-- Logo Image -->
+        <img src="{% static 'img/logo.png' %}" 
+             alt="RLB-AM Logo" 
+             class="logo-img"
+             loading="lazy">
+
+        <!-- Logo Text -->
+        <div class="logo-details">
+            <h4 class="mb-0 fw-bold text-white">RLB-AM</h4>
+            <span class="small text-light">Enterprise EMS</span>
+        </div>
+
+    </a>
+</div>

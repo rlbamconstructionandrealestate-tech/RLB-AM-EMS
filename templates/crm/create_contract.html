@@ -1,0 +1,291 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Create Contract | RLB-AM EMS{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Create New Contract
+            </h2>
+
+            <p class="text-muted mb-0">
+                Register a new agreement with a client.
+            </p>
+
+        </div>
+
+
+        <a href="{% url 'crm:contracts' %}"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Contracts
+
+        </a>
+
+
+    </div>
+
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+
+        <div class="row">
+
+
+            <!-- Main Form -->
+
+            <div class="col-lg-8">
+
+
+                <div class="card shadow-sm border-0">
+
+
+                    <div class="card-header bg-white">
+
+                        <h5 class="mb-0">
+                            Contract Information
+                        </h5>
+
+                    </div>
+
+
+                    <div class="card-body">
+
+
+                        <div class="row">
+
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Client
+                                </label>
+
+                                {{ form.client }}
+
+                            </div>
+
+
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Contract Number
+                                </label>
+
+                                {{ form.contract_number }}
+
+                            </div>
+
+
+
+                            <div class="col-md-12 mb-3">
+
+                                <label class="form-label">
+                                    Project Name
+                                </label>
+
+                                {{ form.project_name }}
+
+                            </div>
+
+
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Contract Value
+                                </label>
+
+                                {{ form.total_value }}
+
+                            </div>
+
+
+
+                            <div class="col-md-3 mb-3">
+
+                                <label class="form-label">
+                                    Start Date
+                                </label>
+
+                                {{ form.start_date }}
+
+                            </div>
+
+
+
+                            <div class="col-md-3 mb-3">
+
+                                <label class="form-label">
+                                    End Date
+                                </label>
+
+                                {{ form.end_date }}
+
+                            </div>
+
+
+
+                            <div class="col-md-12 mb-3">
+
+                                <label class="form-label">
+                                    Status
+                                </label>
+
+                                {{ form.status }}
+
+                            </div>
+
+
+
+                            <div class="col-md-12">
+
+                                <label class="form-label">
+                                    Description
+                                </label>
+
+                                {{ form.description }}
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Side Actions -->
+
+            <div class="col-lg-4">
+
+
+                <div class="card shadow-sm border-0">
+
+
+                    <div class="card-header bg-white">
+
+                        <h5 class="mb-0">
+                            Actions
+                        </h5>
+
+                    </div>
+
+
+
+                    <div class="card-body">
+
+
+                        <button type="submit"
+                                class="btn btn-primary w-100 mb-3">
+
+
+                            <i class="bi bi-save me-2"></i>
+
+                            Save Contract
+
+
+                        </button>
+
+
+
+                        <a href="{% url 'crm:contracts' %}"
+                           class="btn btn-outline-secondary w-100">
+
+
+                            Cancel
+
+
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div class="card shadow-sm border-0 mt-4">
+
+
+                    <div class="card-header bg-white">
+
+                        <h5 class="mb-0">
+                            Contract Guidelines
+                        </h5>
+
+                    </div>
+
+
+                    <div class="card-body">
+
+
+                        <ul class="small text-muted mb-0">
+
+                            <li>
+                                Use a unique contract number.
+                            </li>
+
+                            <li>
+                                Select the correct client.
+                            </li>
+
+                            <li>
+                                Enter the total agreement value.
+                            </li>
+
+                            <li>
+                                Keep contract dates accurate.
+                            </li>
+
+                            <li>
+                                Update status as work progresses.
+                            </li>
+
+
+                        </ul>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+{% endblock %}

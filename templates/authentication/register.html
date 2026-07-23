@@ -1,0 +1,256 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Create Account | RLB-AM EMS{% endblock %}
+
+{% block auth_content %}
+
+<div class="container-fluid min-vh-100 bg-light">
+
+    <div class="row min-vh-100">
+
+        <!-- LEFT PANEL -->
+        <div class="col-lg-5 d-none d-lg-flex align-items-center justify-content-center text-white"
+             style="background:linear-gradient(135deg,#0f172a,#1e3a8a);">
+
+            <div class="text-center px-5">
+
+                <img src="{% static 'img/logo.png' %}"
+                     style="width:110px;"
+                     class="mb-4"
+                     onerror="this.style.display='none';">
+
+                <h1 class="fw-bold display-5">
+                    RLB-AM EMS
+                </h1>
+
+                <p class="lead mt-3">
+                    Enterprise Management System
+                </p>
+
+                <hr class="my-4">
+
+                <p class="text-light">
+
+                    Equipment Management<br>
+                    Project Management<br>
+                    Finance Management<br>
+                    Rentals Management<br>
+                    Real Estate Management
+
+                </p>
+
+                <div class="mt-5 small text-white-50">
+                    © {% now "Y" %} RLB-AM Construction & Real Estate Ltd.
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="col-lg-7 d-flex align-items-center">
+
+            <div class="container">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-md-9 col-xl-8">
+
+                        <div class="card border-0 shadow-lg rounded-4">
+
+                            <div class="card-body p-5">
+
+                                <h2 class="fw-bold mb-2">
+                                    Create Account
+                                </h2>
+
+                                <p class="text-muted mb-4">
+                                    Register a new employee account.
+                                </p>
+
+                                {% if form.errors %}
+
+                                <div class="alert alert-danger">
+
+                                    <strong>Please correct the errors below.</strong>
+
+                                    {{ form.non_field_errors }}
+
+                                </div>
+
+                                {% endif %}
+
+                                <form method="post">
+
+                                    {% csrf_token %}
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label class="form-label">
+                                                First Name
+                                            </label>
+
+                                            {{ form.first_name }}
+
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label class="form-label">
+                                                Last Name
+                                            </label>
+
+                                            {{ form.last_name }}
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="mb-3">
+
+                                        <label class="form-label">
+                                            Username
+                                        </label>
+
+                                        {{ form.username }}
+
+                                    </div>
+
+                                    <div class="mb-3">
+
+                                        <label class="form-label">
+                                            Email Address
+                                        </label>
+
+                                        {{ form.email }}
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label class="form-label">
+                                                Employee ID
+                                            </label>
+
+                                            {{ form.employee_id }}
+
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label class="form-label">
+                                                Phone Number
+                                            </label>
+
+                                            {{ form.phone }}
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label class="form-label">
+                                                Role
+                                            </label>
+
+                                            {{ form.role }}
+
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label class="form-label">
+                                                Department
+                                            </label>
+
+                                            {{ form.department }}
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="mb-3">
+
+                                        <label class="form-label">
+                                            Job Title
+                                        </label>
+
+                                        {{ form.job_title }}
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label class="form-label">
+                                                Password
+                                            </label>
+
+                                            {{ form.password1 }}
+
+                                        </div>
+
+                                        <div class="col-md-6 mb-4">
+
+                                            <label class="form-label">
+                                                Confirm Password
+                                            </label>
+
+                                            {{ form.password2 }}
+
+                                        </div>
+
+                                    </div>
+
+                                    <button
+                                        class="btn btn-success w-100 py-3 fw-semibold">
+
+                                        <i class="bi bi-person-plus-fill me-2"></i>
+
+                                        Create Account
+
+                                    </button>
+
+                                </form>
+
+                                <hr class="my-4">
+
+                                <div class="text-center">
+
+                                    Already have an account?
+
+                                    <a href="{% url 'accounts:login' %}"
+                                       class="fw-semibold text-decoration-none">
+
+                                        Sign In
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

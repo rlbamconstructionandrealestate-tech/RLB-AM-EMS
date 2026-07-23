@@ -1,0 +1,326 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Employees | RLB-AM EMS
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+
+
+<!-- PAGE HEADER -->
+
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
+
+
+<div>
+
+<h2 class="fw-bold">
+
+<i class="bi bi-people me-2"></i>
+
+Employees
+
+</h2>
+
+
+<p class="text-muted">
+
+Manage company workforce records
+
+</p>
+
+
+</div>
+
+
+
+<a href="{% url 'employees:create' %}"
+class="btn btn-primary">
+
+<i class="bi bi-person-plus me-2"></i>
+
+Add Employee
+
+</a>
+
+
+</div>
+
+
+
+
+
+<!-- EMPLOYEE TABLE -->
+
+
+<div class="card shadow-sm">
+
+
+<div class="card-body">
+
+
+<div class="table-responsive">
+
+
+<table class="table align-middle">
+
+
+<thead>
+
+<tr>
+
+<th>Photo</th>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Position</th>
+
+<th>Department</th>
+
+<th>Type</th>
+
+<th>Status</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for employee in employees %}
+
+
+<tr>
+
+
+<td>
+
+
+{% if employee.photo %}
+
+
+<img src="{{ employee.photo.url }}"
+width="45"
+height="45"
+class="rounded-circle object-fit-cover">
+
+
+{% else %}
+
+
+<div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center"
+style="width:45px;height:45px">
+
+
+{{ employee.first_name|first }}
+
+
+</div>
+
+
+{% endif %}
+
+
+</td>
+
+
+
+<td>
+
+{{ employee.employee_id }}
+
+</td>
+
+
+
+<td>
+
+
+<strong>
+
+{{ employee.full_name }}
+
+</strong>
+
+
+<br>
+
+<small class="text-muted">
+
+{{ employee.phone }}
+
+</small>
+
+
+</td>
+
+
+
+
+<td>
+
+{{ employee.position }}
+
+</td>
+
+
+
+
+<td>
+
+{{ employee.department|default:"-" }}
+
+</td>
+
+
+
+<td>
+
+<span class="badge bg-info">
+
+{{ employee.get_employee_type_display }}
+
+</span>
+
+</td>
+
+
+
+
+<td>
+
+
+{% if employee.status == "active" %}
+
+
+<span class="badge bg-success">
+
+Active
+
+</span>
+
+
+{% elif employee.status == "inactive" %}
+
+
+<span class="badge bg-secondary">
+
+Inactive
+
+</span>
+
+
+{% else %}
+
+
+<span class="badge bg-warning">
+
+{{ employee.get_status_display }}
+
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+
+
+<td>
+
+
+<a href="{% url 'employees:update' employee.id %}"
+class="btn btn-sm btn-outline-primary">
+
+
+<i class="bi bi-pencil"></i>
+
+
+</a>
+
+
+
+
+<a href="{% url 'employees:delete' employee.id %}"
+class="btn btn-sm btn-outline-danger">
+
+
+<i class="bi bi-trash"></i>
+
+
+</a>
+
+
+
+</td>
+
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="8"
+class="text-center py-5">
+
+
+<h5 class="text-muted">
+
+No employees registered
+
+</h5>
+
+
+<a href="{% url 'employees:create' %}"
+class="btn btn-primary mt-3">
+
+Add First Employee
+
+</a>
+
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

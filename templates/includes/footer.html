@@ -1,19 +1,71 @@
-<footer class="footer">
+<footer class="app-footer">
+
 
     <div class="footer-left">
 
-        &copy; {% now "Y" %}
 
-        <strong>RLB-AM Construction & Real Estate Ltd.</strong>
+        <span>
 
-        All Rights Reserved.
+            © {{ "now"|date:"Y" }}
+
+            <strong>
+                RLB-AM Construction & Real Estate Ltd.
+            </strong>
+
+        </span>
+
 
     </div>
+
+
+
+
+
+    <div class="footer-center d-none d-md-block">
+
+
+        <span>
+
+            Enterprise Management System
+
+        </span>
+
+
+    </div>
+
+
+
+
+
 
     <div class="footer-right">
 
-        <span>EMS Version 1.0.0</span>
+
+        <span class="system-status">
+
+
+            <i class="bi bi-circle-fill"></i>
+
+
+            System Online
+
+
+        </span>
+
+
+
+
+
+        <span class="version">
+
+            v1.0.0
+
+        </span>
+
+
 
     </div>
+
+
 
 </footer>

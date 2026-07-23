@@ -1,169 +1,158 @@
 /* ==========================================================
-   RLB-AM Enterprise Management System
-   Design System
+   RLB-AM EMS V6.1
+   ENTERPRISE DESIGN SYSTEM VARIABLES v3.1
+   Centralized & Stabilized
 ========================================================== */
 
-:root{
-
-    /* ===============================
-       BRAND COLORS
-    =============================== */
-
-    --primary:#0F4C81;
-    --primary-dark:#09345A;
-    --primary-light:#EAF4FB;
-
-    --secondary:#1D3557;
-
-    --success:#16A34A;
-    --warning:#F59E0B;
-    --danger:#DC2626;
-    --info:#0EA5E9;
-
-    /* ===============================
-       BACKGROUNDS
-    =============================== */
-
-    --background:#F4F7FB;
-
-    --sidebar:#123D6A;
-
-    --sidebar-hover:#17497E;
-
-    --sidebar-active:#0F4C81;
-
-    --card:#FFFFFF;
-
-    --navbar:#FFFFFF;
-
-    --footer:#FFFFFF;
-
-    /* ===============================
-       TEXT
-    =============================== */
-
-    --text:#1F2937;
-
-    --text-light:#6B7280;
-
-    --text-white:#FFFFFF;
-
-    /* ===============================
-       BORDERS
-    =============================== */
-
-    --border:#E5E7EB;
-
-    --input-border:#D1D5DB;
-
-    /* ===============================
-       SHADOWS
-    =============================== */
-
-    --shadow-xs:0 1px 3px rgba(0,0,0,.04);
-
-    --shadow-sm:0 3px 8px rgba(0,0,0,.06);
-
-    --shadow:0 8px 20px rgba(0,0,0,.08);
-
-    --shadow-lg:0 15px 35px rgba(0,0,0,.10);
-
-    /* ===============================
-       BORDER RADIUS
-    =============================== */
-
-    --radius-xs:4px;
-
-    --radius-sm:8px;
-
-    --radius:12px;
-
-    --radius-lg:18px;
-
-    --radius-xl:24px;
-
-    --radius-round:50%;
-
-    /* ===============================
-       SPACING
-    =============================== */
-
-    --space-1:4px;
-
-    --space-2:8px;
-
-    --space-3:12px;
-
-    --space-4:16px;
-
-    --space-5:20px;
-
-    --space-6:24px;
-
-    --space-7:30px;
-
-    --space-8:40px;
-
-    /* ===============================
-       SIDEBAR
-    =============================== */
-
-    --sidebar-width:270px;
-
-    --sidebar-collapsed:80px;
-
-    /* ===============================
-       NAVBAR
-    =============================== */
-
-    --navbar-height:75px;
-
-    /* ===============================
-       FOOTER
-    =============================== */
-
-    --footer-height:65px;
-
-    /* ===============================
-       TRANSITIONS
-    =============================== */
-
-    --transition-fast:.2s;
-
-    --transition:.3s;
-
-    --transition-slow:.45s;
-
-    /* ===============================
-       FONT
-    =============================== */
-
-    --font-family:'Inter',sans-serif;
-
-    --font-xs:.75rem;
-
-    --font-sm:.875rem;
-
-    --font-base:1rem;
-
-    --font-lg:1.1rem;
-
-    --font-xl:1.25rem;
-
-    --font-2xl:1.5rem;
-
-    --font-3xl:2rem;
-
-    /* ===============================
-       Z INDEX
-    =============================== */
-
-    --z-sidebar:1000;
-
-    --z-navbar:950;
-
-    --z-dropdown:1100;
-
-    --z-modal:2000;
-
+:root {
+    /* ==========================================================
+       BRAND IDENTITY
+    ========================================================== */
+    --primary: #2563eb;
+    --primary-hover: #1e40af;
+    --primary-light: #dbeafe;
+    --primary-dark: #1e3a8a;
+
+    --secondary: #0f172a;
+    --secondary-dark: #020617;
+
+    --accent: #38bdf8;
+
+    /* ==========================================================
+       STATUS COLORS
+    ========================================================== */
+    --success: #16a34a;
+    --success-light: #dcfce7;
+
+    --warning: #f59e0b;
+    --warning-light: #fef3c7;
+
+    --danger: #ef4444;
+    --danger-light: #fee2e2;
+
+    --info: #0891b2;
+    --info-light: #cffafe;
+
+    /* ==========================================================
+       APPLICATION COLORS
+    ========================================================== */
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --card: #ffffff;
+
+    --navbar: rgba(255, 255, 255, 0.92);
+    --sidebar: #020617;
+    --footer: #ffffff;
+
+    /* ==========================================================
+       TEXT SYSTEM
+    ========================================================== */
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+    --text-white: #ffffff;
+
+    /* ==========================================================
+       BORDER SYSTEM
+    ========================================================== */
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --input-border: #cbd5e1;
+
+    /* ==========================================================
+       SHADOW SYSTEM
+    ========================================================== */
+    --shadow-xs: 0 2px 5px rgba(15, 23, 42, 0.05);
+    --shadow-sm: 0 5px 15px rgba(15, 23, 42, 0.08);
+    --shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
+    --shadow-lg: 0 25px 60px rgba(15, 23, 42, 0.18);
+
+    /* ==========================================================
+       RADIUS SYSTEM
+    ========================================================== */
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 22px;
+    --radius-xl: 30px;
+
+    /* ==========================================================
+       LAYOUT
+    ========================================================== */
+    --sidebar-width: 280px;
+    --sidebar-collapsed-width: 85px;
+    --navbar-height: 72px;
+    --content-padding: 28px;
+
+    /* ==========================================================
+       TYPOGRAPHY
+    ========================================================== */
+    --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.75rem;
+
+    /* ==========================================================
+       ANIMATION & TRANSITION
+    ========================================================== */
+    --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s ease;
 }
+
+/* ==========================================================
+   DARK MODE
+========================================================== */
+
+[data-bs-theme="dark"] {
+    --background: #020617;
+    --surface: #0f172a;
+    --card: #111827;
+
+    --navbar: rgba(15, 23, 42, 0.92);
+    --sidebar: #020617;
+    --footer: #0f172a;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-light: #64748b;
+    --text-white: #ffffff;
+
+    --border: #1e293b;
+    --border-light: #334155;
+    --input-border: #475569;
+
+    --shadow-xs: 0 2px 5px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.4);
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 30px 70px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================
+   GLOBAL HELPER CLASSES
+========================================================== */
+
+.text-primary { color: var(--primary) !important; }
+.text-success { color: var(--success) !important; }
+.text-warning { color: var(--warning) !important; }
+.text-danger  { color: var(--danger) !important; }
+.text-info    { color: var(--info) !important; }
+.text-muted   { color: var(--text-muted) !important; }
+
+.bg-primary   { background-color: var(--primary) !important; }
+.bg-success   { background-color: var(--success) !important; }
+.bg-warning   { background-color: var(--warning) !important; }
+.bg-danger    { background-color: var(--danger) !important; }
+.bg-info      { background-color: var(--info) !important; }
+
+.rounded-sm   { border-radius: var(--radius-sm); }
+.rounded      { border-radius: var(--radius); }
+.rounded-lg   { border-radius: var(--radius-lg); }
+.rounded-xl   { border-radius: var(--radius-xl); }
+
+.shadow-xs    { box-shadow: var(--shadow-xs); }
+.shadow-sm    { box-shadow: var(--shadow-sm); }
+.shadow       { box-shadow: var(--shadow); }
+.shadow-lg    { box-shadow: var(--shadow-lg); }

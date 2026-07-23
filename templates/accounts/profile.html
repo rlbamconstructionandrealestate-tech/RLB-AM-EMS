@@ -1,210 +1,137 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
-{% block title %}My Profile{% endblock %}
+{% block title %}My Profile | RLB-AM EMS{% endblock %}
 
 {% block content %}
 
-<div class="container-fluid">
+<div class="max-w-6xl mx-auto">
 
-    <div class="row">
+    <!-- Page Header -->
+    <div class="page-header mb-6">
+        <h1 class="page-title">My Profile</h1>
+        <p class="text-muted">Manage your personal information and account settings</p>
+    </div>
 
-        <!-- LEFT SIDE -->
-        <div class="col-lg-4">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-            <div class="card shadow border-0">
+        <!-- Profile Sidebar Card -->
+        <div class="lg:col-span-4">
+            <div class="card h-full">
 
-                <div class="card-body text-center">
+                <div class="card-body text-center pt-8 pb-6">
 
-                    <img src="{% static 'images/default-user.png' %}"
-                         class="rounded-circle border border-3 border-primary mb-3"
-                         width="160"
-                         height="160"
-                         alt="Profile">
+                    <!-- Profile Picture -->
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" 
+                             class="rounded-3xl border-4 border-white shadow-xl mx-auto mb-6"
+                             width="180" height="180" 
+                             style="object-fit: cover;" 
+                             alt="Profile Picture">
+                    {% else %}
+                        <div class="w-[180px] h-[180px] mx-auto mb-6 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 
+                                    flex items-center justify-center text-white text-7xl font-bold shadow-xl">
+                            {{ user.first_name|first|default:user.username|first|upper }}
+                        </div>
+                    {% endif %}
 
-                    <h3>{{ user.username }}</h3>
+                    <!-- User Info -->
+                    <h3 class="font-semibold text-2xl mb-1">{{ user.get_full_name|default:user.username }}</h3>
+                    <p class="text-muted mb-4">{{ user.job_title|default:"Employee" }}</p>
+                    
+                    <span class="badge bg-primary px-5 py-2 text-base">
+                        {{ user.get_role_display }}
+                    </span>
 
-                    <p class="text-muted">
-                        {{ user.email }}
-                    </p>
+                    <hr class="my-7">
 
-                    <hr>
-
-                    <div class="text-start">
-
-                        <p>
-                            <strong>Username</strong><br>
-                            {{ user.username }}
-                        </p>
-
-                        <p>
-                            <strong>Email</strong><br>
-                            {{ user.email }}
-                        </p>
-
-                        <p>
-                            <strong>Last Login</strong><br>
-                            {{ user.last_login }}
-                        </p>
-
-                        <p>
-                            <strong>Date Joined</strong><br>
-                            {{ user.date_joined }}
-                        </p>
-
+                    <!-- Details -->
+                    <div class="text-left space-y-5">
+                        <div>
+                            <strong class="block text-xs text-gray-500 uppercase tracking-widest">Employee ID</strong>
+                            <p class="mt-1">{{ user.employee_id|default:"Not Assigned" }}</p>
+                        </div>
+                        <div>
+                            <strong class="block text-xs text-gray-500 uppercase tracking-widest">Email Address</strong>
+                            <p class="mt-1">{{ user.email }}</p>
+                        </div>
+                        <div>
+                            <strong class="block text-xs text-gray-500 uppercase tracking-widest">Phone Number</strong>
+                            <p class="mt-1">{{ user.phone|default:"Not Provided" }}</p>
+                        </div>
+                        <div>
+                            <strong class="block text-xs text-gray-500 uppercase tracking-widest">Department</strong>
+                            <p class="mt-1">{{ user.get_department_display|default:"Not Assigned" }}</p>
+                        </div>
+                        <div>
+                            <strong class="block text-xs text-gray-500 uppercase tracking-widest">Member Since</strong>
+                            <p class="mt-1">{{ user.date_joined|date:"d F Y" }}</p>
+                        </div>
                     </div>
 
                 </div>
-
             </div>
-
         </div>
 
-        <!-- RIGHT SIDE -->
-        <div class="col-lg-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-8">
 
-            <div class="card shadow border-0">
-
-                <div class="card-header bg-primary text-white">
-
-                    <h4 class="mb-0">
-                        My Account
-                    </h4>
-
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0 d-flex align-items-center gap-3">
+                        <i class="bi bi-person-circle"></i>
+                        Account Information
+                    </h5>
                 </div>
 
                 <div class="card-body">
 
-                    <div class="row">
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-                                First Name
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="{{ user.first_name }}"
-                                readonly>
-
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">First Name</label>
+                            <input type="text" class="form-control py-3 rounded-2xl" 
+                                   value="{{ user.first_name }}" readonly>
                         </div>
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-                                Last Name
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="{{ user.last_name }}"
-                                readonly>
-
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">Last Name</label>
+                            <input type="text" class="form-control py-3 rounded-2xl" 
+                                   value="{{ user.last_name }}" readonly>
                         </div>
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-                                Username
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="{{ user.username }}"
-                                readonly>
-
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">Username</label>
+                            <input type="text" class="form-control py-3 rounded-2xl" 
+                                   value="{{ user.username }}" readonly>
                         </div>
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label">
-                                Email
-                            </label>
-
-                            <input
-                                type="email"
-                                class="form-control"
-                                value="{{ user.email }}"
-                                readonly>
-
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">Email Address</label>
+                            <input type="email" class="form-control py-3 rounded-2xl" 
+                                   value="{{ user.email }}" readonly>
                         </div>
-
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">Employee ID</label>
+                            <input type="text" class="form-control py-3 rounded-2xl" 
+                                   value="{{ user.employee_id|default:'' }}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-medium">Phone Number</label>
+                            <input type="text" class="form-control py-3 rounded-2xl" 
+                                   value="{{ user.phone|default:'' }}" readonly>
+                        </div>
                     </div>
 
-                    <hr>
+                    <hr class="my-8">
 
-                    <div class="row text-center">
-
-                        <div class="col-md-4">
-
-                            <div class="card bg-primary text-white">
-
-                                <div class="card-body">
-
-                                    <h5>Account Status</h5>
-
-                                    <h4>Active</h4>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4">
-
-                            <div class="card bg-success text-white">
-
-                                <div class="card-body">
-
-                                    <h5>Role</h5>
-
-                                    <h4>User</h4>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4">
-
-                            <div class="card bg-dark text-white">
-
-                                <div class="card-body">
-
-                                    <h5>Member Since</h5>
-
-                                    <h4>{{ user.date_joined|date:"Y" }}</h4>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="mt-4">
-
-                        <button class="btn btn-primary">
-                            <i class="bi bi-pencil-square"></i>
-                            Edit Profile
-                        </button>
-
-                        <button class="btn btn-warning">
-                            <i class="bi bi-key"></i>
-                            Change Password
-                        </button>
-
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary px-5 py-3">
+                            <i class="bi bi-pencil-square me-2"></i> Edit Profile
+                        </a>
+                        <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-secondary px-5 py-3">
+                            <i class="bi bi-key me-2"></i> Change Password
+                        </a>
                     </div>
 
                 </div>
-
             </div>
 
         </div>

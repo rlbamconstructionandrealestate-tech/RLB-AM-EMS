@@ -1,653 +1,551 @@
 {% extends "layouts/base.html" %}
 
 {% block title %}
-Equipment Management
+Equipment List | RLB-AM EMS
 {% endblock %}
+
 
 
 {% block content %}
 
+
 <div class="container-fluid">
 
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <div>
+<!-- HEADER -->
 
-            <h2 class="fw-bold">
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
 
-                <i class="bi bi-truck"></i>
-                Equipment Management
 
-            </h2>
+<div>
 
-            <p class="text-muted mb-0">
-                Manage company equipment, rental rates and availability.
-            </p>
+<h1 class="fw-bold">
 
-        </div>
+Equipment Fleet
 
+</h1>
 
-        <div>
 
-            <a href="{% url 'equipment:create' %}"
-               class="btn btn-primary">
+<p class="text-muted mb-0">
 
-                <i class="bi bi-plus-circle"></i>
-                Add Equipment
+Manage all company equipment assets
 
-            </a>
+</p>
 
-        </div>
 
+</div>
 
-    </div>
 
 
+<a href="{% url 'equipment:create' %}"
+class="btn btn-primary">
 
 
-    <!-- Search and Filters -->
+<i class="bi bi-plus-circle me-2"></i>
 
-    <div class="card shadow-sm border-0 mb-4">
+Add Equipment
 
-        <div class="card-body">
 
+</a>
 
-            <form method="GET">
 
+</div>
 
-                <div class="row g-3">
 
 
-                    <!-- Search -->
 
-                    <div class="col-md-4">
 
-                        <label class="form-label">
-                            Search
-                        </label>
 
-                        <input type="text"
-                               name="search"
-                               value="{{ search|default:'' }}"
-                               class="form-control"
-                               placeholder="Name, asset number, serial...">
 
-                    </div>
+<!-- FILTER BAR -->
 
 
+<div class="card mb-4">
 
-                    <!-- Category -->
 
-                    <div class="col-md-3">
+<div class="card-body">
 
-                        <label class="form-label">
-                            Category
-                        </label>
 
-                        <select name="category"
-                                class="form-select">
+<form method="GET">
 
 
-                            <option value="">
-                                All Categories
-                            </option>
+<div class="row g-3">
 
 
-                            {% for category in categories %}
 
-                            <option value="{{ category.id }}"
-                            {% if selected_category == category.id|stringformat:"s" %}
-                                selected
-                            {% endif %}
-                            >
+<div class="col-md-6">
 
-                                {{ category.name }}
 
-                            </option>
+<input type="text"
+name="search"
+class="form-control"
+placeholder="Search equipment..."
+value="{{ request.GET.search }}">
 
-                            {% endfor %}
 
+</div>
 
-                        </select>
 
-                    </div>
 
 
 
 
-                    <!-- Status -->
+<div class="col-md-4">
 
 
-                    <div class="col-md-3">
+<select name="status"
+class="form-select">
 
-                        <label class="form-label">
-                            Status
-                        </label>
 
+<option value="">
 
-                        <select name="status"
-                                class="form-select">
+All Status
 
+</option>
 
-                            <option value="">
-                                All Status
-                            </option>
 
 
-                            {% for value,label in status_choices %}
+<option value="available"
+{% if request.GET.status == "available" %}selected{% endif %}>
 
-                            <option value="{{ value }}"
-                            {% if selected_status == value %}
-                                selected
-                            {% endif %}
-                            >
+Available
 
-                                {{ label }}
+</option>
 
-                            </option>
 
-                            {% endfor %}
 
+<option value="working"
+{% if request.GET.status == "working" %}selected{% endif %}>
 
-                        </select>
+Working
 
+</option>
 
-                    </div>
 
 
+<option value="maintenance"
+{% if request.GET.status == "maintenance" %}selected{% endif %}>
 
+Maintenance
 
-                    <div class="col-md-2 d-flex align-items-end">
+</option>
 
 
-                        <button class="btn btn-dark w-100">
 
-                            <i class="bi bi-search"></i>
-                            Filter
+</select>
 
-                        </button>
 
+</div>
 
-                    </div>
 
 
 
-                </div>
 
 
-            </form>
+<div class="col-md-2">
 
 
-        </div>
+<button class="btn btn-primary w-100">
 
-    </div>
 
+<i class="bi bi-search"></i>
 
+Filter
 
 
+</button>
 
 
+</div>
 
-    <!-- Equipment Table -->
 
 
-    <div class="card shadow-sm border-0">
+</div>
 
 
-        <div class="card-body">
 
+</form>
 
-            <div class="table-responsive">
 
 
-                <table class="table table-hover align-middle">
+</div>
 
 
-                    <thead class="table-light">
+</div>
 
 
-                        <tr>
 
-                            <th>
-                                Image
-                            </th>
 
-                            <th>
-                                Asset No.
-                            </th>
 
-                            <th>
-                                Equipment
-                            </th>
 
-                            <th>
-                                Category
-                            </th>
 
-                            <th>
-                                Manufacturer
-                            </th>
 
-                            <th>
-                                Status
-                            </th>
 
-                            <th>
-                                Daily Rate
-                            </th>
+<!-- TABLE -->
 
-                            <th>
-                                Location
-                            </th>
 
-                            <th>
-                                Action
-                            </th>
+<div class="card">
 
 
-                        </tr>
 
+<div class="card-body">
 
-                    </thead>
 
 
+<div class="table-responsive">
 
 
-                    <tbody>
+<table class="table table-hover align-middle">
 
 
+<thead>
 
-                    {% for equipment in equipment_list %}
 
+<tr>
 
-                    <tr>
 
+<th>
+Asset No.
+</th>
 
 
-                        <td>
+<th>
+Equipment
+</th>
 
 
-                            {% if equipment.image %}
+<th>
+Category
+</th>
 
 
-                            <img src="{{ equipment.image.url }}"
-                                 width="70"
-                                 height="50"
-                                 class="rounded"
-                                 style="object-fit:cover;">
+<th>
+Status
+</th>
 
 
-                            {% else %}
+<th>
+Location
+</th>
 
 
-                            <span class="text-muted">
+<th>
+Value
+</th>
 
-                                No Image
 
-                            </span>
+<th>
+Actions
+</th>
 
 
-                            {% endif %}
+</tr>
 
 
+</thead>
 
-                        </td>
 
 
 
+<tbody>
 
-                        <td>
 
 
-                            <strong>
+{% for item in equipment %}
 
-                                {{ equipment.asset_number }}
 
-                            </strong>
 
+<tr>
 
-                        </td>
 
 
+<td>
 
 
+<strong>
 
-                        <td>
+{{ item.asset_number }}
 
+</strong>
 
-                            <a href="{% url 'equipment:detail' equipment.pk %}"
-                               class="text-decoration-none">
 
+</td>
 
-                                {{ equipment.name }}
 
 
-                            </a>
 
 
-                            <br>
+<td>
 
 
-                            <small class="text-muted">
+<div class="d-flex align-items-center gap-3">
 
-                                {{ equipment.model }}
 
-                            </small>
+{% if item.image %}
 
 
-                        </td>
+<img src="{{ item.image.url }}"
+style="width:45px;height:45px;object-fit:cover;"
+class="rounded">
 
 
+{% else %}
 
 
+<div class="bg-light rounded d-flex align-items-center justify-content-center"
+style="width:45px;height:45px;">
 
-                        <td>
 
-                            {{ equipment.category|default:"-" }}
+<i class="bi bi-truck text-muted"></i>
 
-                        </td>
 
+</div>
 
 
+{% endif %}
 
 
-                        <td>
 
-                            {{ equipment.manufacturer|default:"-" }}
+<div>
 
-                        </td>
 
+<a href="{% url 'equipment:detail' item.pk %}"
+class="fw-semibold">
 
 
+{{ item.name }}
 
 
+</a>
 
-                        <td>
 
 
-                            {% if equipment.status == "Available" %}
+<br>
 
 
-                            <span class="badge bg-success">
+<small class="text-muted">
 
-                                Available
+{{ item.manufacturer }}
 
-                            </span>
+</small>
 
 
 
-                            {% elif equipment.status == "Working" %}
+</div>
 
 
-                            <span class="badge bg-primary">
 
-                                Working
+</div>
 
-                            </span>
 
 
+</td>
 
-                            {% elif equipment.status == "Rented" %}
 
 
-                            <span class="badge bg-info">
 
-                                Rented
 
-                            </span>
 
+<td>
 
+{{ item.category }}
 
-                            {% elif equipment.status == "Maintenance" %}
+</td>
 
 
-                            <span class="badge bg-warning text-dark">
 
-                                Maintenance
 
-                            </span>
 
 
 
-                            {% else %}
+<td>
 
 
-                            <span class="badge bg-danger">
+{% if item.status == "available" %}
 
-                                Out Of Service
 
-                            </span>
+<span class="badge bg-success">
 
+Available
 
+</span>
 
-                            {% endif %}
 
+{% elif item.status == "working" %}
 
 
-                        </td>
+<span class="badge bg-primary">
 
+Working
 
+</span>
 
 
+{% elif item.status == "maintenance" %}
 
 
-                        <td>
+<span class="badge bg-warning text-dark">
 
+Maintenance
 
-                            TZS {{ equipment.daily_rate|floatformat:0 }}
+</span>
 
 
-                        </td>
+{% else %}
 
 
+<span class="badge bg-secondary">
 
+{{ item.status }}
 
+</span>
 
 
-                        <td>
+{% endif %}
 
 
-                            {{ equipment.current_location|default:"-" }}
 
+</td>
 
-                        </td>
 
 
 
 
 
-                        <td>
 
+<td>
 
-                            <div class="btn-group">
+{{ item.current_location|default:"-" }}
 
+</td>
 
-                                <a href="{% url 'equipment:detail' equipment.pk %}"
-                                   class="btn btn-sm btn-outline-primary">
 
 
-                                    <i class="bi bi-eye"></i>
 
 
-                                </a>
 
+<td>
 
 
-                                <a href="{% url 'equipment:update' equipment.pk %}"
-                                   class="btn btn-sm btn-outline-warning">
+TZS {{ item.current_value|floatformat:0 }}
 
 
-                                    <i class="bi bi-pencil"></i>
+</td>
 
 
-                                </a>
 
 
 
 
-                                <a href="{% url 'equipment:delete' equipment.pk %}"
-                                   class="btn btn-sm btn-outline-danger">
 
 
-                                    <i class="bi bi-trash"></i>
+<td>
 
 
-                                </a>
+<div class="btn-group">
 
 
 
-                            </div>
+<a href="{% url 'equipment:detail' item.pk %}"
+class="btn btn-sm btn-outline-primary">
 
 
-                        </td>
+<i class="bi bi-eye"></i>
 
 
+</a>
 
-                    </tr>
 
 
 
 
-                    {% empty %}
+<a href="{% url 'equipment:update' item.pk %}"
+class="btn btn-sm btn-outline-secondary">
 
 
-                    <tr>
+<i class="bi bi-pencil"></i>
 
-                        <td colspan="9"
-                            class="text-center py-5">
 
+</a>
 
-                            <h5>
-                                No equipment found
-                            </h5>
 
 
-                            <p class="text-muted">
 
-                                Add your first equipment item.
 
-                            </p>
+<a href="{% url 'equipment:delete' item.pk %}"
+class="btn btn-sm btn-outline-danger">
 
 
-                        </td>
+<i class="bi bi-trash"></i>
 
 
-                    </tr>
+</a>
 
 
 
+</div>
 
-                    {% endfor %}
 
+</td>
 
 
-                    </tbody>
 
 
 
-                </table>
+</tr>
 
 
 
-            </div>
 
 
-        </div>
 
+{% empty %}
 
-    </div>
 
 
+<tr>
 
 
+<td colspan="7"
+class="text-center py-5 text-muted">
 
-    <!-- Pagination -->
 
+<i class="bi bi-inbox fs-1 d-block mb-3"></i>
 
-    {% if page_obj.has_other_pages %}
 
+No equipment records found.
 
-    <nav class="mt-4">
 
+</td>
 
-        <ul class="pagination justify-content-center">
 
+</tr>
 
-            {% if page_obj.has_previous %}
 
-            <li class="page-item">
 
-                <a class="page-link"
-                   href="?page={{ page_obj.previous_page_number }}">
+{% endfor %}
 
-                    Previous
 
-                </a>
 
-            </li>
+</tbody>
 
-            {% endif %}
 
 
+</table>
 
 
 
-            {% for num in page_obj.paginator.page_range %}
+</div>
 
 
-            <li class="page-item 
-            {% if page_obj.number == num %}active{% endif %}">
 
+</div>
 
-                <a class="page-link"
-                   href="?page={{ num }}">
 
-                    {{ num }}
 
-                </a>
+</div>
 
-
-            </li>
-
-
-            {% endfor %}
-
-
-
-
-
-            {% if page_obj.has_next %}
-
-
-            <li class="page-item">
-
-
-                <a class="page-link"
-                   href="?page={{ page_obj.next_page_number }}">
-
-
-                    Next
-
-
-                </a>
-
-
-            </li>
-
-
-            {% endif %}
-
-
-
-        </ul>
-
-
-    </nav>
-
-
-    {% endif %}
 
 
 

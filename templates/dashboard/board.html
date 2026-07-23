@@ -1,0 +1,132 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Board Dashboard | RLB-AM EMS{% endblock %}
+
+{% block content %}
+
+<div class="page-header mb-5">
+    <div>
+        <h1 class="page-title">Board Dashboard</h1>
+        <p class="text-muted">Welcome back, {{ user.full_name|default:user.username }} • Strategic Overview</p>
+    </div>
+    
+    <div class="d-flex gap-3">
+        <a href="{% url 'reports:financial_summary' %}" class="btn btn-outline-primary">
+            <i class="bi bi-file-earmark-bar-graph me-2"></i> Financial Summary
+        </a>
+        <a href="{% url 'reports:projects' %}" class="btn btn-primary">
+            <i class="bi bi-clipboard-data me-2"></i> Full Reports
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+
+    <!-- KPI Cards -->
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon stat-primary">
+                <i class="bi bi-building"></i>
+            </div>
+            <h5 class="stat-title">Active Projects</h5>
+            <div class="stat-value text-primary">{{ active_projects|default:12 }}</div>
+            <small class="stat-growth up">↑ 2 this quarter</small>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon stat-success">
+                <i class="bi bi-currency-dollar"></i>
+            </div>
+            <h5 class="stat-title">Total Revenue YTD</h5>
+            <div class="stat-value">TZS {{ total_revenue|default:245000000|floatformat:0 }}</div>
+            <small class="stat-growth up">↑ 14% vs last year</small>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon stat-warning">
+                <i class="bi bi-exclamation-triangle"></i>
+            </div>
+            <h5 class="stat-title">Pending Approvals</h5>
+            <div class="stat-value text-warning">{{ pending_approvals|default:7 }}</div>
+            <small class="text-muted">Requires board attention</small>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon stat-info">
+                <i class="bi bi-people"></i>
+            </div>
+            <h5 class="stat-title">Key Metrics</h5>
+            <div class="stat-value">{{ completion_rate|default:87 }}%</div>
+            <small class="stat-growth up">Project Completion Rate</small>
+        </div>
+    </div>
+
+</div>
+
+<!-- Executive Summary -->
+<div class="row mt-5 g-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-4">Portfolio Performance</h5>
+                <canvas id="portfolioChart" height="120"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="mb-4">Recent Board Decisions</h5>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <strong>Project Expansion Approved</strong>
+                            <p class="mb-0 small text-muted">Dar es Salaam Commercial Complex</p>
+                            <small class="text-muted">2 days ago</small>
+                        </div>
+                    </div>
+                    <!-- Add more items as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Portfolio Performance Chart
+    if (typeof Chart !== 'undefined') {
+        const ctx = document.getElementById('portfolioChart');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [68000000, 92000000, 75000000, 112000000],
+                        backgroundColor: '#0F4C81',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+    }
+</script>
+{% endblock %}

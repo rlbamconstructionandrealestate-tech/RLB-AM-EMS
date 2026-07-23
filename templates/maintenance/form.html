@@ -1,0 +1,308 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+{% if record %}
+Edit Maintenance | RLB-AM EMS
+{% else %}
+Add Maintenance | RLB-AM EMS
+{% endif %}
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+
+<div class="page-header mb-4">
+
+
+<h1 class="fw-bold mb-1">
+
+{% if record %}
+Edit Maintenance
+{% else %}
+Add Maintenance
+{% endif %}
+
+</h1>
+
+
+<p class="text-muted mb-0">
+
+Record equipment servicing information.
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<div class="card-body p-4">
+
+
+
+<form method="post">
+
+
+{% csrf_token %}
+
+
+
+
+<div class="row g-4">
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Equipment
+
+</label>
+
+
+{{ form.equipment }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Maintenance Title
+
+</label>
+
+
+{{ form.title }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Service Date
+
+</label>
+
+
+{{ form.service_date }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Next Service Date
+
+</label>
+
+
+{{ form.next_service_date }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Technician
+
+</label>
+
+
+{{ form.technician }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Maintenance Cost
+
+</label>
+
+
+{{ form.cost }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label fw-semibold">
+
+Status
+
+</label>
+
+
+{{ form.status }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-12">
+
+
+<label class="form-label fw-semibold">
+
+Description
+
+</label>
+
+
+{{ form.description }}
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<div class="mt-5 d-flex gap-3">
+
+
+<button type="submit"
+class="btn btn-primary">
+
+
+<i class="bi bi-check-circle me-2"></i>
+
+
+Save Maintenance
+
+
+</button>
+
+
+
+
+
+
+<a href="{% url 'maintenance:list' %}"
+class="btn btn-light">
+
+
+Cancel
+
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+{% endblock %}

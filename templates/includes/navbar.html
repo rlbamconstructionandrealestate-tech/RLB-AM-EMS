@@ -2,243 +2,84 @@
 
 <header class="top-navbar">
 
+    <!-- LEFT SECTION -->
     <div class="navbar-left">
 
-        <!-- Sidebar Toggle -->
-
-        <button class="menu-toggle"
-                id="menuToggle"
-                type="button">
-
+        <!-- Mobile Sidebar Toggle -->
+        <button class="icon-btn sidebar-toggle" id="sidebarToggle" title="Toggle Menu">
             <i class="bi bi-list"></i>
-
         </button>
 
-        <!-- Search -->
+        <!-- Brand Logo -->
+        <a href="{% url 'dashboard:dashboard' %}" class="brand-logo text-decoration-none">
+            <img src="{% static 'img/logo.png' %}" alt="RLB-AM" class="logo-img">
+            <div>
+                <h5 class="mb-0">RLB-AM</h5>
+                <small>CONSTRUCTION & REAL ESTATE LIMITED</small>
+            </div>
+        </a>
 
-        <div class="search-box">
-
+        <!-- Global Search -->
+        <form class="global-search" id="globalSearchForm">
             <i class="bi bi-search"></i>
-
-            <input type="text"
-                   class="form-control"
-                   placeholder="Search equipment, clients, projects...">
-
-        </div>
+            <input type="search" 
+                   id="globalSearchInput"
+                   placeholder="Search equipment, rentals, employees, projects...">
+            <span class="shortcut d-none d-xl-inline">Ctrl + K</span>
+        </form>
 
     </div>
 
-
+    <!-- RIGHT SECTION -->
     <div class="navbar-right">
 
-        <!-- Full Screen -->
+        <!-- Date & Time -->
+        <div class="navbar-datetime d-none d-md-flex flex-column align-items-end me-3">
+            <small id="navbarDate" class="text-muted"></small>
+            <strong id="navbarTime"></strong>
+        </div>
 
-        <button class="icon-btn"
-                id="fullscreenBtn"
-                title="Fullscreen">
-
-            <i class="bi bi-arrows-fullscreen"></i>
-
-        </button>
-
-        <!-- Notifications -->
-
+        <!-- Notification -->
         <div class="dropdown">
-
-            <button class="icon-btn"
-                    data-bs-toggle="dropdown">
-
+            <button class="icon-btn position-relative" data-bs-toggle="dropdown" title="Notifications">
                 <i class="bi bi-bell"></i>
-
-                <span class="badge-count">
-
-                    3
-
-                </span>
-
+                <span class="notification-dot"></span>
             </button>
-
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-
-                <li>
-
-                    <h6 class="dropdown-header">
-
-                        Notifications
-
-                    </h6>
-
-                </li>
-
-                <li>
-
-                    <a class="dropdown-item" href="#">
-
-                        Equipment maintenance reminder
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a class="dropdown-item" href="#">
-
-                        New rental request
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a class="dropdown-item" href="#">
-
-                        Payment received
-
-                    </a>
-
-                </li>
-
-            </ul>
-
+            <div class="dropdown-menu dropdown-menu-end notification-menu">
+                <!-- Notification items here -->
+            </div>
         </div>
 
-        <!-- Messages -->
-
+        <!-- User Profile -->
         <div class="dropdown">
-
-            <button class="icon-btn"
-                    data-bs-toggle="dropdown">
-
-                <i class="bi bi-envelope"></i>
-
-                <span class="badge-count">
-
-                    2
-
-                </span>
-
-            </button>
-
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-
-                <li>
-
-                    <h6 class="dropdown-header">
-
-                        Messages
-
-                    </h6>
-
-                </li>
-
-                <li>
-
-                    <a class="dropdown-item" href="#">
-
-                        New client inquiry
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a class="dropdown-item" href="#">
-
-                        Site engineer report
-
-                    </a>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!-- User -->
-
-        <div class="dropdown">
-
-            <button class="user-btn"
-                    data-bs-toggle="dropdown">
-
-                <div class="avatar">
-
-                    {{ user.first_name|first|default:user.username|first|upper }}
-
+            <button class="profile-button" data-bs-toggle="dropdown">
+                <div class="navbar-avatar">
+                    {% if request.user.profile_picture %}
+                        <img src="{{ request.user.profile_picture.url }}" alt="{{ request.user.username }}">
+                    {% else %}
+                        <span>{{ request.user.username|slice:":1"|upper }}</span>
+                    {% endif %}
                 </div>
-
-                <div class="user-text">
-
-                    <strong>
-
-                        {{ user.get_full_name|default:user.username }}
-
-                    </strong>
-
-                    <small>
-
-                        Administrator
-
+                <div class="d-none d-md-block text-start">
+                    <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
+                    <small class="text-muted d-block">
+                        {% if request.user.role %}{{ request.user.role|title }}{% else %}Secretary{% endif %}
                     </small>
-
                 </div>
-
-                <i class="bi bi-chevron-down"></i>
-
             </button>
 
-            <ul class="dropdown-menu dropdown-menu-end shadow">
-
-                <li>
-
-                    <a class="dropdown-item"
-                       href="{% url 'profile' %}">
-
-                        <i class="bi bi-person"></i>
-
-                        My Profile
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a class="dropdown-item"
-                       href="#">
-
-                        <i class="bi bi-gear"></i>
-
-                        Settings
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <hr class="dropdown-divider">
-
-                </li>
-
-                <li>
-
-                    <a class="dropdown-item text-danger"
-                       href="{% url 'logout' %}">
-
-                        <i class="bi bi-box-arrow-right"></i>
-
-                        Logout
-
-                    </a>
-
-                </li>
-
-            </ul>
-
+            <div class="dropdown-menu dropdown-menu-end profile-menu">
+                <!-- Profile menu content -->
+                <div class="dropdown-header">
+                    <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
+                </div>
+                <a href="{% url 'accounts:profile' %}" class="dropdown-item">
+                    <i class="bi bi-person-circle me-2"></i> My Profile
+                </a>
+                <a href="{% url 'logout' %}" class="dropdown-item text-danger">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </a>
+            </div>
         </div>
 
     </div>

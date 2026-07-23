@@ -1,0 +1,202 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+500 | Server Error
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+
+
+    <div class="text-center">
+
+
+
+        <!-- ERROR ICON -->
+
+        <div class="mb-4">
+
+
+            <i class="bi bi-server text-danger"
+               style="font-size:90px;">
+            </i>
+
+
+        </div>
+
+
+
+
+
+
+
+        <!-- ERROR CODE -->
+
+        <h1 class="display-1 fw-bold text-dark">
+
+            {{ error_code }}
+
+        </h1>
+
+
+
+
+
+
+
+
+        <!-- TITLE -->
+
+        <h2 class="fw-bold mb-3">
+
+            {{ error_title }}
+
+        </h2>
+
+
+
+
+
+
+
+
+        <!-- MESSAGE -->
+
+        <p class="text-muted fs-5 mb-4">
+
+            {{ error_message }}
+
+        </p>
+
+
+
+
+
+
+
+
+        <!-- ACTION BUTTONS -->
+
+        <div class="d-flex justify-content-center gap-3">
+
+
+
+
+
+            <a href="javascript:location.reload()"
+
+               class="btn btn-outline-secondary px-4">
+
+
+                <i class="bi bi-arrow-clockwise me-2"></i>
+
+                Refresh Page
+
+
+            </a>
+
+
+
+
+
+
+
+
+            <a href="{% url 'dashboard:dashboard' %}"
+
+               class="btn btn-primary px-4">
+
+
+                <i class="bi bi-house-door me-2"></i>
+
+                Dashboard
+
+
+            </a>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <!-- SUPPORT MESSAGE -->
+
+
+        <div class="mt-5">
+
+
+            <div class="alert alert-light border">
+
+
+                <small class="text-muted">
+
+
+                    If this problem continues, please contact the system administrator.
+
+
+                </small>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <!-- BRAND -->
+
+
+        <div class="mt-4">
+
+
+            <small class="text-muted">
+
+
+                {{ company_name|default:"RLB-AM Construction & Real Estate Ltd" }}
+
+
+                <br>
+
+
+                RLB-AM EMS System
+
+
+            </small>
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+{% endblock %}

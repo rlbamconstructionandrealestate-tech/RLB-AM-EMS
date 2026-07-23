@@ -1,22 +1,69 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}
+Dashboard | RLB-AM EMS
+{% endblock %}
+
+{% block page_title %}
+Enterprise Dashboard
+{% endblock %}
+
+{% block current_page %}
+Dashboard
+{% endblock %}
+
+{% block page_actions %}
+
+<a href="{% url 'reports:dashboard' %}" class="btn btn-outline-primary">
+    <i class="bi bi-bar-chart me-2"></i>
+    Reports
+</a>
+
+<a href="{% url 'equipment:create' %}" class="btn btn-primary ms-2">
+    <i class="bi bi-plus-lg me-2"></i>
+    New Equipment
+</a>
+
+{% endblock %}
 
 {% block content %}
 
-<h2 class="mb-4">Dashboard</h2>
+<div class="dashboard-container">
 
-<div class="row">
+    <!-- ========================= -->
+    <!-- Welcome Banner -->
+    <!-- ========================= -->
 
-    <div class="col-md-3">
+    <div class="dashboard-banner mb-4">
 
-        <div class="card shadow-sm">
+        <div class="row align-items-center">
 
-            <div class="card-body">
+            <div class="col-lg-8">
 
-                <h5>Total Equipment</h5>
+                <h2 class="fw-bold mb-2">
 
-                <h2>0</h2>
+                    Welcome back,
+                    {{ user.first_name|default:user.username }}
+
+                </h2>
+
+                <p class="text-muted mb-0">
+
+                    Monitor equipment, rentals, finance,
+                    employees and projects from one place.
+
+                </p>
+
+            </div>
+
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+
+                <span class="badge bg-primary fs-6">
+
+                    {% now "l, d F Y" %}
+
+                </span>
 
             </div>
 
@@ -24,15 +71,185 @@
 
     </div>
 
-    <div class="col-md-3">
+    <!-- ========================= -->
+    <!-- Statistics -->
+    <!-- ========================= -->
 
-        <div class="card shadow-sm">
+    <div class="row g-4 mb-4">
 
-            <div class="card-body">
+        <!-- Equipment -->
 
-                <h5>Employees</h5>
+        <div class="col-xl-3 col-md-6">
 
-                <h2>0</h2>
+            <div class="dashboard-card stat-card">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Equipment Fleet
+
+                        </small>
+
+                        <h2 class="mt-2">
+
+                            {{ total_equipment|default:0 }}
+
+                        </h2>
+
+                    </div>
+
+                    <div class="stat-icon stat-primary">
+
+                        <i class="bi bi-truck"></i>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <small class="text-success">
+
+                    {{ available_equipment|default:0 }}
+
+                    Available Machines
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Employees -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card stat-card">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Employees
+
+                        </small>
+
+                        <h2 class="mt-2">
+
+                            {{ total_employees|default:0 }}
+
+                        </h2>
+
+                    </div>
+
+                    <div class="stat-icon stat-success">
+
+                        <i class="bi bi-people"></i>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <small class="text-success">
+
+                    Registered Workforce
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Rentals -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card stat-card">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Active Rentals
+
+                        </small>
+
+                        <h2 class="mt-2">
+
+                            {{ active_rentals|default:0 }}
+
+                        </h2>
+
+                    </div>
+
+                    <div class="stat-icon stat-warning">
+
+                        <i class="bi bi-calendar-check"></i>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <small class="text-warning">
+
+                    Equipment Currently Hired
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Revenue -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card stat-card">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Monthly Revenue
+
+                        </small>
+
+                        <h3 class="mt-2">
+
+                            TZS {{ monthly_revenue|default:0|floatformat:0 }}
+
+                        </h3>
+
+                    </div>
+
+                    <div class="stat-icon stat-info">
+
+                        <i class="bi bi-cash-stack"></i>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <small class="text-info">
+
+                    Current Month Income
+
+                </small>
 
             </div>
 
@@ -40,15 +257,187 @@
 
     </div>
 
-    <div class="col-md-3">
+    <!-- ===================================================== -->
+    <!-- CHARTS & SYSTEM STATUS -->
+    <!-- ===================================================== -->
 
-        <div class="card shadow-sm">
+    <div class="row g-4 mb-4">
 
-            <div class="card-body">
+        <!-- Revenue Overview -->
 
-                <h5>Active Rentals</h5>
+        <div class="col-xl-8">
 
-                <h2>0</h2>
+            <div class="dashboard-card h-100">
+
+                <div class="card-header d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <h5 class="mb-1 fw-bold">
+
+                            Revenue Overview
+
+                        </h5>
+
+                        <small class="text-muted">
+
+                            Monthly income for {{ current_year }}
+
+                        </small>
+
+                    </div>
+
+                    <span class="badge bg-primary">
+
+                        {{ current_year }}
+
+                    </span>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="chart-container">
+
+                        <canvas id="revenueChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- System Status -->
+
+        <div class="col-xl-4">
+
+            <div class="dashboard-card h-100">
+
+                <div class="card-header">
+
+                    <h5 class="fw-bold mb-0">
+
+                        System Status
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="system-item">
+
+                        <div class="system-icon bg-success-subtle">
+
+                            <i class="bi bi-check-circle-fill text-success"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+
+                                System Online
+
+                            </strong>
+
+                            <small class="d-block text-muted">
+
+                                All services are operating normally.
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="system-item">
+
+                        <div class="system-icon bg-primary-subtle">
+
+                            <i class="bi bi-building text-primary"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+
+                                Active Projects
+
+                            </strong>
+
+                            <small class="d-block text-muted">
+
+                                {{ active_projects|default:0 }} Running Projects
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="system-item">
+
+                        <div class="system-icon bg-warning-subtle">
+
+                            <i class="bi bi-tools text-warning"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+
+                                Maintenance Due
+
+                            </strong>
+
+                            <small class="d-block text-muted">
+
+                                {{ maintenance_due|default:0 }} Machines
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="system-item">
+
+                        <div class="system-icon bg-info-subtle">
+
+                            <i class="bi bi-wallet2 text-info"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+
+                                Monthly Revenue
+
+                            </strong>
+
+                            <small class="d-block text-muted">
+
+                                TZS {{ monthly_revenue|default:0|floatformat:0 }}
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -56,15 +445,513 @@
 
     </div>
 
-    <div class="col-md-3">
+    <!-- ===================================================== -->
+    <!-- SECOND ROW -->
+    <!-- ===================================================== -->
 
-        <div class="card shadow-sm">
+    <div class="row g-4 mb-4">
 
-            <div class="card-body">
+        <!-- Equipment Summary -->
 
-                <h5>Monthly Revenue</h5>
+        <div class="col-lg-4">
 
-                <h2>TZS 0</h2>
+            <div class="dashboard-card h-100">
+
+                <div class="card-header">
+
+                    <h5 class="fw-bold mb-0">
+
+                        Equipment Summary
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span>Total Equipment</span>
+
+                        <strong>{{ total_equipment|default:0 }}</strong>
+
+                    </div>
+
+                    <div class="progress mb-4" style="height:8px;">
+
+                        <div class="progress-bar bg-primary"
+                             style="width:100%"></div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span>Available</span>
+
+                        <strong class="text-success">
+
+                            {{ available_equipment|default:0 }}
+
+                        </strong>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>Under Maintenance</span>
+
+                        <strong class="text-warning">
+
+                            {{ maintenance_due|default:0 }}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Project Summary -->
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-card h-100">
+
+                <div class="card-header">
+
+                    <h5 class="fw-bold mb-0">
+
+                        Project Summary
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="display-6 fw-bold text-primary mb-2">
+
+                        {{ active_projects|default:0 }}
+
+                    </div>
+
+                    <p class="text-muted">
+
+                        Active construction and engineering projects.
+
+                    </p>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>Status</span>
+
+                        <span class="badge bg-success">
+
+                            Operational
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Finance Summary -->
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-card h-100">
+
+                <div class="card-header">
+
+                    <h5 class="fw-bold mb-0">
+
+                        Financial Summary
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <h3 class="fw-bold text-success">
+
+                        TZS {{ monthly_revenue|default:0|floatformat:0 }}
+
+                    </h3>
+
+                    <small class="text-muted">
+
+                        Revenue generated this month
+
+                    </small>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>Performance</span>
+
+                        <span class="badge bg-success">
+
+                            Excellent
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- QUICK ACCESS & RECENT ACTIVITY -->
+    <!-- ===================================================== -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- Quick Access -->
+
+        <div class="col-xl-4">
+
+            <div class="dashboard-card h-100">
+
+                <div class="card-header">
+
+                    <h5 class="fw-bold mb-0">
+
+                        Quick Access
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="quick-actions">
+
+                        <a href="{% url 'equipment:dashboard' %}" class="action-card">
+
+                            <i class="bi bi-truck"></i>
+
+                            <h6>Equipment</h6>
+
+                        </a>
+
+                        <a href="{% url 'rentals:dashboard' %}" class="action-card">
+
+                            <i class="bi bi-calendar-check"></i>
+
+                            <h6>Rentals</h6>
+
+                        </a>
+
+                        <a href="{% url 'projects:dashboard' %}" class="action-card">
+
+                            <i class="bi bi-building"></i>
+
+                            <h6>Projects</h6>
+
+                        </a>
+
+                        <a href="{% url 'finance:dashboard' %}" class="action-card">
+
+                            <i class="bi bi-wallet2"></i>
+
+                            <h6>Finance</h6>
+
+                        </a>
+
+                        <a href="{% url 'reports:dashboard' %}" class="action-card">
+
+                            <i class="bi bi-bar-chart"></i>
+
+                            <h6>Reports</h6>
+
+                        </a>
+
+                        <a href="{% url 'accounts:users' %}" class="action-card">
+
+                            <i class="bi bi-people"></i>
+
+                            <h6>Users</h6>
+
+                        </a>
+
+                        <a href="{% url 'equipment:create' %}" class="action-card">
+
+                            <i class="bi bi-plus-circle"></i>
+
+                            <h6>Add Equipment</h6>
+
+                        </a>
+
+                        <a href="{% url 'dashboard:dashboard' %}" class="action-card">
+
+                            <i class="bi bi-speedometer2"></i>
+
+                            <h6>Dashboard</h6>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Activity -->
+
+        <div class="col-xl-8">
+
+            <div class="dashboard-card h-100">
+
+                <div class="card-header d-flex justify-content-between align-items-center">
+
+                    <h5 class="fw-bold mb-0">
+
+                        Recent Activity
+
+                    </h5>
+
+                    <span class="badge bg-primary">
+
+                        Today
+
+                    </span>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="activity-list">
+
+                        <div class="activity-item">
+
+                            <div class="activity-icon stat-primary">
+
+                                <i class="bi bi-truck"></i>
+
+                            </div>
+
+                            <div class="flex-grow-1">
+
+                                <strong>
+
+                                    Equipment Registered
+
+                                </strong>
+
+                                <p class="mb-0 text-muted">
+
+                                    A new machine has been added to the fleet.
+
+                                </p>
+
+                            </div>
+
+                            <small class="text-muted">
+
+                                Today
+
+                            </small>
+
+                        </div>
+
+                        <div class="activity-item">
+
+                            <div class="activity-icon stat-success">
+
+                                <i class="bi bi-wallet2"></i>
+
+                            </div>
+
+                            <div class="flex-grow-1">
+
+                                <strong>
+
+                                    Revenue Updated
+
+                                </strong>
+
+                                <p class="mb-0 text-muted">
+
+                                    Monthly revenue has been recalculated.
+
+                                </p>
+
+                            </div>
+
+                            <small class="text-muted">
+
+                                2 hrs
+
+                            </small>
+
+                        </div>
+
+                        <div class="activity-item">
+
+                            <div class="activity-icon stat-warning">
+
+                                <i class="bi bi-tools"></i>
+
+                            </div>
+
+                            <div class="flex-grow-1">
+
+                                <strong>
+
+                                    Maintenance Alert
+
+                                </strong>
+
+                                <p class="mb-0 text-muted">
+
+                                    {{ maintenance_due|default:0 }} equipment require servicing.
+
+                                </p>
+
+                            </div>
+
+                            <small class="text-muted">
+
+                                5 hrs
+
+                            </small>
+
+                        </div>
+
+                        <div class="activity-item">
+
+                            <div class="activity-icon stat-info">
+
+                                <i class="bi bi-building"></i>
+
+                            </div>
+
+                            <div class="flex-grow-1">
+
+                                <strong>
+
+                                    Project Updated
+
+                                </strong>
+
+                                <p class="mb-0 text-muted">
+
+                                    {{ active_projects|default:0 }} active construction projects.
+
+                                </p>
+
+                            </div>
+
+                            <small class="text-muted">
+
+                                Yesterday
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- DASHBOARD SUMMARY -->
+    <!-- ===================================================== -->
+
+    <div class="dashboard-card">
+
+        <div class="card-body">
+
+            <div class="row text-center">
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <h3 class="fw-bold text-primary">
+
+                        {{ total_equipment|default:0 }}
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Total Equipment
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <h3 class="fw-bold text-success">
+
+                        {{ active_projects|default:0 }}
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Active Projects
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <h3 class="fw-bold text-warning">
+
+                        {{ active_rentals|default:0 }}
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Active Rentals
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+
+                    <h3 class="fw-bold text-info">
+
+                        TZS {{ monthly_revenue|default:0|floatformat:0 }}
+
+                    </h3>
+
+                    <p class="text-muted mb-0">
+
+                        Monthly Revenue
+
+                    </p>
+
+                </div>
 
             </div>
 
@@ -73,5 +960,156 @@
     </div>
 
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const chartCanvas = document.getElementById("revenueChart");
+
+    if (!chartCanvas) return;
+
+    const labels = [
+        {% for month in revenue_months %}
+            "{{ month|escapejs }}"{% if not forloop.last %},{% endif %}
+        {% empty %}
+            "Jan","Feb","Mar","Apr","May","Jun",
+            "Jul","Aug","Sep","Oct","Nov","Dec"
+        {% endfor %}
+    ];
+
+    const values = [
+        {% for value in revenue_values %}
+            {{ value|default:0 }}{% if not forloop.last %},{% endif %}
+        {% empty %}
+            0,0,0,0,0,0,0,0,0,0,0,0
+        {% endfor %}
+    ];
+
+    new Chart(chartCanvas, {
+
+        type: "line",
+
+        data: {
+
+            labels: labels,
+
+            datasets: [{
+
+                label: "Revenue",
+
+                data: values,
+
+                borderWidth: 3,
+
+                tension: .4,
+
+                fill: true,
+
+                pointRadius: 4,
+
+                pointHoverRadius: 7,
+
+                backgroundColor: "rgba(37,99,235,.10)",
+
+                borderColor: "#2563eb",
+
+                pointBackgroundColor: "#2563eb"
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            interaction: {
+
+                intersect: false,
+
+                mode: "index"
+
+            },
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                },
+
+                tooltip: {
+
+                    backgroundColor: "#0f172a",
+
+                    titleColor: "#fff",
+
+                    bodyColor: "#fff",
+
+                    padding: 12,
+
+                    displayColors: false,
+
+                    callbacks: {
+
+                        label: function(context){
+
+                            return "Revenue: TZS " +
+
+                                   Number(context.parsed.y).toLocaleString();
+
+                        }
+
+                    }
+
+                }
+
+            },
+
+            scales: {
+
+                x: {
+
+                    grid: {
+
+                        display: false
+
+                    }
+
+                },
+
+                y: {
+
+                    beginAtZero: true,
+
+                    ticks: {
+
+                        callback: function(value){
+
+                            return "TZS " +
+
+                                   Number(value).toLocaleString();
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+</script>
 
 {% endblock %}

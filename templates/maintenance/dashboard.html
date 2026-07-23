@@ -1,0 +1,459 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Maintenance Dashboard | RLB-AM EMS
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+
+<!-- HEADER -->
+
+<div class="page-header mb-5 d-flex justify-content-between align-items-center">
+
+
+<div>
+
+<h1 class="fw-bold mb-1">
+Maintenance Dashboard
+</h1>
+
+<p class="text-muted mb-0">
+Monitor equipment servicing and maintenance activities.
+</p>
+
+</div>
+
+
+
+<a href="{% url 'maintenance:create' %}"
+class="btn btn-primary">
+
+<i class="bi bi-tools me-2"></i>
+Add Maintenance
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- STAT CARDS -->
+
+
+<div class="row g-4 mb-5">
+
+
+
+<div class="col-xl-3 col-md-6">
+
+<div class="stat-card">
+
+
+<div class="stat-icon stat-primary">
+
+<i class="bi bi-tools"></i>
+
+</div>
+
+
+<h6 class="stat-title">
+Total Records
+</h6>
+
+
+<div class="stat-value">
+
+{{ total_records }}
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+<div class="stat-card">
+
+
+<div class="stat-icon stat-success">
+
+<i class="bi bi-check-circle"></i>
+
+</div>
+
+
+<h6 class="stat-title">
+Completed
+</h6>
+
+
+<div class="stat-value text-success">
+
+{{ completed_count }}
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+<div class="stat-card">
+
+
+<div class="stat-icon stat-warning">
+
+<i class="bi bi-clock"></i>
+
+</div>
+
+
+<h6 class="stat-title">
+Pending
+</h6>
+
+
+<div class="stat-value text-warning">
+
+{{ pending_count }}
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+<div class="stat-card">
+
+
+<div class="stat-icon stat-info">
+
+<i class="bi bi-currency-dollar"></i>
+
+</div>
+
+
+<h6 class="stat-title">
+Maintenance Cost
+</h6>
+
+
+<div class="stat-value">
+
+TZS {{ total_cost|floatformat:0 }}
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- RECENT MAINTENANCE -->
+
+
+<div class="card">
+
+
+<div class="card-header d-flex justify-content-between align-items-center">
+
+
+<h5 class="mb-0">
+
+<i class="bi bi-clock-history me-2"></i>
+
+Recent Maintenance
+
+</h5>
+
+
+
+<a href="{% url 'maintenance:list' %}"
+class="btn btn-sm btn-light">
+
+View All
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card-body">
+
+
+<div class="table-responsive">
+
+
+<table class="table table-hover align-middle">
+
+
+<thead>
+
+<tr>
+
+<th>
+Equipment
+</th>
+
+
+<th>
+Service
+</th>
+
+
+<th>
+Date
+</th>
+
+
+<th>
+Technician
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Cost
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+{% for item in recent_records %}
+
+
+
+<tr>
+
+
+<td>
+
+
+<a href="{% url 'maintenance:detail' item.pk %}"
+class="fw-semibold">
+
+
+{{ item.equipment.name }}
+
+</a>
+
+
+<br>
+
+<small class="text-muted">
+
+{{ item.equipment.asset_number }}
+
+</small>
+
+
+</td>
+
+
+
+
+
+<td>
+
+{{ item.title }}
+
+</td>
+
+
+
+
+
+
+<td>
+
+{{ item.service_date|date:"d M Y" }}
+
+</td>
+
+
+
+
+
+
+<td>
+
+{{ item.technician|default:"-" }}
+
+</td>
+
+
+
+
+
+
+<td>
+
+
+{% if item.status == "completed" %}
+
+
+<span class="badge bg-success">
+
+Completed
+
+</span>
+
+
+{% elif item.status == "pending" %}
+
+
+<span class="badge bg-warning text-dark">
+
+Pending
+
+</span>
+
+
+{% else %}
+
+
+<span class="badge bg-primary">
+
+Scheduled
+
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+
+
+<td>
+
+TZS {{ item.cost|floatformat:0 }}
+
+</td>
+
+
+
+
+</tr>
+
+
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="6"
+class="text-center py-5 text-muted">
+
+
+No maintenance records available.
+
+
+</td>
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

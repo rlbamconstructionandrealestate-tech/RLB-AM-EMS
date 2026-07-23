@@ -1,7 +1,8 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block title %}
-Equipment Dashboard
+Equipment Dashboard | RLB-AM EMS
 {% endblock %}
 
 
@@ -10,510 +11,321 @@ Equipment Dashboard
 <div class="container-fluid">
 
 
-    <!-- Header -->
+<!-- HEADER -->
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="page-header d-flex justify-content-between align-items-center mb-4">
 
-        <div>
+    <div>
 
-            <h2 class="fw-bold">
+        <h1 class="fw-bold">
+            Equipment Dashboard
+        </h1>
 
-                <i class="bi bi-speedometer2"></i>
-                Equipment Dashboard
-
-            </h2>
-
-            <p class="text-muted">
-                Real-time overview of equipment performance and availability.
-            </p>
-
-        </div>
-
-
-        <a href="{% url 'equipment:create' %}"
-           class="btn btn-primary">
-
-            <i class="bi bi-plus-circle"></i>
-            Add Equipment
-
-        </a>
-
+        <p class="text-muted mb-0">
+            Fleet performance, asset value and availability analytics
+        </p>
 
     </div>
 
 
+    <a href="{% url 'equipment:create' %}"
+       class="btn btn-primary">
 
+        <i class="bi bi-plus-circle me-2"></i>
 
+        Add Equipment
 
-    <!-- KPI CARDS -->
+    </a>
 
 
-    <div class="row g-4 mb-4">
+</div>
 
 
 
-        <div class="col-md-3">
 
-            <div class="card shadow-sm border-0">
 
-                <div class="card-body">
+<!-- KPI CARDS -->
 
+<div class="stats-grid mb-5">
 
-                    <div class="d-flex justify-content-between">
 
+<div class="stat-card">
 
-                        <div>
+    <div class="stat-icon stat-primary">
 
-                            <h6 class="text-muted">
-                                Total Equipment
-                            </h6>
-
-                            <h2 class="fw-bold">
-
-                                {{ total_equipment }}
-
-                            </h2>
-
-
-                        </div>
-
-
-                        <div class="fs-1 text-primary">
-
-                            <i class="bi bi-truck"></i>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-
-
-        <div class="col-md-3">
-
-
-            <div class="card shadow-sm border-0">
-
-
-                <div class="card-body">
-
-
-                    <div class="d-flex justify-content-between">
-
-
-                        <div>
-
-
-                            <h6 class="text-muted">
-                                Available
-                            </h6>
-
-
-                            <h2 class="fw-bold text-success">
-
-                                {{ available_count }}
-
-                            </h2>
-
-
-                        </div>
-
-
-                        <div class="fs-1 text-success">
-
-                            <i class="bi bi-check-circle"></i>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-
-
-        <div class="col-md-3">
-
-
-            <div class="card shadow-sm border-0">
-
-
-                <div class="card-body">
-
-
-                    <div class="d-flex justify-content-between">
-
-
-                        <div>
-
-
-                            <h6 class="text-muted">
-                                Working
-                            </h6>
-
-
-                            <h2 class="fw-bold text-primary">
-
-                                {{ working_count }}
-
-                            </h2>
-
-
-                        </div>
-
-
-                        <div class="fs-1 text-primary">
-
-                            <i class="bi bi-gear-wide-connected"></i>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-
-
-        <div class="col-md-3">
-
-
-            <div class="card shadow-sm border-0">
-
-
-                <div class="card-body">
-
-
-                    <div class="d-flex justify-content-between">
-
-
-                        <div>
-
-
-                            <h6 class="text-muted">
-                                Maintenance
-                            </h6>
-
-
-                            <h2 class="fw-bold text-warning">
-
-                                {{ maintenance_count }}
-
-                            </h2>
-
-
-                        </div>
-
-
-                        <div class="fs-1 text-warning">
-
-                            <i class="bi bi-tools"></i>
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
+        <i class="bi bi-truck"></i>
 
     </div>
 
 
+    <div class="stat-title">
+        Total Equipment
+    </div>
 
 
+    <div class="stat-value">
 
-
-
-
-    <!-- SECOND ROW -->
-
-    <div class="row g-4">
-
-
-
-        <!-- Equipment Value -->
-
-
-        <div class="col-lg-4">
-
-
-            <div class="card shadow-sm border-0">
-
-
-                <div class="card-header bg-white">
-
-
-                    <h5 class="mb-0">
-
-                        <i class="bi bi-cash-stack"></i>
-                        Equipment Investment
-
-                    </h5>
-
-
-                </div>
-
-
-
-                <div class="card-body text-center">
-
-
-                    <h1 class="fw-bold text-success">
-
-                        TZS {{ total_purchase_value|floatformat:0 }}
-
-                    </h1>
-
-
-                    <p class="text-muted">
-
-                        Total purchase value
-
-                    </p>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-
-
-        <!-- Category Chart -->
-
-
-        <div class="col-lg-8">
-
-
-            <div class="card shadow-sm border-0">
-
-
-                <div class="card-header bg-white">
-
-
-                    <h5 class="mb-0">
-
-                        Equipment by Category
-
-                    </h5>
-
-
-                </div>
-
-
-                <div class="card-body">
-
-
-                    <canvas id="categoryChart"></canvas>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
+        {{ total_equipment }}
 
     </div>
 
 
+</div>
 
 
 
 
 
-    <!-- Recent Equipment -->
+<div class="stat-card">
 
+    <div class="stat-icon stat-success">
 
-    <div class="card shadow-sm border-0 mt-4">
-
-
-        <div class="card-header bg-white">
-
-
-            <h5 class="mb-0">
-
-                <i class="bi bi-clock-history"></i>
-                Recently Added Equipment
-
-            </h5>
-
-
-        </div>
-
-
-
-        <div class="card-body">
-
-
-            <div class="table-responsive">
-
-
-                <table class="table table-hover">
-
-
-                    <thead>
-
-
-                        <tr>
-
-                            <th>
-                                Asset No.
-                            </th>
-
-                            <th>
-                                Name
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                            <th>
-                                Location
-                            </th>
-
-                            <th>
-                                Added
-                            </th>
-
-
-                        </tr>
-
-
-                    </thead>
-
-
-
-                    <tbody>
-
-
-                    {% for item in recent_equipment %}
-
-
-                    <tr>
-
-
-                        <td>
-
-                            {{ item.asset_number }}
-
-                        </td>
-
-
-                        <td>
-
-                            <a href="{% url 'equipment:detail' item.pk %}">
-
-                                {{ item.name }}
-
-                            </a>
-
-                        </td>
-
-
-                        <td>
-
-                            {{ item.status }}
-
-                        </td>
-
-
-                        <td>
-
-                            {{ item.current_location }}
-
-                        </td>
-
-
-                        <td>
-
-                            {{ item.created_at|date:"d M Y" }}
-
-                        </td>
-
-
-                    </tr>
-
-
-
-                    {% empty %}
-
-
-                    <tr>
-
-                        <td colspan="5"
-                            class="text-center">
-
-                            No equipment records
-
-                        </td>
-
-
-                    </tr>
-
-
-
-                    {% endfor %}
-
-
-                    </tbody>
-
-
-                </table>
-
-
-            </div>
-
-
-        </div>
-
+        <i class="bi bi-check-circle"></i>
 
     </div>
 
+
+    <div class="stat-title">
+        Available
+    </div>
+
+
+    <div class="stat-value text-success">
+
+        {{ available_count }}
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+    <div class="stat-icon stat-info">
+
+        <i class="bi bi-gear"></i>
+
+    </div>
+
+
+    <div class="stat-title">
+        Working
+    </div>
+
+
+    <div class="stat-value text-info">
+
+        {{ working_count }}
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+    <div class="stat-icon stat-warning">
+
+        <i class="bi bi-tools"></i>
+
+    </div>
+
+
+    <div class="stat-title">
+        Maintenance
+    </div>
+
+
+    <div class="stat-value text-warning">
+
+        {{ maintenance_count }}
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ANALYTICS -->
+
+<div class="row g-4">
+
+
+
+<div class="col-lg-6">
+
+
+<div class="card">
+
+<div class="card-body">
+
+
+<h5 class="mb-4">
+
+<i class="bi bi-pie-chart me-2"></i>
+
+Fleet Status
+
+</h5>
+
+
+<canvas id="statusChart"
+        height="250">
+</canvas>
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-lg-6">
+
+
+<div class="card">
+
+
+<div class="card-body">
+
+
+<h5 class="mb-4">
+
+<i class="bi bi-bar-chart me-2"></i>
+
+Equipment Categories
+
+</h5>
+
+
+
+<canvas id="categoryChart"
+        height="250">
+</canvas>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- FINANCIAL SUMMARY -->
+
+
+<div class="row g-4 mt-3">
+
+
+
+<div class="col-md-6">
+
+
+<div class="card">
+
+
+<div class="card-body text-center">
+
+
+<i class="bi bi-cash-stack fs-1 text-success"></i>
+
+
+<h3 class="mt-3">
+
+TZS {{ total_purchase_value|floatformat:0 }}
+
+</h3>
+
+
+<p class="text-muted">
+
+Total Purchase Investment
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<div class="card">
+
+
+<div class="card-body text-center">
+
+
+<i class="bi bi-graph-up fs-1 text-primary"></i>
+
+
+<h3 class="mt-3">
+
+TZS {{ current_asset_value|floatformat:0 }}
+
+</h3>
+
+
+<p class="text-muted">
+
+Current Asset Value
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
 
 
 
@@ -526,58 +338,296 @@ Equipment Dashboard
 
 
 
-<!-- Chart JS -->
+<!-- RECENT EQUIPMENT -->
+
+
+<div class="card mt-5">
+
+
+<div class="card-header">
+
+<h5 class="mb-0">
+
+<i class="bi bi-clock-history me-2"></i>
+
+Recently Added Equipment
+
+</h5>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<div class="table-responsive">
+
+
+<table class="table table-hover">
+
+
+<thead>
+
+<tr>
+
+<th>Asset</th>
+
+<th>Name</th>
+
+<th>Status</th>
+
+<th>Location</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+{% for item in recent_equipment %}
+
+
+<tr>
+
+
+<td>
+{{ item.asset_number }}
+</td>
+
+
+<td>
+
+<a href="{% url 'equipment:detail' item.pk %}">
+
+{{ item.name }}
+
+</a>
+
+</td>
+
+
+<td>
+
+{{ item.get_status_display }}
+
+</td>
+
+
+<td>
+
+{{ item.current_location }}
+
+</td>
+
+
+
+<td>
+
+
+<a href="{% url 'equipment:detail' item.pk %}"
+class="btn btn-sm btn-outline-primary">
+
+View
+
+</a>
+
+
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="5"
+class="text-center">
+
+No equipment records
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{% block extra_js %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <script>
 
-const ctx = document.getElementById('categoryChart');
+
+const statusData = {
+
+labels: [
+
+{% for item in equipment_status %}
+
+"{{ item.status|title }}",
+
+{% endfor %}
+
+],
 
 
-new Chart(ctx, {
+datasets:[{
 
-    type: 'doughnut',
+data:[
 
-    data: {
+{% for item in equipment_status %}
 
-        labels: [
+{{ item.total }},
 
-        {% for item in equipment_by_category %}
+{% endfor %}
 
-            "{{ item.name }}",
+]
 
-        {% endfor %}
+}]
 
-        ],
-
-
-        datasets: [{
-
-            data: [
-
-            {% for item in equipment_by_category %}
-
-                {{ item.total }},
-
-            {% endfor %}
-
-            ]
-
-        }]
-
-    },
+};
 
 
-    options: {
 
-        responsive:true
 
-    }
+new Chart(
 
-});
+document.getElementById("statusChart"),
+
+{
+
+type:"doughnut",
+
+data:statusData,
+
+options:{
+
+responsive:true
+
+}
+
+}
+
+);
+
+
+
+
+
+
+
+const categoryData = {
+
+
+labels:[
+
+{% for item in equipment_categories %}
+
+"{{ item.category }}",
+
+{% endfor %}
+
+],
+
+
+datasets:[{
+
+label:"Equipment",
+
+data:[
+
+{% for item in equipment_categories %}
+
+{{ item.total }},
+
+{% endfor %}
+
+]
+
+}]
+
+};
+
+
+
+new Chart(
+
+document.getElementById("categoryChart"),
+
+{
+
+type:"bar",
+
+data:categoryData,
+
+options:{
+
+responsive:true,
+
+scales:{
+
+y:{
+
+beginAtZero:true
+
+}
+
+}
+
+}
+
+}
+
+);
+
 
 
 </script>
-
 
 
 {% endblock %}
