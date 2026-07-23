@@ -1,0 +1,373 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Director Dashboard | RLB-AM EMS
+{% endblock %}
+
+
+{% block page_title %}
+Director Dashboard
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="dashboard-page dashboard-container">
+
+
+
+<!-- HEADER -->
+
+<div class="dashboard-banner mb-4">
+
+
+<h2 class="fw-bold">
+
+Welcome,
+{{request.user.first_name|default:request.user.username}}
+
+</h2>
+
+
+<p class="text-muted">
+
+Strategic business monitoring and departmental performance overview.
+
+</p>
+
+
+
+<span class="badge bg-primary">
+
+Director Access
+
+</span>
+
+
+</div>
+
+
+
+
+
+
+<!-- KPI -->
+
+<div class="row g-4 mb-4">
+
+
+
+<div class="col-xl-3 col-md-6">
+
+<div class="dashboard-card stat-card">
+
+
+<div class="stat-icon stat-primary">
+
+<i class="bi bi-building"></i>
+
+</div>
+
+
+<small>
+Projects
+</small>
+
+
+<h2>
+{{active_projects|default:0}}
+</h2>
+
+
+<p>
+Active Projects
+</p>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+<div class="dashboard-card stat-card">
+
+
+<div class="stat-icon stat-success">
+
+<i class="bi bi-cash-stack"></i>
+
+</div>
+
+
+<small>
+Revenue
+</small>
+
+
+<h3>
+
+TZS {{monthly_revenue|default:0|floatformat:0}}
+
+</h3>
+
+
+<p>
+Monthly Income
+</p>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+<div class="dashboard-card stat-card">
+
+
+<div class="stat-icon stat-warning">
+
+<i class="bi bi-truck"></i>
+
+</div>
+
+
+<small>
+Equipment
+
+</small>
+
+
+<h2>
+{{total_equipment|default:0}}
+</h2>
+
+
+<p>
+Company Assets
+</p>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="col-xl-3 col-md-6">
+
+<div class="dashboard-card stat-card">
+
+
+<div class="stat-icon stat-info">
+
+<i class="bi bi-people"></i>
+
+</div>
+
+
+<small>
+Employees
+
+</small>
+
+
+<h2>
+{{total_employees|default:0}}
+</h2>
+
+
+<p>
+Workforce
+</p>
+
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ACTIONS -->
+
+
+<div class="row g-4">
+
+
+<div class="col-lg-8">
+
+
+<div class="dashboard-card p-4">
+
+
+<h5 class="fw-bold">
+
+Strategic Management
+
+</h5>
+
+
+
+<div class="quick-actions">
+
+
+
+<a href="{% url 'projects:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-building"></i>
+
+<h6>
+Projects
+</h6>
+
+
+</a>
+
+
+
+
+<a href="{% url 'finance:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-bank"></i>
+
+<h6>
+Finance
+</h6>
+
+
+</a>
+
+
+
+
+<a href="{% url 'reports:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-graph-up"></i>
+
+<h6>
+Reports
+</h6>
+
+
+</a>
+
+
+
+
+<a href="{% url 'crm:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-people"></i>
+
+<h6>
+CRM
+</h6>
+
+
+</a>
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-lg-4">
+
+
+<div class="dashboard-card p-4">
+
+
+<h5>
+Company Summary
+</h5>
+
+
+<hr>
+
+
+<p>
+Projects:
+<strong>{{active_projects}}</strong>
+</p>
+
+
+<p>
+Revenue:
+<strong>
+TZS {{monthly_revenue}}
+</strong>
+</p>
+
+
+<p>
+Equipment:
+<strong>{{total_equipment}}</strong>
+</p>
+
+
+<p>
+Employees:
+<strong>{{total_employees}}</strong>
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+{% endblock %}

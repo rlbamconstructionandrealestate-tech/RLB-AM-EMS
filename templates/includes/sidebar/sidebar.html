@@ -1,52 +1,257 @@
 {% load static %}
 
+
 <aside class="sidebar" id="sidebar">
 
+
+
+    <!-- HEADER -->
+
     <div class="sidebar-header">
+
+
         {% include "includes/sidebar/logo.html" %}
-        <button class="sidebar-close d-lg-none" id="sidebarClose">
+
+
+
+        <button class="sidebar-close d-lg-none"
+                id="sidebarClose">
+
+
             <i class="bi bi-x-lg"></i>
+
+
         </button>
+
+
     </div>
+
+
+
+
+
+
+    <!-- MENU -->
 
     <nav class="sidebar-nav">
+
+
+
         {% for section in sidebar_menu %}
+
+
+
         <div class="sidebar-section">
-            <div class="menu-title">{{ section.section }}</div>
-            <ul class="sidebar-menu">
+
+
+
+            <div class="menu-title">
+
+                {{ section.section }}
+
+            </div>
+
+
+
+
+
+            <ul class="sidebar-menu list-unstyled">
+
+
+
                 {% for item in section.items %}
+
+
+
                 <li class="menu-item">
-                    <a href="{{ item.href }}" class="{% if item.active %}active{% endif %}">
-                        <span class="menu-icon"><i class="bi {{ item.icon }}"></i></span>
-                        <span class="menu-text">{{ item.name }}</span>
+
+
+
+                    <a href="{{ item.href }}"
+                       class="{% if item.active %}active{% endif %}">
+
+
+                        <span class="menu-icon">
+
+                            <i class="bi {{ item.icon }}"></i>
+
+                        </span>
+
+
+
+
+                        <span class="menu-text">
+
+                            {{ item.name }}
+
+                        </span>
+
+
+
                     </a>
+
+
+
                 </li>
+
+
+
                 {% endfor %}
+
+
+
             </ul>
+
+
+
         </div>
+
+
+
         {% endfor %}
+
+
+
     </nav>
 
+
+
+
+
+
+
+    <!-- USER FOOTER -->
+
+
     <div class="sidebar-footer">
+
+
+
         <div class="sidebar-user">
+
+
+
+
+
             <div class="user-avatar">
+
+
+
                 {% if request.user.profile_picture %}
-                    <img src="{{ request.user.profile_picture.url }}" alt="Profile">
+
+
+                    <img src="{{ request.user.profile_picture.url }}"
+                         alt="Profile">
+
+
+
                 {% else %}
-                    <div class="avatar-placeholder">{{ request.user.username|slice:":1"|upper }}</div>
+
+
+                    <div class="avatar-placeholder">
+
+
+                        {{ request.user.username|slice:":1"|upper }}
+
+
+                    </div>
+
+
                 {% endif %}
+
+
+
             </div>
+
+
+
+
+
+
+
             <div class="user-info">
-                <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
-                <small>{{ request.user.role|title|default:"Staff" }}</small>
+
+
+
+                <strong>
+
+
+                    {% if request.user.get_full_name %}
+
+
+                        {{ request.user.get_full_name }}
+
+
+
+                    {% else %}
+
+
+                        {{ request.user.username }}
+
+
+
+                    {% endif %}
+
+
+
+                </strong>
+
+
+
+
+                <small>
+
+
+                    {{ request.user.role|title }}
+
+
+                </small>
+
+
+
             </div>
-            <form method="post" action="{% url 'logout' %}" class="ms-auto">
+
+
+
+
+
+
+
+
+            <form method="post"
+                  action="{% url 'accounts:logout' %}"
+                  class="ms-auto">
+
+
                 {% csrf_token %}
-                <button type="submit" class="text-danger border-0 bg-transparent">
+
+
+
+                <button type="submit"
+                        class="text-danger border-0 bg-transparent">
+
+
                     <i class="bi bi-box-arrow-right"></i>
+
+
                 </button>
+
+
+
             </form>
+
+
+
+
+
         </div>
+
+
+
     </div>
+
+
+
+
 
 </aside>

@@ -1,11 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
-    UserCreationForm,
-    PasswordChangeForm
+    PasswordChangeForm,
 )
 
 from .models import User
+
 
 
 # ======================================================
@@ -15,206 +15,71 @@ from .models import User
 class LoginForm(AuthenticationForm):
 
     remember_me = forms.BooleanField(
+
         required=False,
+
+        label="Remember Me",
+
         widget=forms.CheckboxInput(
             attrs={
                 "class": "form-check-input"
             }
-        ),
-        label="Remember Me"
+        )
     )
 
 
     class Meta:
+
         model = User
+
         fields = [
             "username",
-            "password"
+            "password",
         ]
+
 
 
     def __init__(self, *args, **kwargs):
 
-        super().__init__(*args, **kwargs)
+        super().__init__(
+            *args,
+            **kwargs
+        )
+
 
         self.fields["username"].widget.attrs.update({
 
-            "class": "form-control py-3 rounded-2xl",
-            "placeholder": "Username",
-            "autocomplete": "username"
+            "class":
+            "form-control py-3 rounded-2",
+
+            "placeholder":
+            "Username",
+
+            "autocomplete":
+            "username",
 
         })
 
 
         self.fields["password"].widget.attrs.update({
 
-            "class": "form-control py-3 rounded-2xl",
-            "placeholder": "Password",
-            "autocomplete": "current-password",
-            "id": "id_password"
+            "class":
+            "form-control py-3 rounded-2",
+
+            "placeholder":
+            "Password",
+
+            "autocomplete":
+            "current-password",
 
         })
+
+
 
 
 
 # ======================================================
-# REGISTRATION FORM
-# ======================================================
-
-class RegisterForm(UserCreationForm):
-
-
-    first_name = forms.CharField(
-
-        required=True,
-
-        widget=forms.TextInput(attrs={
-
-            "class": "form-control",
-            "placeholder": "First Name"
-
-        })
-
-    )
-
-
-    last_name = forms.CharField(
-
-        required=True,
-
-        widget=forms.TextInput(attrs={
-
-            "class": "form-control",
-            "placeholder": "Last Name"
-
-        })
-
-    )
-
-
-    email = forms.EmailField(
-
-        required=True,
-
-        widget=forms.EmailInput(attrs={
-
-            "class": "form-control",
-            "placeholder": "Email Address"
-
-        })
-
-    )
-
-
-    employee_id = forms.CharField(
-
-        required=False,
-
-        widget=forms.TextInput(attrs={
-
-            "class": "form-control",
-            "placeholder": "Employee ID"
-
-        })
-
-    )
-
-
-    role = forms.ChoiceField(
-
-        choices=User.ROLE_CHOICES,
-
-        widget=forms.Select(attrs={
-
-            "class": "form-control"
-
-        })
-
-    )
-
-
-    department = forms.ChoiceField(
-
-        choices=User.DEPARTMENT_CHOICES,
-
-        required=False,
-
-        widget=forms.Select(attrs={
-
-            "class": "form-control"
-
-        })
-
-    )
-
-
-    job_title = forms.CharField(
-
-        required=False,
-
-        widget=forms.TextInput(attrs={
-
-            "class": "form-control",
-            "placeholder": "Job Title"
-
-        })
-
-    )
-
-
-    phone = forms.CharField(
-
-        required=False,
-
-        widget=forms.TextInput(attrs={
-
-            "class": "form-control",
-            "placeholder": "Phone Number"
-
-        })
-
-    )
-
-
-    class Meta:
-
-        model = User
-
-        fields = [
-
-            "first_name",
-            "last_name",
-            "username",
-            "email",
-            "employee_id",
-            "role",
-            "department",
-            "job_title",
-            "phone",
-            "password1",
-            "password2",
-
-        ]
-
-
-    def __init__(self, *args, **kwargs):
-
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields.values():
-
-            if "class" not in field.widget.attrs:
-
-                field.widget.attrs.update({
-
-                    "class": "form-control"
-
-                })
-
-
-
-# ======================================================
-# PROFILE EDIT FORM
+# PROFILE UPDATE FORM
 # ======================================================
 
 class UserProfileForm(forms.ModelForm):
@@ -224,36 +89,103 @@ class UserProfileForm(forms.ModelForm):
 
         model = User
 
+
         fields = [
 
             "first_name",
+
             "last_name",
+
             "email",
+
             "phone",
+
             "job_title",
+
             "department",
+
             "profile_picture",
 
         ]
 
 
+        widgets = {
 
-    def __init__(self, *args, **kwargs):
 
-        super().__init__(*args, **kwargs)
+            "first_name":
+            forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"First Name"
+                }
+            ),
 
-        for field in self.fields.values():
 
-            field.widget.attrs.update({
 
-                "class": "form-control"
+            "last_name":
+            forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"Last Name"
+                }
+            ),
 
-            })
+
+
+            "email":
+            forms.EmailInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"Email Address"
+                }
+            ),
+
+
+
+            "phone":
+            forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"Phone Number"
+                }
+            ),
+
+
+
+            "job_title":
+            forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"Job Title"
+                }
+            ),
+
+
+
+            "department":
+            forms.Select(
+                attrs={
+                    "class":"form-select"
+                }
+            ),
+
+
+
+            "profile_picture":
+            forms.FileInput(
+                attrs={
+                    "class":"form-control"
+                }
+            ),
+
+        }
+
+
 
 
 
 # ======================================================
-# CHANGE PASSWORD FORM
+# CHANGE PASSWORD
 # ======================================================
 
 class CustomPasswordChangeForm(PasswordChangeForm):
@@ -261,35 +193,58 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
     old_password = forms.CharField(
 
-        widget=forms.PasswordInput(attrs={
+        label="Current Password",
 
-            "class": "form-control",
-            "placeholder": "Current Password"
+        widget=forms.PasswordInput(
 
-        })
+            attrs={
 
+                "class":
+                "form-control",
+
+                "placeholder":
+                "Current Password"
+
+            }
+        )
     )
+
 
 
     new_password1 = forms.CharField(
 
-        widget=forms.PasswordInput(attrs={
+        label="New Password",
 
-            "class": "form-control",
-            "placeholder": "New Password"
+        widget=forms.PasswordInput(
 
-        })
+            attrs={
 
+                "class":
+                "form-control",
+
+                "placeholder":
+                "New Password"
+
+            }
+        )
     )
+
 
 
     new_password2 = forms.CharField(
 
-        widget=forms.PasswordInput(attrs={
+        label="Confirm Password",
 
-            "class": "form-control",
-            "placeholder": "Confirm New Password"
+        widget=forms.PasswordInput(
 
-        })
+            attrs={
 
+                "class":
+                "form-control",
+
+                "placeholder":
+                "Confirm Password"
+
+            }
+        )
     )

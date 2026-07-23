@@ -11,17 +11,10 @@ class User(AbstractUser):
     # ROLE CHOICES
     # ======================================================
     ROLE_CHOICES = [
-        ("admin", "System Administrator"),
-        ("manager", "General Manager"),
-        ("director", "Board of Directors"),
-        ("finance", "Finance Officer"),
-        ("secretary", "Secretary / Accountant"),
-        ("engineer", "Civil Engineer"),
-        ("qs", "Quantity Surveyor"),
-        ("equipment", "Equipment Officer"),
-        ("fuel", "Fuel Officer"),
-        ("project_manager", "Project Manager"),
-        ("hr", "Human Resources Officer"),
+        ("owner", "Managing Director"),
+        ("director", "Director"),
+        ("manager", "Manager"),
+        ("secretary", "Secretary"),
     ]
 
     # ======================================================
@@ -35,13 +28,9 @@ class User(AbstractUser):
         ("equipment", "Equipment"),
         ("fuel", "Fuel Management"),
         ("real_estate", "Real Estate"),
-        ("hr", "Human Resources"),
         ("administration", "Administration"),
     ]
 
-    # ======================================================
-    # EXTRA FIELDS
-    # ======================================================
     employee_id = models.CharField(
         max_length=20,
         unique=True,
@@ -50,7 +39,7 @@ class User(AbstractUser):
     )
 
     role = models.CharField(
-        max_length=30,
+        max_length=20,
         choices=ROLE_CHOICES,
         default="secretary"
     )
@@ -83,6 +72,7 @@ class User(AbstractUser):
     is_active_employee = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -100,60 +90,103 @@ class User(AbstractUser):
         return f"{self.first_name} {self.last_name}".strip()
 
     # ======================================================
-    # PERMISSIONS
+    # ROLE HELPERS
     # ======================================================
+
     @property
-    def is_admin(self):
-        return self.is_superuser or self.role == "admin"
+    def is_owner(self):
+        return self.role == "owner"
+
+    @property
+    def is_director(self):
+        return self.role == "director"
 
     @property
     def is_manager(self):
         return self.role == "manager"
 
     @property
-    def is_director(self):
-        return self.role == "director"
+    def is_secretary(self):
+        return self.role == "secretary"
+
+    # ======================================================
+    # PERMISSIONS
+    # ======================================================
+
+    def can_manage_users(self):
+        return self.is_owner
+
+    def can_manage_settings(self):
+        return self.is_owner
+
+    def can_access_employees(self):
+        return self.role in [
+            "owner",
+            "manager",
+        ]
 
     def can_access_finance(self):
         return self.role in [
-            "admin",
+            "owner",
             "manager",
-            "finance",
             "secretary",
         ]
 
     def can_access_equipment(self):
         return self.role in [
-            "admin",
+            "owner",
             "manager",
-            "equipment",
+            "secretary",
+        ]
+
+    def can_access_rentals(self):
+        return self.role in [
+            "owner",
+            "manager",
+            "secretary",
         ]
 
     def can_access_fuel(self):
         return self.role in [
-            "admin",
+            "owner",
             "manager",
-            "fuel",
+            "secretary",
+        ]
+
+    def can_access_maintenance(self):
+        return self.role in [
+            "owner",
+            "manager",
+            "secretary",
         ]
 
     def can_access_projects(self):
         return self.role in [
-            "admin",
+            "owner",
             "manager",
-            "project_manager",
-            "engineer",
-            "qs",
+            "secretary",
         ]
 
-    def can_access_hr(self):
+    def can_access_crm(self):
         return self.role in [
-            "admin",
+            "owner",
             "manager",
-            "hr",
+            "secretary",
         ]
 
-    def can_access_real_estate(self):
+    def can_access_documents(self):
         return self.role in [
-            "admin",
+            "owner",
             "manager",
+            "secretary",
         ]
+
+    def can_access_reports(self):
+        return self.role in [
+            "owner",
+            "manager",
+            "director",
+        ]
+
+    def is_read_only(self):
+        return self.role == "director"

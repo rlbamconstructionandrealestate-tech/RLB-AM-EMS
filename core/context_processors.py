@@ -1,5 +1,3 @@
-# core/context_processors.py
-
 from django.conf import settings
 from django.urls import reverse, NoReverseMatch
 
@@ -11,23 +9,13 @@ from .menu import SIDEBAR_MENU
 # SIDEBAR MENU CONTEXT PROCESSOR
 # =====================================================
 
-
 def sidebar_menu(request):
-    """
-    Builds sidebar menu dynamically based on user role.
-
-    Adds:
-        href   -> resolved URL
-        active -> active sidebar state
-    """
-
 
     if not request.user.is_authenticated:
 
         return {
             "sidebar_menu": []
         }
-
 
 
     user = request.user
@@ -43,9 +31,7 @@ def sidebar_menu(request):
     role = role.lower() if role else ""
 
 
-
     menu = []
-
 
 
 
@@ -56,42 +42,35 @@ def sidebar_menu(request):
 
 
 
-        for item in section["items"]:
+        for item in section.get("items", []):
 
 
-
-            roles = item.get(
+            allowed_roles = item.get(
                 "roles",
                 []
             )
 
 
 
+            # ROLE ACCESS
 
-            # =============================================
-            # ROLE PERMISSION CHECK
-            # =============================================
-
-
-            allowed = (
+            has_access = (
 
                 user.is_superuser
 
-                or "*" in roles
-
                 or role == "admin"
 
-                or role in roles
+                or "*" in allowed_roles
+
+                or role in allowed_roles
 
             )
 
 
 
-            if not allowed:
+            if not has_access:
 
                 continue
-
-
 
 
 
@@ -100,28 +79,27 @@ def sidebar_menu(request):
 
 
 
+            # ===============================
+            # URL CONVERSION
+            # ===============================
 
-
-            # =============================================
-            # URL RESOLUTION
-            # =============================================
+            url_name = menu_item.get(
+                "url",
+                ""
+            )
 
 
             try:
 
+                if url_name.startswith("/"):
 
-                if menu_item["url"].startswith("/"):
-
-
-                    menu_item["href"] = menu_item["url"]
-
+                    menu_item["href"] = url_name
 
 
                 else:
 
-
                     menu_item["href"] = reverse(
-                        menu_item["url"]
+                        url_name
                     )
 
 
@@ -134,32 +112,19 @@ def sidebar_menu(request):
 
 
 
-
-
-
-
-            # =============================================
-            # ACTIVE STATE
-            # =============================================
-
+            # ===============================
+            # ACTIVE MENU
+            # ===============================
 
             menu_item["active"] = (
 
-                request.path == menu_item["href"]
+                menu_item["href"] != "#"
 
-                or (
-
-                    menu_item["href"] != "#"
-
-                    and request.path.startswith(
-                        menu_item["href"]
-                    )
-
+                and request.path.startswith(
+                    menu_item["href"]
                 )
 
             )
-
-
 
 
 
@@ -169,38 +134,28 @@ def sidebar_menu(request):
 
 
 
-
-
-
         if visible_items:
 
 
-            menu.append(
+            menu.append({
 
-                {
-
-                    "section": section["section"],
-
-                    "items": visible_items,
-
-                }
-
-            )
+                "section":
+                    section["section"],
 
 
+                "items":
+                    visible_items
+
+            })
 
 
 
     return {
 
-        "sidebar_menu": menu
+        "sidebar_menu":
+            menu
 
     }
-
-
-
-
-
 
 
 
@@ -216,43 +171,42 @@ def company_info(request):
     return {
 
 
-        "company_name": getattr(
+        "company_name":
 
-            settings,
-
-            "COMPANY_NAME",
-
-            "RLB-AM Construction & Real Estate Ltd"
-
-        ),
+            getattr(
+                settings,
+                "COMPANY_NAME",
+                "RLB-AM Construction & Real Estate Ltd"
+            ),
 
 
 
-        "system_name": getattr(
+        "system_name":
 
-            settings,
-
-            "SYSTEM_NAME",
-
-            "RLB-AM EMS"
-
-        ),
+            getattr(
+                settings,
+                "SYSTEM_NAME",
+                "RLB-AM EMS"
+            ),
 
 
 
-        "system_short_name": getattr(
+        "system_short_name":
 
-            settings,
-
-            "SYSTEM_SHORT_NAME",
-
-            "EMS"
-
-        ),
+            getattr(
+                settings,
+                "SYSTEM_SHORT_NAME",
+                "EMS"
+            ),
 
 
 
-        "current_year": 2026,
+        "current_year":
 
+            getattr(
+                settings,
+                "CURRENT_YEAR",
+                2026
+            ),
 
     }

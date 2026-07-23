@@ -1,16 +1,15 @@
 # ==========================================================
-# CORE SIDEBAR MENU
-# RLB-AM EMS
+# RLB-AM EMS V6.1
+# ENTERPRISE SIDEBAR MENU CONFIGURATION
 # ==========================================================
 
 
 SIDEBAR_MENU = [
 
 
-
-    # ==========================================================
+    # ======================================================
     # MAIN
-    # ==========================================================
+    # ======================================================
 
     {
         "section": "MAIN",
@@ -20,29 +19,29 @@ SIDEBAR_MENU = [
             {
                 "name": "Dashboard",
                 "icon": "bi-speedometer2",
-                "url": "accounts:dashboard",
-                "roles": ["*"],
+                "url": "dashboard:dashboard",
+
+                "roles": [
+                    "owner",
+                    "director",
+                    "manager",
+                    "secretary",
+                ],
             },
 
-        ]
+        ],
     },
 
 
 
-
-
-
-
-    # ==========================================================
+    # ======================================================
     # OPERATIONS
-    # ==========================================================
+    # ======================================================
 
     {
         "section": "OPERATIONS",
 
         "items": [
-
-
 
             {
                 "name": "Equipment",
@@ -50,15 +49,11 @@ SIDEBAR_MENU = [
                 "url": "equipment:list",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
-                    "engineer",
-                    "equipment",
-                    "qs",
+                    "secretary",
                 ],
             },
-
-
 
 
             {
@@ -67,14 +62,11 @@ SIDEBAR_MENU = [
                 "url": "fuel:dashboard",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
-                    "fuel",
+                    "secretary",
                 ],
             },
-
-
-
 
 
             {
@@ -83,14 +75,11 @@ SIDEBAR_MENU = [
                 "url": "maintenance:dashboard",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
-                    "engineer",
+                    "secretary",
                 ],
             },
-
-
-
 
 
             {
@@ -99,14 +88,11 @@ SIDEBAR_MENU = [
                 "url": "rentals:dashboard",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
+                    "secretary",
                 ],
             },
-
-
-
-
 
 
             {
@@ -115,16 +101,11 @@ SIDEBAR_MENU = [
                 "url": "projects:dashboard",
 
                 "roles": [
-                    "admin",
-                    "manager",
+                    "owner",
                     "director",
-                    "project_manager",
+                    "manager",
                 ],
             },
-
-
-
-
 
 
             {
@@ -133,41 +114,25 @@ SIDEBAR_MENU = [
                 "url": "projects:list",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
-                    "director",
-                    "engineer",
-                    "project_manager",
-                    "qs",
+                    "secretary",
                 ],
             },
 
-
-
         ],
-
     },
 
 
 
-
-
-
-
-
-
-    # ==========================================================
+    # ======================================================
     # CRM
-    # ==========================================================
+    # ======================================================
 
     {
-
         "section": "CRM",
 
-
         "items": [
-
-
 
             {
                 "name": "CRM Dashboard",
@@ -175,15 +140,12 @@ SIDEBAR_MENU = [
                 "url": "crm:dashboard",
 
                 "roles": [
-                    "admin",
-                    "manager",
+                    "owner",
                     "director",
+                    "manager",
                     "secretary",
                 ],
             },
-
-
-
 
 
             {
@@ -192,14 +154,11 @@ SIDEBAR_MENU = [
                 "url": "crm:clients",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
                     "secretary",
                 ],
             },
-
-
-
 
 
             {
@@ -208,37 +167,26 @@ SIDEBAR_MENU = [
                 "url": "crm:contracts",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
-                    "director",
                     "secretary",
                 ],
             },
 
-
         ],
-
     },
 
 
 
-
-
-
-
-
-
-    # ==========================================================
+    # ======================================================
     # FINANCE
-    # ==========================================================
+    # ======================================================
 
     {
 
         "section": "FINANCE",
 
-
         "items": [
-
 
 
             {
@@ -247,16 +195,12 @@ SIDEBAR_MENU = [
                 "url": "finance:dashboard",
 
                 "roles": [
-                    "admin",
+                    "owner",
+                    "director",
                     "manager",
-                    "finance",
                     "secretary",
                 ],
             },
-
-
-
-
 
 
             {
@@ -265,14 +209,11 @@ SIDEBAR_MENU = [
                 "url": "finance:add_income",
 
                 "roles": [
-                    "admin",
-                    "finance",
+                    "owner",
+                    "manager",
+                    "secretary",
                 ],
             },
-
-
-
-
 
 
             {
@@ -281,14 +222,11 @@ SIDEBAR_MENU = [
                 "url": "finance:add_expense",
 
                 "roles": [
-                    "admin",
-                    "finance",
+                    "owner",
+                    "manager",
+                    "secretary",
                 ],
             },
-
-
-
-
 
 
             {
@@ -297,36 +235,26 @@ SIDEBAR_MENU = [
                 "url": "finance:add_invoice",
 
                 "roles": [
-                    "admin",
-                    "finance",
+                    "owner",
+                    "manager",
+                    "secretary",
                 ],
             },
 
-
         ],
-
     },
 
 
 
-
-
-
-
-
-
-    # ==========================================================
+    # ======================================================
     # HUMAN RESOURCES
-    # ==========================================================
+    # ======================================================
 
     {
 
         "section": "HUMAN RESOURCES",
 
-
         "items": [
-
-
 
             {
                 "name": "Employees",
@@ -334,14 +262,10 @@ SIDEBAR_MENU = [
                 "url": "employees:list",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
-                    "hr",
                 ],
             },
-
-
-
 
 
             {
@@ -350,14 +274,10 @@ SIDEBAR_MENU = [
                 "url": "employees:attendance",
 
                 "roles": [
-                    "admin",
-                    "hr",
+                    "owner",
+                    "manager",
                 ],
             },
-
-
-
-
 
 
             {
@@ -366,36 +286,25 @@ SIDEBAR_MENU = [
                 "url": "employees:payroll",
 
                 "roles": [
-                    "admin",
-                    "hr",
+                    "owner",
+                    "manager",
                 ],
             },
 
-
         ],
-
     },
 
 
 
-
-
-
-
-
-
-    # ==========================================================
+    # ======================================================
     # REPORTS
-    # ==========================================================
+    # ======================================================
 
     {
 
         "section": "REPORTS",
 
-
         "items": [
-
-
 
             {
                 "name": "Reports",
@@ -403,14 +312,11 @@ SIDEBAR_MENU = [
                 "url": "reports:dashboard",
 
                 "roles": [
-                    "admin",
-                    "manager",
+                    "owner",
                     "director",
+                    "manager",
                 ],
             },
-
-
-
 
 
             {
@@ -419,36 +325,26 @@ SIDEBAR_MENU = [
                 "url": "reports:analytics",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "director",
+                    "manager",
                 ],
             },
 
-
         ],
-
     },
 
 
 
-
-
-
-
-
-
-    # ==========================================================
+    # ======================================================
     # SYSTEM
-    # ==========================================================
+    # ======================================================
 
     {
 
         "section": "SYSTEM",
 
-
         "items": [
-
-
 
             {
                 "name": "Documents",
@@ -456,14 +352,11 @@ SIDEBAR_MENU = [
                 "url": "documents:list",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
                     "secretary",
                 ],
             },
-
-
-
 
 
             {
@@ -472,38 +365,26 @@ SIDEBAR_MENU = [
                 "url": "notifications:list",
 
                 "roles": [
-                    "admin",
+                    "owner",
                     "manager",
-                    "director",
+                    "secretary",
                 ],
             },
 
-
         ],
-
     },
 
 
 
-
-
-
-
-
-
-    # ==========================================================
+    # ======================================================
     # ADMINISTRATION
-    # ==========================================================
+    # ======================================================
 
     {
 
         "section": "ADMINISTRATION",
 
-
         "items": [
-
-
-
 
             {
                 "name": "Settings Dashboard",
@@ -511,13 +392,9 @@ SIDEBAR_MENU = [
                 "url": "settings_app:dashboard",
 
                 "roles": [
-                    "admin",
-                    "director",
+                    "owner",
                 ],
             },
-
-
-
 
 
             {
@@ -526,14 +403,9 @@ SIDEBAR_MENU = [
                 "url": "settings_app:company",
 
                 "roles": [
-                    "admin",
-                    "director",
+                    "owner",
                 ],
             },
-
-
-
-
 
 
             {
@@ -542,14 +414,9 @@ SIDEBAR_MENU = [
                 "url": "settings_app:system",
 
                 "roles": [
-                    "admin",
-                    "director",
+                    "owner",
                 ],
             },
-
-
-
-
 
 
             {
@@ -558,15 +425,20 @@ SIDEBAR_MENU = [
                 "url": "settings_app:notifications",
 
                 "roles": [
-                    "admin",
-                    "director",
+                    "owner",
                 ],
             },
 
 
+            {
+                "name": "User Management",
+                "icon": "bi-people-fill",
+                "url": "accounts:user_list",
 
-
-
+                "roles": [
+                    "owner",
+                ],
+            },
 
 
             {
@@ -575,13 +447,11 @@ SIDEBAR_MENU = [
                 "url": "/admin/",
 
                 "roles": [
-                    "admin",
+                    "owner",
                 ],
             },
 
-
         ],
-
     },
 
 

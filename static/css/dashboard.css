@@ -1,333 +1,657 @@
 /* ==========================================================
-   RLB-AM EMS V6.1
-   ENTERPRISE DASHBOARD SYSTEM - Updated July 2026
+   RLB-AM EMS V7.0
+   PREMIUM ENTERPRISE DASHBOARD UI
 ========================================================== */
+
 
 :root {
-    --primary: #2563eb;
-    --primary-dark: #1e40af;
-    --primary-light: #dbeafe;
-    
-    --success: #16a34a;
-    --warning: #d97706;
-    --info: #0891b2;
-    
-    --card: #ffffff;
-    --surface: #f8fafc;
-    --border: #e2e8f0;
-    --text-primary: #0f172a;
-    --text-secondary: #64748b;
-    --text-muted: #94a3b8;
-    
-    --radius-sm: 12px;
-    --radius-lg: 20px;
-    --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-    --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --primary:#2563eb;
+    --success:#16a34a;
+    --warning:#d97706;
+    --danger:#dc2626;
+    --info:#0891b2;
+
+    --dark:#0f172a;
+
+    --card:#ffffff;
+
+    --surface:#f8fafc;
+
+    --border:#e2e8f0;
+
+    --radius:22px;
+
+    --shadow:
+    0 15px 40px rgba(15,23,42,.10);
+
 }
 
-/* Dark Mode */
-[data-bs-theme="dark"] {
-    --card: #1e2937;
-    --surface: #0f172a;
-    --border: #334155;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-}
+
+
 
 /* ==========================================================
-   DASHBOARD HEADER
+   PAGE CONTAINER
 ========================================================== */
 
-.dashboard-page .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 28px 32px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 28px;
+
+.dashboard-page {
+
+    width:100%;
+
 }
 
-.page-header h1 {
-    margin: 0;
-    font-size: 2.1rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    letter-spacing: -0.025em;
+
+
+.dashboard-container {
+
+    width:100%;
+
+    padding-bottom:30px;
+
 }
 
-.page-header p {
-    margin: 6px 0 0;
-    color: var(--text-muted);
-    font-size: 1.02rem;
-}
+
+
+
+
 
 /* ==========================================================
-   KPI STATISTICS
+   COMMON CARD
 ========================================================== */
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
+
+.dashboard-card {
+
+
+    background:var(--card);
+
+
+    border:1px solid var(--border);
+
+
+    border-radius:var(--radius);
+
+
+    box-shadow:
+    0 5px 20px rgba(15,23,42,.06);
+
+
+    overflow:hidden;
+
+
+    transition:.3s ease;
+
+
 }
+
+
+
+.dashboard-card:hover {
+
+
+    transform:translateY(-4px);
+
+
+    box-shadow:var(--shadow);
+
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   WELCOME BANNER
+========================================================== */
+
+
+.dashboard-banner {
+
+
+    padding:35px;
+
+
+    background:white;
+
+
+    border-radius:var(--radius);
+
+
+    border:1px solid var(--border);
+
+
+    box-shadow:
+    0 5px 20px rgba(15,23,42,.05);
+
+
+}
+
+
+
+
+
+
+/* ==========================================================
+   CARD HEADER
+========================================================== */
+
+
+.card-header {
+
+
+    background:transparent;
+
+
+    padding:22px 25px;
+
+
+    border-bottom:
+    1px solid var(--border);
+
+
+}
+
+
+
+.card-body {
+
+
+    padding:25px;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   KPI CARDS
+========================================================== */
+
 
 .stat-card {
-    position: relative;
-    overflow: hidden;
-    padding: 28px;
-    min-height: 178px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
+
+
+    padding:25px;
+
+
+    min-height:180px;
+
+
 }
 
-.stat-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow);
+
+
+
+.stat-card h2,
+.stat-card h3 {
+
+
+    font-weight:800;
+
+
+    color:var(--dark);
+
+
+    margin-top:12px;
+
+
 }
 
-.stat-card::after {
-    content: "";
-    position: absolute;
-    width: 140px;
-    height: 140px;
-    right: -50px;
-    bottom: -50px;
-    background: rgba(37, 99, 235, 0.07);
-    border-radius: 50%;
-    z-index: 0;
+
+
+.stat-card small {
+
+
+    font-size:14px;
+
+
+    color:#64748b;
+
+
 }
+
+
+
+
+
+
+
+/* ==========================================================
+   KPI ICONS
+========================================================== */
+
 
 .stat-icon {
-    width: 64px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 18px;
-    font-size: 1.75rem;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
+
+
+    width:62px;
+
+
+    height:62px;
+
+
+    border-radius:20px;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    font-size:28px;
+
+
+    margin-bottom:18px;
+
+
 }
 
-.stat-primary   { background: #dbeafe; color: #2563eb; }
-.stat-success   { background: #dcfce7; color: #16a34a; }
-.stat-warning   { background: #fef3c7; color: #d97706; }
-.stat-info      { background: #cffafe; color: #0891b2; }
 
-.stat-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+
+
+.stat-primary {
+
+
+    background:#dbeafe;
+
+    color:#2563eb;
+
 }
 
-.stat-value {
-    margin-top: 8px;
-    font-size: 2.35rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1;
+
+
+.stat-success {
+
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
 }
+
+
+
+.stat-warning {
+
+
+    background:#fef3c7;
+
+    color:#d97706;
+
+}
+
+
+
+.stat-info {
+
+
+    background:#cffafe;
+
+    color:#0891b2;
+
+}
+
+
+
+.stat-danger {
+
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+
+
+
+
+
 
 /* ==========================================================
-   DASHBOARD CONTENT CARDS
+   CHART AREA
 ========================================================== */
 
-.dashboard-page .card {
-    border-radius: var(--radius-lg);
-    background: var(--card);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    padding: 24px;
-    transition: var(--transition);
-}
-
-.dashboard-page .card:hover {
-    box-shadow: var(--shadow);
-}
-
-.dashboard-page .card h5 {
-    font-size: 1.15rem;
-    font-weight: 800;
-    margin-bottom: 22px;
-    color: var(--text-primary);
-}
-
-/* ==========================================================
-   CHARTS
-========================================================== */
 
 .chart-container {
-    height: 380px;
-    width: 100%;
-    padding: 8px;
-    background: var(--card);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
+
+
+    width:100%;
+
+
+    height:360px;
+
+
+    position:relative;
+
+
 }
+
+
 
 .chart-container canvas {
-    width: 100% !important;
-    height: 100% !important;
+
+
+    max-height:100%;
+
+
 }
 
-/* ==========================================================
-   RECENT ACTIVITY
-========================================================== */
 
-.activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
 
-.activity-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    border-radius: 18px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    transition: var(--transition);
-}
 
-.activity-item:hover {
-    transform: translateX(8px);
-    background: var(--card);
-}
+
+
 
 /* ==========================================================
    QUICK ACTIONS
 ========================================================== */
 
+
 .quick-actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
+
+
+    display:grid;
+
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+
+    gap:18px;
+
+
 }
 
+
+
 .action-card {
-    padding: 28px 20px;
-    text-align: center;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 22px;
-    transition: var(--transition);
-    cursor: pointer;
+
+
+    text-decoration:none;
+
+
+    padding:22px;
+
+
+    background:var(--surface);
+
+
+    border-radius:18px;
+
+
+    border:
+    1px solid var(--border);
+
+
+    text-align:center;
+
+
+    color:var(--dark);
+
+
+    transition:.25s ease;
+
+
 }
+
+
 
 .action-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow);
+
+
+    transform:translateY(-6px);
+
+
+    background:white;
+
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
+
+
 }
+
+
+
 
 .action-card i {
-    width: 64px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 16px;
-    border-radius: 18px;
-    background: var(--primary-light);
-    color: var(--primary);
-    font-size: 1.9rem;
+
+
+    font-size:32px;
+
+
+    color:var(--primary);
+
+
+    margin-bottom:10px;
+
+
 }
 
-.action-card h6 {
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0;
-}
+
+
+
+
+
 
 /* ==========================================================
-   ANIMATIONS
+   STATUS BOXES
 ========================================================== */
 
-.dashboard-card,
-.stat-card,
-.activity-item,
-.action-card {
-    animation: dashboardFade 0.6s ease forwards;
+
+.system-item {
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:15px;
+
+
 }
 
-@keyframes dashboardFade {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: none;
-    }
+
+
+.system-icon {
+
+
+    width:45px;
+
+
+    height:45px;
+
+
+    border-radius:15px;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
 }
+
+
+
+
+
+
+
+/* ==========================================================
+   ACTIVITY LIST
+========================================================== */
+
+
+.activity-item {
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:15px;
+
+
+    padding:16px;
+
+
+    border-radius:18px;
+
+
+    background:var(--surface);
+
+
+}
+
+
+
+.activity-icon {
+
+
+    width:45px;
+
+
+    height:45px;
+
+
+    border-radius:14px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+
+.dashboard-card .btn {
+
+
+    border-radius:14px;
+
+
+    padding:12px 18px;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================================================
+   COUNTER ANIMATION
+========================================================== */
+
+
+.counter {
+
+
+    transition:.4s ease;
+
+
+}
+
+
+
+
+
+
 
 /* ==========================================================
    RESPONSIVE
 ========================================================== */
 
-@media (max-width: 1200px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+
+@media(max-width:992px){
+
+
+    .dashboard-banner {
+
+
+        padding:25px;
+
+
     }
+
+
 }
 
-@media (max-width: 768px) {
-    .dashboard-page .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 24px;
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
+
+
+
+
+@media(max-width:768px){
+
+
     .quick-actions {
-        grid-template-columns: 1fr;
+
+
+        grid-template-columns:1fr;
+
+
     }
-    
-    .chart-container {
-        height: 300px;
+
+
+
+    .dashboard-banner {
+
+
+        padding:20px;
+
+
     }
-}
 
-/* ==========================================================
-   DARK MODE ENHANCEMENTS
-========================================================== */
 
-[data-bs-theme="dark"] .stat-icon {
-    filter: brightness(1.1);
-}
 
-[data-bs-theme="dark"] .stat-card::after {
-    background: rgba(37, 99, 235, 0.12);
-}
+    .stat-card {
 
-/* Scrollbar */
-::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-}
 
-::-webkit-scrollbar-thumb {
-    background: #64748b;
-    border-radius: 20px;
-}
+        min-height:auto;
 
-[data-bs-theme="dark"] ::-webkit-scrollbar-thumb {
-    background: #475569;
+
+    }
+
+
 }

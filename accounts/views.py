@@ -5,10 +5,10 @@ from django.shortcuts import render, redirect
 
 from .forms import (
     LoginForm,
-    RegisterForm,
     UserProfileForm,
     CustomPasswordChangeForm,
 )
+
 
 
 # ======================================================
@@ -33,33 +33,35 @@ def login_view(request):
 
             user = form.get_user()
 
+
             login(
                 request,
                 user
             )
 
 
-            # Remember me
-            if not form.cleaned_data.get("remember_me"):
+            if not form.cleaned_data.get(
+                "remember_me"
+            ):
 
                 request.session.set_expiry(0)
 
 
+
             messages.success(
                 request,
-                f"Welcome back, {user.username}!"
+                f"Welcome back, {user.get_full_name() or user.username}!"
             )
 
 
             return get_role_redirect(user)
 
 
-        else:
 
-            messages.error(
-                request,
-                "Invalid username or password."
-            )
+        messages.error(
+            request,
+            "Invalid username or password."
+        )
 
 
     else:
@@ -72,70 +74,11 @@ def login_view(request):
         request,
         "authentication/login.html",
         {
-            "form": form
+            "form":form
         }
     )
 
 
-
-# ======================================================
-# REGISTER
-# ======================================================
-
-def register_view(request):
-
-    if request.user.is_authenticated:
-        return get_role_redirect(request.user)
-
-
-    if request.method == "POST":
-
-        form = RegisterForm(
-            request.POST
-        )
-
-
-        if form.is_valid():
-
-            user = form.save()
-
-
-            login(
-                request,
-                user
-            )
-
-
-            messages.success(
-                request,
-                f"Account created successfully! Welcome, {user.username}."
-            )
-
-
-            return get_role_redirect(user)
-
-
-        else:
-
-            messages.error(
-                request,
-                "Please correct the errors below."
-            )
-
-
-    else:
-
-        form = RegisterForm()
-
-
-
-    return render(
-        request,
-        "authentication/register.html",
-        {
-            "form": form
-        }
-    )
 
 
 
@@ -145,41 +88,31 @@ def register_view(request):
 
 def get_role_redirect(user):
 
-    role = getattr(
-        user,
-        "role",
-        None
-    )
+    dashboards = {
 
+        "owner":
+        "dashboard:owner_dashboard",
 
-    # All authorized EMS users
-    # enter the main dashboard
+        "director":
+        "dashboard:director_dashboard",
 
-    allowed_roles = [
+        "manager":
+        "dashboard:manager_dashboard",
 
-        "manager",
-        "secretary",
-        "director",
-        "engineer",
-        "qs",
-        "equipment",
-        "fuel",
+        "secretary":
+        "dashboard:secretary_dashboard",
 
-    ]
+    }
 
-
-    if role in allowed_roles:
-
-        return redirect(
-            "dashboard:dashboard"
-        )
-
-
-    # Default fallback
 
     return redirect(
-        "dashboard:dashboard"
+        dashboards.get(
+            user.role,
+            "dashboard:dashboard"
+        )
     )
+
+
 
 
 
@@ -190,9 +123,7 @@ def get_role_redirect(user):
 @login_required
 def logout_view(request):
 
-    logout(
-        request
-    )
+    logout(request)
 
 
     messages.success(
@@ -207,6 +138,8 @@ def logout_view(request):
 
 
 
+
+
 # ======================================================
 # PROFILE
 # ======================================================
@@ -218,9 +151,11 @@ def profile(request):
         request,
         "accounts/profile.html",
         {
-            "user_profile": request.user
+            "user_profile":request.user
         }
     )
+
+
 
 
 
@@ -247,7 +182,7 @@ def edit_profile(request):
 
             messages.success(
                 request,
-                "Your profile has been updated successfully!"
+                "Profile updated successfully."
             )
 
 
@@ -268,9 +203,11 @@ def edit_profile(request):
         request,
         "accounts/edit_profile.html",
         {
-            "form": form
+            "form":form
         }
     )
+
+
 
 
 
@@ -296,7 +233,7 @@ def change_password(request):
 
             messages.success(
                 request,
-                "Your password has been changed successfully!"
+                "Password changed successfully."
             )
 
 
@@ -312,10 +249,107 @@ def change_password(request):
         )
 
 
-
     return render(
         request,
         "accounts/change_password.html",
+        {
+            "form":form
+        }
+    )
+
+
+
+
+
+# ======================================================
+# USER MANAGEMENT
+# ONLY MANAGING DIRECTOR
+# ======================================================
+
+@login_required
+def user_list(request):
+
+    if not request.user.can_manage_users():
+
+        messages.warning(
+            request,
+            "You don't have permission to manage users."
+        )
+
+        return redirect(
+            "accounts:profile"
+        )
+
+
+
+    from .models import User
+
+
+    users = User.objects.all().order_by(
+        "role",
+        "first_name"
+    )
+
+
+    return render(
+        request,
+        "accounts/users.html",
+        {
+            "users":users,
+            "title":"User Management"
+        }
+    )
+
+# ======================================================
+# REGISTER
+# ======================================================
+
+def register_view(request):
+
+    if request.user.is_authenticated:
+        return get_role_redirect(request.user)
+
+
+    if request.method == "POST":
+
+        form = RegisterForm(request.POST)
+
+
+        if form.is_valid():
+
+            user = form.save()
+
+            login(
+                request,
+                user
+            )
+
+
+            messages.success(
+                request,
+                f"Welcome {user.username}, your account was created successfully."
+            )
+
+
+            return get_role_redirect(user)
+
+
+        else:
+
+            messages.error(
+                request,
+                "Please correct the errors below."
+            )
+
+
+    else:
+
+        form = RegisterForm()
+
+
+    return render(
+        request,
+        "authentication/register.html",
         {
             "form": form
         }

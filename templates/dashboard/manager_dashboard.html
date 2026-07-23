@@ -1,0 +1,858 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+Operations Manager Dashboard | RLB-AM EMS
+{% endblock %}
+
+
+
+{% block page_title %}
+Operations Manager Dashboard
+{% endblock %}
+
+
+
+{% block current_page %}
+Operations Management
+{% endblock %}
+
+
+
+
+
+{% block page_actions %}
+
+<a href="{% url 'equipment:create' %}" 
+class="btn btn-primary">
+
+<i class="bi bi-plus-circle me-2"></i>
+
+Add Equipment
+
+</a>
+
+
+<a href="{% url 'projects:create' %}" 
+class="btn btn-outline-primary ms-2">
+
+<i class="bi bi-building-add me-2"></i>
+
+New Project
+
+</a>
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block content %}
+
+
+<div class="dashboard-page dashboard-container">
+
+
+
+
+
+<!-- =========================
+WELCOME BANNER
+========================= -->
+
+
+<div class="dashboard-banner mb-4">
+
+
+<div class="row align-items-center">
+
+
+<div class="col-lg-8">
+
+
+<h2 class="fw-bold">
+
+
+Welcome,
+{{ request.user.first_name|default:request.user.username }}
+
+
+</h2>
+
+
+
+<p class="text-muted">
+
+
+Monitor equipment, projects, rentals and daily company operations.
+
+
+</p>
+
+
+
+</div>
+
+
+
+<div class="col-lg-4 text-lg-end">
+
+
+<span class="badge bg-primary fs-6 px-3 py-2">
+
+
+Operations Manager
+
+
+</span>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- =========================
+KPI CARDS
+========================= -->
+
+
+<div class="row g-4 mb-4">
+
+
+
+
+
+<!-- EQUIPMENT -->
+
+
+<div class="col-xl-3 col-md-6">
+
+
+<div class="dashboard-card stat-card">
+
+
+<div class="stat-icon stat-primary">
+
+<i class="bi bi-truck"></i>
+
+</div>
+
+
+
+<small class="text-muted">
+
+Equipment Fleet
+
+</small>
+
+
+
+<h2>
+
+{{ total_equipment|default:0 }}
+
+</h2>
+
+
+
+<p class="text-success mb-0">
+
+{{ available_equipment|default:0 }} Available
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- PROJECTS -->
+
+
+<div class="col-xl-3 col-md-6">
+
+
+<div class="dashboard-card stat-card">
+
+
+<div class="stat-icon stat-success">
+
+<i class="bi bi-building"></i>
+
+</div>
+
+
+
+<small class="text-muted">
+
+Active Projects
+
+</small>
+
+
+
+<h2>
+
+{{ active_projects|default:0 }}
+
+</h2>
+
+
+
+<p class="text-success mb-0">
+
+Running Sites
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- RENTALS -->
+
+
+<div class="col-xl-3 col-md-6">
+
+
+<div class="dashboard-card stat-card">
+
+
+<div class="stat-icon stat-warning">
+
+<i class="bi bi-calendar-check"></i>
+
+</div>
+
+
+
+<small class="text-muted">
+
+Active Rentals
+
+</small>
+
+
+
+<h2>
+
+{{ active_rentals|default:0 }}
+
+</h2>
+
+
+
+<p class="text-warning mb-0">
+
+Equipment Contracts
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- MAINTENANCE -->
+
+
+<div class="col-xl-3 col-md-6">
+
+
+<div class="dashboard-card stat-card">
+
+
+<div class="stat-icon stat-info">
+
+<i class="bi bi-tools"></i>
+
+</div>
+
+
+
+<small class="text-muted">
+
+Maintenance Alerts
+
+</small>
+
+
+
+<h2>
+
+{{ maintenance_due|default:0 }}
+
+</h2>
+
+
+
+<p class="text-danger mb-0">
+
+Require Attention
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- =========================
+OPERATIONS CONTROL
+========================= -->
+
+
+<div class="row g-4 mb-4">
+
+
+
+
+
+<div class="col-xl-8">
+
+
+
+<div class="dashboard-card">
+
+
+
+<div class="card-header">
+
+
+<h5 class="fw-bold mb-0">
+
+Operations Control Center
+
+</h5>
+
+
+</div>
+
+
+
+
+
+<div class="card-body">
+
+
+
+<div class="quick-actions">
+
+
+
+
+
+
+<a href="{% url 'equipment:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-truck"></i>
+
+
+<h6>
+
+Equipment
+
+</h6>
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'rentals:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-calendar-check"></i>
+
+
+<h6>
+
+Rentals
+
+</h6>
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'projects:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-building"></i>
+
+
+<h6>
+
+Projects
+
+</h6>
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'maintenance:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-tools"></i>
+
+
+<h6>
+
+Maintenance
+
+</h6>
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'fuel:dashboard' %}"
+class="action-card">
+
+
+<i class="bi bi-fuel-pump"></i>
+
+
+<h6>
+
+Fuel
+
+</h6>
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'employees:list' %}"
+class="action-card">
+
+
+<i class="bi bi-people"></i>
+
+
+<h6>
+
+Employees
+
+</h6>
+
+
+</a>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- =========================
+SUMMARY PANEL
+========================= -->
+
+
+<div class="col-xl-4">
+
+
+<div class="dashboard-card p-4">
+
+
+
+<h5 class="fw-bold mb-4">
+
+Operational Summary
+
+</h5>
+
+
+
+
+
+<div class="d-flex justify-content-between mb-3">
+
+
+<span>
+
+Employees
+
+</span>
+
+
+<strong>
+
+{{ total_employees|default:0 }}
+
+</strong>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="d-flex justify-content-between mb-3">
+
+
+<span>
+
+Available Machines
+
+</span>
+
+
+<strong class="text-success">
+
+{{ available_equipment|default:0 }}
+
+</strong>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="d-flex justify-content-between mb-3">
+
+
+<span>
+
+Active Rentals
+
+</span>
+
+
+<strong class="text-warning">
+
+{{ active_rentals|default:0 }}
+
+</strong>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="d-flex justify-content-between">
+
+
+<span>
+
+Maintenance Due
+
+</span>
+
+
+<strong class="text-danger">
+
+{{ maintenance_due|default:0 }}
+
+</strong>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+RECENT OPERATIONS
+========================= -->
+
+
+<div class="dashboard-card p-4">
+
+
+
+<h5 class="fw-bold mb-4">
+
+Recent Operations
+
+</h5>
+
+
+
+
+
+
+<div class="activity-item mb-3">
+
+
+<div class="activity-icon stat-primary">
+
+<i class="bi bi-truck"></i>
+
+</div>
+
+
+<div>
+
+
+<strong>
+
+Equipment Fleet
+
+</strong>
+
+
+<p class="text-muted mb-0">
+
+{{ total_equipment }} machines registered.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="activity-item mb-3">
+
+
+<div class="activity-icon stat-success">
+
+<i class="bi bi-building"></i>
+
+</div>
+
+
+<div>
+
+
+<strong>
+
+Projects
+
+</strong>
+
+
+<p class="text-muted mb-0">
+
+{{ active_projects }} active construction projects.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="activity-item">
+
+
+<div class="activity-icon stat-warning">
+
+<i class="bi bi-tools"></i>
+
+</div>
+
+
+<div>
+
+
+<strong>
+
+Maintenance
+
+</strong>
+
+
+<p class="text-muted mb-0">
+
+{{ maintenance_due }} machines need service.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+{% endblock %}

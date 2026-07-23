@@ -145,7 +145,13 @@
 
     <!-- Global Scripts -->
     <script>
+
     document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem("rlbam-theme");
+        if (savedTheme) {
+            document.documentElement.setAttribute("data-bs-theme", savedTheme);
+        }
+
         if (typeof AOS !== 'undefined') {
             AOS.init({ duration: 700, once: true });
         }
