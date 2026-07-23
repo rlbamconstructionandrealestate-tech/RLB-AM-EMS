@@ -7,9 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="RLB-AM Enterprise Management System">
-    <meta name="keywords" content="Construction, Equipment, Rentals, Finance, Projects, ERP">
     <meta name="author" content="RLB-AM Construction & Real Estate Ltd">
-    <meta name="theme-color" content="#2563eb">
 
     <title>
         {% block title %}RLB-AM EMS{% endblock %}
@@ -19,18 +17,16 @@
     <link rel="icon" href="{% static 'img/logo.png' %}" type="image/png">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- AOS Animation -->
+    <!-- AOS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-    <!-- Core CSS -->
+    <!-- Core Styles -->
     <link rel="stylesheet" href="{% static 'css/variables.css' %}">
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
@@ -46,8 +42,8 @@
     <!-- Page Loader -->
     <div id="page-loader">
         <div class="loader-content text-center">
-            <img src="{% static 'img/logo.png' %}" alt="RLB-AM" class="mb-3" style="width: 85px;">
-            <h4 class="fw-bold text-primary">RLB-AM EMS</h4>
+            <img src="{% static 'img/logo.png' %}" alt="RLB-AM" style="width: 85px;">
+            <h4 class="fw-bold text-primary mt-3">RLB-AM EMS</h4>
             <div class="spinner-border text-primary mt-3" role="status"></div>
             <p class="text-muted mt-3 small">Loading Enterprise System...</p>
         </div>
@@ -60,15 +56,15 @@
         <!-- SIDEBAR -->
         {% include "includes/sidebar/sidebar.html" %}
 
-        <!-- MAIN CONTENT -->
+        <!-- MAIN WRAPPER -->
         <div class="main-wrapper">
 
-            <!-- TOP NAVBAR -->
+            <!-- NAVBAR -->
             {% include "includes/navbar.html" %}
 
             <!-- PAGE CONTENT -->
             <main class="page-wrapper flex-grow-1">
-                
+
                 <!-- Page Header -->
                 <div class="page-header">
                     <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
@@ -91,7 +87,6 @@
                             </nav>
                             {% endblock %}
                         </div>
-                        
                         <div>
                             {% block page_actions %}{% endblock %}
                         </div>
@@ -134,35 +129,6 @@
 
     {% endif %}
 
-    <!-- Global Search Modal -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Global Search</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        <input type="search" class="form-control" placeholder="Search equipment, rentals, employees, projects...">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
-        <div id="systemToast" class="toast" role="alert">
-            <div class="toast-header">
-                <strong class="me-auto">RLB-AM EMS</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-            </div>
-            <div class="toast-body"></div>
-        </div>
-    </div>
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -180,63 +146,40 @@
     <!-- Global Scripts -->
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Initialize AOS
         if (typeof AOS !== 'undefined') {
-            AOS.init({
-                duration: 700,
-                once: true,
-                easing: "ease-in-out"
-            });
+            AOS.init({ duration: 700, once: true });
         }
 
         // Hide loader
-        const loader = document.getElementById("page-loader");
-        if (loader) {
-            setTimeout(() => {
-                loader.classList.add("hide");
-            }, 280);
-        }
-
-        // Restore saved theme
-        const savedTheme = localStorage.getItem("rlbam-theme");
-        if (savedTheme) {
-            document.documentElement.setAttribute("data-bs-theme", savedTheme);
-        }
+        setTimeout(() => {
+            document.getElementById("page-loader").classList.add("hide");
+        }, 300);
     });
 
-    // Theme Toggle
     function toggleTheme() {
         const html = document.documentElement;
         const current = html.getAttribute("data-bs-theme");
-        const newTheme = current === "light" ? "dark" : "light";
-        
-        html.setAttribute("data-bs-theme", newTheme);
-        localStorage.setItem("rlbam-theme", newTheme);
+        const next = current === "dark" ? "light" : "dark";
+        html.setAttribute("data-bs-theme", next);
+        localStorage.setItem("rlbam-theme", next);
     }
 
-    // Global Toast
     function showToast(message, type = "primary") {
-        const toastEl = document.getElementById("systemToast");
-        if (!toastEl) return;
-        
-        const body = toastEl.querySelector(".toast-body");
-        body.textContent = message;
-        
-        toastEl.className = `toast border-${type}`;
-        
-        const toast = bootstrap.Toast.getOrCreateInstance(toastEl);
-        toast.show();
+        const toastContainer = document.querySelector(".toast-container") || createToastContainer();
+        const toast = document.createElement("div");
+        toast.className = `toast text-bg-${type}`;
+        toast.innerHTML = `<div class="toast-body">${message}</div>`;
+        toastContainer.appendChild(toast);
+        new bootstrap.Toast(toast, { delay: 4000 }).show();
     }
 
-    // Keyboard Shortcuts
-    document.addEventListener("keydown", function (e) {
-        // Ctrl + K → Search
-        if (e.ctrlKey && e.key.toLowerCase() === "k") {
-            e.preventDefault();
-            const modal = new bootstrap.Modal(document.getElementById("searchModal"));
-            modal.show();
-        }
-    });
+    function createToastContainer() {
+        const container = document.createElement("div");
+        container.className = "toast-container position-fixed bottom-0 end-0 p-3";
+        container.style.zIndex = "1100";
+        document.body.appendChild(container);
+        return container;
+    }
     </script>
 </body>
 </html>

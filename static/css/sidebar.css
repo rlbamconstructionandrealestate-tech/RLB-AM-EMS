@@ -1,26 +1,14 @@
 /* ==========================================================
-   RLB-AM EMS V6.1
-   PREMIUM SIDEBAR SYSTEM - Updated
-   sidebar.css
-========================================================== */
-
-:root {
-    --sidebar-width: 280px;
-    --sidebar-collapsed: 85px;
-    --primary: #2563eb;
-}
-
-/* ==========================================================
-   SIDEBAR MAIN
+   RLB-AM EMS V6.1 - SIDEBAR
 ========================================================== */
 
 .sidebar {
-    width: var(--sidebar-width);
+    width: var(--sidebar-width, 280px);
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    background: linear-gradient(180deg, #0f172a, #020617);
     color: white;
     display: flex;
     flex-direction: column;
@@ -31,49 +19,20 @@
 }
 
 .sidebar.collapsed {
-    width: var(--sidebar-collapsed);
+    width: 85px;
 }
 
-/* ==========================================================
-   HEADER
-========================================================== */
-
+/* Header */
 .sidebar-header {
     height: 75px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    flex-shrink: 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.sidebar-close {
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.sidebar-close:hover {
-    background: #ef4444;
-    transform: rotate(90deg);
-}
-
-/* ==========================================================
-   LOGO
-========================================================== */
-
-.sidebar-logo {
-    padding: 20px 20px 10px;
-}
-
+/* Logo */
 .sidebar-logo a {
     display: flex;
     align-items: center;
@@ -86,39 +45,24 @@
     width: 55px;
     height: 55px;
     object-fit: contain;
-    flex-shrink: 0;
 }
 
 .logo-details h4 {
     margin: 0;
     font-weight: 800;
-    font-size: 1.35rem;
-    letter-spacing: -0.5px;
+    color: white;
 }
 
 .logo-details span {
     font-size: 0.78rem;
     color: #94a3b8;
-    font-weight: 500;
 }
 
-/* ==========================================================
-   MENU
-========================================================== */
-
+/* Navigation */
 .sidebar-nav {
     flex: 1;
     overflow-y: auto;
     padding: 15px 12px;
-}
-
-.sidebar-nav::-webkit-scrollbar {
-    width: 5px;
-}
-
-.sidebar-nav::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 20px;
 }
 
 .menu-title {
@@ -131,12 +75,7 @@
     text-transform: uppercase;
 }
 
-.menu-item {
-    margin-bottom: 6px;
-}
-
 .sidebar-nav a {
-    position: relative;
     display: flex;
     align-items: center;
     gap: 14px;
@@ -144,13 +83,12 @@
     border-radius: 15px;
     color: #cbd5e1;
     font-size: 0.94rem;
-    font-weight: 500;
     text-decoration: none;
     transition: all 0.25s ease;
 }
 
 .sidebar-nav a:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255,255,255,.08);
     color: white;
     transform: translateX(6px);
 }
@@ -159,7 +97,6 @@
     background: white;
     color: #2563eb;
     font-weight: 700;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
 }
 
 .menu-icon {
@@ -167,26 +104,15 @@
     height: 38px;
     border-radius: 12px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.08);
-    flex-shrink: 0;
-    transition: all 0.25s ease;
+    justify-content: center;
+    background: rgba(255,255,255,.08);
 }
 
-.sidebar-nav a.active .menu-icon {
-    background: #dbeafe;
-    color: #1e40af;
-}
-
-/* ==========================================================
-   USER PROFILE
-========================================================== */
-
+/* User Footer */
 .sidebar-footer {
     padding: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,.08);
 }
 
 .sidebar-user {
@@ -195,27 +121,20 @@
     gap: 12px;
     padding: 12px;
     border-radius: 18px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.2s ease;
-}
-
-.sidebar-user:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255,255,255,.08);
 }
 
 .user-avatar {
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    overflow: hidden;
-    background: var(--primary);
+    background: #2563eb;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 600;
-    flex-shrink: 0;
+    overflow: hidden;
 }
 
 .user-avatar img {
@@ -224,24 +143,7 @@
     object-fit: cover;
 }
 
-.user-info strong {
-    display: block;
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 0.95rem;
-}
-
-.user-info small {
-    color: #94a3b8;
-    font-size: 0.8rem;
-}
-
-/* ==========================================================
-   COLLAPSED STATE
-========================================================== */
-
+/* Collapsed State */
 .sidebar.collapsed .logo-details,
 .sidebar.collapsed .menu-title,
 .sidebar.collapsed .menu-text,
@@ -254,52 +156,12 @@
     padding: 13px;
 }
 
-.sidebar.collapsed .sidebar-user {
-    justify-content: center;
-    padding: 12px;
-}
-
-/* Main content shift */
-.main-wrapper {
-    transition: margin-left 0.35s ease;
-}
-
-.sidebar:not(.collapsed) ~ .main-wrapper {
-    margin-left: var(--sidebar-width);
-}
-
-.sidebar.collapsed ~ .main-wrapper {
-    margin-left: var(--sidebar-collapsed);
-}
-
-/* ==========================================================
-   MOBILE RESPONSIVE
-========================================================== */
-
+/* Responsive */
 @media (max-width: 992px) {
     .sidebar {
         transform: translateX(-100%);
     }
-
     .sidebar.show {
         transform: translateX(0);
-    }
-
-    .sidebar-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1040;
-        display: none;
-    }
-
-    .sidebar.show + .sidebar-overlay {
-        display: block;
-    }
-}
-
-@media (max-width: 576px) {
-    .sidebar {
-        width: 260px;
     }
 }
